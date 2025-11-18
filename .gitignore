@@ -1,0 +1,8 @@
+# Zip archive
+*.zip
+
+# Claude config
+.claude/
+
+# macOS
+.DS_Store
