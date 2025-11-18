@@ -8,9 +8,9 @@ The analysis includes descriptive statistics, distributions, categorical data vi
 
 ## Viewing the Report
 
-Visit the live site: [View Report](https://[your-username].github.io/RP2_dataoverview/)
+Visit the live site: [View Report](https://logic06183.github.io/RP2_dataoverview/)
 
-Or open `COMPREHENSIVE_REPORT_LIGHTWEIGHT.html` locally in your browser.
+Or open `index.html` locally in your browser.
 
 ## Study Profiles Included
 
