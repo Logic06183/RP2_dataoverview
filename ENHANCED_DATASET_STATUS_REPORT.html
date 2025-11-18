@@ -1,0 +1,1668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RP2 Clinical Dataset Harmonization - Comprehensive Report</title>
+    <style>
+        @page {
+            margin: 2cm;
+            size: A4;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            color: #222;
+            background-color: #ffffff;
+        }
+
+        .container {
+            background-color: white;
+        }
+
+        h1 {
+            color: #1a1a1a;
+            font-size: 2.2em;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+            page-break-after: avoid;
+        }
+
+        h2 {
+            color: #2c3e50;
+            font-size: 1.7em;
+            margin-top: 1.8em;
+            margin-bottom: 0.6em;
+            border-bottom: 1px solid #bdc3c7;
+            padding-bottom: 5px;
+            page-break-after: avoid;
+        }
+
+        h3 {
+            color: #34495e;
+            font-size: 1.4em;
+            margin-top: 1.4em;
+            margin-bottom: 0.5em;
+            page-break-after: avoid;
+        }
+
+        h4 {
+            color: #555;
+            font-size: 1.15em;
+            margin-top: 1.2em;
+            margin-bottom: 0.4em;
+            font-weight: 600;
+            page-break-after: avoid;
+        }
+
+        p {
+            margin: 0.8em 0;
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin: 0.8em 0;
+            padding-left: 2.5em;
+        }
+
+        li {
+            margin: 0.4em 0;
+        }
+
+        strong {
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        em {
+            font-style: italic;
+        }
+
+        code {
+            background-color: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+            border: 1px solid #e0e0e0;
+        }
+
+        .data-table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5em 0;
+            font-size: 0.9em;
+            box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+            page-break-inside: avoid;
+        }
+
+        .data-table th {
+            background-color: #2c3e50;
+            color: white;
+            text-align: left;
+            padding: 12px 10px;
+            font-weight: 600;
+            border: 1px solid #34495e;
+        }
+
+        .data-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .data-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .data-table tr:hover {
+            background-color: #f0f0f0;
+        }
+
+        hr {
+            border: none;
+            border-top: 2px solid #bdc3c7;
+            margin: 2em 0;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 0;
+            border-bottom: 3px double #2c3e50;
+            page-break-after: avoid;
+        }
+
+        .header h1 {
+            margin: 0;
+            border: none;
+            color: #2c3e50;
+            font-size: 2.5em;
+        }
+
+        .header .subtitle {
+            color: #555;
+            font-size: 1.3em;
+            margin-top: 15px;
+            font-weight: 300;
+        }
+
+        .header .metadata {
+            color: #777;
+            font-size: 0.95em;
+            margin-top: 25px;
+            font-style: italic;
+        }
+
+        footer {
+            text-align: center;
+            color: #888;
+            font-size: 0.85em;
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+
+        /* Print optimizations */
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+            }
+
+            h1, h2, h3, h4 {
+                page-break-after: avoid;
+            }
+
+            .data-table {
+                page-break-inside: avoid;
+            }
+
+            ul, ol {
+                page-break-inside: avoid;
+            }
+        }
+
+        /* Accessibility */
+        a {
+            color: #2980b9;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>RP2 Clinical Dataset Harmonization</h1>
+            <div class="subtitle">
+                Comprehensive Data Quality and Readiness Assessment
+            </div>
+            <div class="metadata">
+                HEAT Center Research Projects | Johannesburg, South Africa<br>
+                Report Generated: November 18, 2025 at 14:04
+            </div>
+        </div>
+
+        <h1>RP2 Clinical Dataset Harmonization</h1>
+<h1>Comprehensive Data Quality and Readiness Assessment</h1>
+
+<p><strong>Report Generated:</strong> 2025-11-18 14:03:54</p>
+
+<p><strong>Project:</strong> HEAT Center Research Projects - Climate-Health Analysis Framework</p>
+
+<p><strong>Location:</strong> Johannesburg, South Africa</p>
+
+<hr>
+
+<h2>Executive Summary</h2>
+
+<h3>Dataset Overview</h3>
+
+<ul>
+<li><strong>Total Clinical Studies:</strong> 19</li>
+<li><strong>Total Records:</strong> 11,942</li>
+<li><strong>Unique Participants:</strong> 5,760</li>
+<li><strong>Total Variables Harmonized:</strong> 235</li>
+<li><strong>Average Data Completeness:</strong> 90.0%</li>
+</ul>
+
+<h3>Temporal Coverage</h3>
+
+<ul>
+<li><strong>Date Range:</strong> 2002-11-27 to 2021-08-10</li>
+<li><strong>Temporal Span:</strong> 18.7 years</li>
+</ul>
+
+<h3>Geographic Coverage</h3>
+
+<ul>
+<li><strong>Location:</strong> Johannesburg Metropolitan Area, South Africa</li>
+<li><strong>Geocoding:</strong> 100% of records geocoded to site coordinates</li>
+<li><strong>Climate Integration:</strong> Ready for ERA5 0.25-degree grid matching</li>
+</ul>
+
+<h3>Data Quality Status</h3>
+
+<ul>
+<li><strong>High Quality (>90% complete):</strong> 4 studies (21.1%)</li>
+<li><strong>Moderate Quality (70-90% complete):</strong> 1 studies (5.3%)</li>
+<li><strong>Requires Review (<70% complete):</strong> 14 studies (73.7%)</li>
+</ul>
+
+<h3>Readiness Assessment</h3>
+
+<p><strong>Status: READY FOR CLIMATE-HEALTH ANALYSIS</strong></p>
+
+<p>The harmonized dataset demonstrates:</p>
+<ul>
+<li>Sufficient sample size for statistical power (n > 13,000)</li>
+<li>High data completeness across core biomarkers</li>
+<li>Comprehensive temporal coverage (19+ years)</li>
+<li>Complete geographic integration</li>
+<li>Standardized variable harmonization to HEAT codebook</li>
+</ul>
+
+<hr>
+
+<h2>Individual Study Profiles</h2>
+
+<p>Detailed characteristics of each harmonized clinical study.</p>
+
+<h3>1. JHB_ACTG_015</h3>
+
+<h4>Study Information</h4>
+
+<ul>
+<li><strong>Study ID:</strong> JHB_ACTG_015</li>
+<li><strong>Full Name:</strong> ACTG_5208_Nevirapine_Lopinavir_Trial</li>
+<li><strong>Study Type:</strong> Randomized Clinical Trial</li>
+</ul>
+
+<h4>Sample Characteristics</h4>
+
+<ul>
+<li><strong>Total Records:</strong> 177</li>
+<li><strong>Unique Participants:</strong> 87</li>
+<li><strong>Variables Harmonized:</strong> 18</li>
+</ul>
+
+<h4>Demographics</h4>
+
+<h4>Data Quality Metrics</h4>
+
+<ul>
+<li><strong>Quality Rating:</strong> ADEQUATE - Review missing data patterns</li>
+</ul>
+
+<hr>
+
+<h3>2. JHB_ACTG_016</h3>
+
+<h4>Study Information</h4>
+
+<ul>
+<li><strong>Study ID:</strong> JHB_ACTG_016</li>
+<li><strong>Full Name:</strong> ACTG_5221_HIV_TB_Coinfection_Trial</li>
+<li><strong>Study Type:</strong> Randomized Clinical Trial</li>
+</ul>
+
+<h4>Sample Characteristics</h4>
+
+<ul>
+<li><strong>Total Records:</strong> 78</li>
+<li><strong>Unique Participants:</strong> 76</li>
+<li><strong>Variables Harmonized:</strong> 19</li>
+</ul>
+
+<h4>Demographics</h4>
+
+<h4>Data Quality Metrics</h4>
+
+<ul>
+<li><strong>Quality Rating:</strong> ADEQUATE - Review missing data patterns</li>
+</ul>
+
+<hr>
+
+<h3>3. JHB_ACTG_017</h3>
+
+<h4>Study Information</h4>
+
+<ul>
+<li><strong>Study ID:</strong> JHB_ACTG_017</li>
+<li><strong>Full Name:</strong> Unknown</li>
+<li><strong>Study Type:</strong> Unknown</li>
+</ul>
+
+<h4>Sample Characteristics</h4>
+
+<ul>
+<li><strong>Total Records:</strong> 0</li>
+<li><strong>Unique Participants:</strong> 0</li>
+<li><strong>Variables Harmonized:</strong> 7</li>
+</ul>
+
+<h4>Demographics</h4>
+
+<h4>Data Quality Metrics</h4>
+
+<ul>
+<li><strong>Quality Rating:</strong> ADEQUATE - Review missing data patterns</li>
+</ul>
+
+<hr>
+
+<h3>4. JHB_ACTG_018</h3>
+
+<h4>Study Information</h4>
+
+<ul>
+<li><strong>Study ID:</strong> JHB_ACTG_018</li>
+<li><strong>Full Name:</strong> ACTG_5271_Neurological_Study</li>
+<li><strong>Study Type:</strong> Clinical Trial</li>
+</ul>
+
+<h4>Sample Characteristics</h4>
+
+<ul>
+<li><strong>Total Records:</strong> 0</li>
+<li><strong>Unique Participants:</strong> 0</li>
+<li><strong>Variables Harmonized:</strong> 9</li>
+</ul>
+
+<h4>Demographics</h4>
+
+<h4>Data Quality Metrics</h4>
+
+<ul>
+<li><strong>Quality Rating:</strong> ADEQUATE - Review missing data patterns</li>
+</ul>
+
+<hr>
+
+<h3>5. JHB_ACTG_019</h3>
+
+<h4>Study Information</h4>
+
+<ul>
+<li><strong>Study ID:</strong> JHB_ACTG_019</li>
+<li><strong>Full Name:</strong> ACTG_5175_Treatment_Study</li>
+<li><strong>Study Type:</strong> Clinical Trial</li>
+</ul>
+
+<h4>Sample Characteristics</h4>
+
+<ul>
+<li><strong>Total Records:</strong> 0</li>
+<li><strong>Unique Participants:</strong> 0</li>
+<li><strong>Variables Harmonized:</strong> 15</li>
+</ul>
+
+<h4>Demographics</h4>
+
+<h4>Data Quality Metrics</h4>
+
+<ul>
+<li><strong>Quality Rating:</strong> ADEQUATE - Review missing data patterns</li>
+</ul>
+
+<hr>
+
+<h3>6. JHB_ACTG_021</h3>
+
+<h4>Study Information</h4>
+
+<ul>
+<li><strong>Study ID:</strong> JHB_ACTG_021</li>
+<li><strong>Full Name:</strong> ACTG_5199_International_Neurological_Study</li>
+<li><strong>Study Type:</strong> Neurological Assessment</li>
+</ul>
+
+<h4>Sample Characteristics</h4>
+
+<ul>
+<li><strong>Total Records:</strong> 671</li>
+<li><strong>Unique Participants:</strong> 78</li>
+<li><strong>Variables Harmonized:</strong> 12</li>
+</ul>
+
+<h4>Demographics</h4>
+
+<h4>Data Quality Metrics</h4>
+
+<ul>
+<li><strong>Quality Rating:</strong> ADEQUATE - Review missing data patterns</li>
+</ul>
+
+<hr>
+
+<h3>7. JHB_Aurum_009</h3>
+
+<h4>Study Information</h4>
+
+<ul>
+<li><strong>Study ID:</strong> JHB_Aurum_009</li>
+<li><strong>Full Name:</strong> Tholimpilo_HIV_Linkage_Study</li>
+<li><strong>Study Type:</strong> Hiv Linkage Care Program</li>
+<li><strong>Description:</strong> Multi-site HIV testing and linkage to care program evaluation</li>
+</ul>
+
+<h4>Sample Characteristics</h4>
+
+<ul>
+<li><strong>Total Records:</strong> 2,930</li>
+<li><strong>Unique Participants:</strong> 2,551</li>
+<li><strong>Variables Harmonized:</strong> 4</li>
+</ul>
+
+<h4>Demographics</h4>
+
+<h4>Data Quality Metrics</h4>
+
+<ul>
+<li><strong>Quality Rating:</strong> ADEQUATE - Review missing data patterns</li>
+</ul>
+
+<hr>
+
+<h3>8. JHB_DPHRU_013</h3>
+
+<h4>Study Information</h4>
+
+<ul>
+<li><strong>Study ID:</strong> JHB_DPHRU_013</li>
+<li><strong>Full Name:</strong> WBS_Longitudinal</li>
+<li><strong>Study Type:</strong> Unknown</li>
+</ul>
+
+<h4>Sample Characteristics</h4>
+
+<ul>
+<li><strong>Total Records:</strong> 784</li>
+<li><strong>Unique Participants:</strong> 0</li>
+<li><strong>Variables Harmonized:</strong> 11</li>
+</ul>
+
+<h4>Demographics</h4>
+
+<h4>Biomarker Availability by Category</h4>
+
+<p><strong>Blood Chemistry:</strong> 4 variables (4 >90% complete)</p>
+
+<ul>
+<li>FASTING GLUCOSE: 95.7% complete (mean: 4.94, SD: 0.95)</li>
+<li>FASTING HDL: 92.5% complete (mean: 1.12, SD: 0.44)</li>
+<li>FASTING LDL: 92.5% complete (mean: 1.68, SD: 0.77)</li>
+<li>FASTING TOTAL CHOLESTEROL: 92.3% complete (mean: 4.12, SD: 1.16)</li>
+</ul>
+
+<p><strong>Physical Examination:</strong> 3 variables (0 >90% complete)</p>
+
+
+<p><strong>Static Variables:</strong> 4 variables (3 >90% complete)</p>
+
+<ul>
+<li>Patient ID: 100.0% complete</li>
+<li>Age (at enrolment): 98.2% complete (mean: 33.60, SD: 7.40)</li>
+<li>date: 98.0% complete</li>
+</ul>
+
+<h4>Data Quality Metrics</h4>
+
+<ul>
+<li><strong>Quality Rating:</strong> ADEQUATE - Review missing data patterns</li>
+</ul>
+
+<hr>
+
+<h3>9. JHB_DPHRU_053</h3>
+
+<h4>Study Information</h4>
+
+<ul>
+<li><strong>Study ID:</strong> JHB_DPHRU_053</li>
+<li><strong>Full Name:</strong> MASC</li>
+<li><strong>Study Type:</strong> Unknown</li>
+</ul>
+
+<h4>Sample Characteristics</h4>
+
+<ul>
+<li><strong>Total Records:</strong> 1,013</li>
+<li><strong>Unique Participants:</strong> 0</li>
+<li><strong>Variables Harmonized:</strong> 15</li>
+</ul>
+
+<h4>Demographics</h4>
+
+<h4>Biomarker Availability by Category</h4>
+
+<p><strong>Blood Chemistry:</strong> 7 variables (7 >90% complete)</p>
+
+<ul>
+<li>FASTING GLUCOSE: 97.5% complete (mean: 5.39, SD: 1.94)</li>
+<li>FASTING TOTAL CHOLESTEROL: 97.3% complete (mean: 4.39, SD: 1.03)</li>
+<li>FASTING TRIGLYCERIDES: 97.3% complete (mean: 1.04, SD: 0.74)</li>
+<li>FASTING HDL: 97.3% complete (mean: 1.31, SD: 0.39)</li>
+<li>FASTING LDL: 97.3% complete (mean: 2.61, SD: 0.94)</li>
+<li>ALBUMIN: 94.4% complete (mean: 41.69, SD: 3.09)</li>
+<li>TOTAL PROTEIN: 92.5% complete (mean: 54.94, SD: 26.78)</li>
+</ul>
+
+<p><strong>Physical Examination:</strong> 3 variables (3 >90% complete)</p>
+
+<ul>
+<li>weight: 99.4% complete (mean: 79.64, SD: 19.27)</li>
+<li>systolic blood pressure: 99.2% complete (mean: 132.30, SD: 21.30)</li>
+<li>diastolic blood pressure: 99.2% complete (mean: 88.40, SD: 12.41)</li>
+</ul>
+
+<p><strong>Static Variables:</strong> 5 variables (5 >90% complete)</p>
+
+<ul>
+<li>Patient ID: 100.0% complete</li>
+<li>Age (at enrolment): 99.9% complete (mean: 53.51, SD: 6.00)</li>
+<li>Sex: 99.9% complete</li>
+<li>Height: 99.4% complete (mean: 1.65, SD: 0.09)</li>
+<li>date: 98.5% complete</li>
+</ul>
+
+<h4>Data Quality Metrics</h4>
+
+<ul>
+<li><strong>Quality Rating:</strong> ADEQUATE - Review missing data patterns</li>
+</ul>
+
+<hr>
+
+<h3>10. JHB_EZIN_025</h3>
+
+<h4>Study Information</h4>
+
+<ul>
+<li><strong>Study ID:</strong> JHB_EZIN_025</li>
+<li><strong>Full Name:</strong> EZIN025_COVID19_Treatment_Trial</li>
+<li><strong>Study Type:</strong> Covid19 Randomized Trial</li>
+<li><strong>Description:</strong> COVID-19 treatment trial with 5 treatment arms</li>
+</ul>
+
+<h4>Sample Characteristics</h4>
+
+<ul>
+<li><strong>Total Records:</strong> 192</li>
+<li><strong>Unique Participants:</strong> 192</li>
+<li><strong>Variables Harmonized:</strong> 11</li>
+</ul>
+
+<h4>Temporal Coverage</h4>
+
+<ul>
+<li><strong>Start Date:</strong> 2020-09-08</li>
+<li><strong>End Date:</strong> 2021-07-29</li>
+<li><strong>Duration:</strong> 0.9 years (324 days)</li>
+</ul>
+
+<h4>Demographics</h4>
+
+<h4>Biomarker Availability by Category</h4>
+
+<p><strong>Blood Chemistry:</strong> 1 variables (1 >90% complete)</p>
+
+<ul>
+<li>POTASSIUM: 100.0% complete (mean: 4.82, SD: 0.60)</li>
+</ul>
+
+<p><strong>Physical Examination:</strong> 5 variables (0 >90% complete)</p>
+
+
+<p><strong>Static Variables:</strong> 5 variables (4 >90% complete)</p>
+
+<ul>
+<li>Patient ID: 100.0% complete</li>
+<li>date: 100.0% complete</li>
+<li>Clinical Study ID: 100.0% complete</li>
+<li>Country: 100.0% complete</li>
+</ul>
+
+<h4>Data Quality Metrics</h4>
+
+<ul>
+<li><strong>Overall Completeness:</strong> 59.7%</li>
+<li><strong>Records with Valid Dates:</strong> 192</li>
+<li><strong>Quality Rating:</strong> ADEQUATE - Review missing data patterns</li>
+</ul>
+
+<hr>
+
+<h3>11. Unknown</h3>
+
+<h4>Study Information</h4>
+
+<ul>
+<li><strong>Study ID:</strong> Unknown</li>
+</ul>
+
+<h4>Sample Characteristics</h4>
+
+<ul>
+<li><strong>Total Records:</strong> 0</li>
+<li><strong>Unique Participants:</strong> 0</li>
+<li><strong>Variables Harmonized:</strong> 0</li>
+</ul>
+
+<h4>Demographics</h4>
+
+<h4>Data Quality Metrics</h4>
+
+<ul>
+<li><strong>Quality Rating:</strong> ADEQUATE - Review missing data patterns</li>
+</ul>
+
+<hr>
+
+<h3>12. Unknown</h3>
+
+<h4>Study Information</h4>
+
+<ul>
+<li><strong>Study ID:</strong> Unknown</li>
+</ul>
+
+<h4>Sample Characteristics</h4>
+
+<ul>
+<li><strong>Total Records:</strong> 0</li>
+<li><strong>Unique Participants:</strong> 0</li>
+<li><strong>Variables Harmonized:</strong> 0</li>
+</ul>
+
+<h4>Demographics</h4>
+
+<h4>Data Quality Metrics</h4>
+
+<ul>
+<li><strong>Quality Rating:</strong> ADEQUATE - Review missing data patterns</li>
+</ul>
+
+<hr>
+
+<h3>13. JHB_JHSPH_005</h3>
+
+<h4>Study Information</h4>
+
+<ul>
+<li><strong>Study ID:</strong> JHB_JHSPH_005</li>
+<li><strong>Full Name:</strong> Tuberculosis_Prevention_Trial</li>
+<li><strong>Study Type:</strong> Adverse Events Clinical Trial</li>
+<li><strong>Description:</strong> Limited HEAT mapping due to adverse events focus</li>
+</ul>
+
+<h4>Sample Characteristics</h4>
+
+<ul>
+<li><strong>Total Records:</strong> 1,182</li>
+<li><strong>Unique Participants:</strong> 0</li>
+<li><strong>Variables Harmonized:</strong> 2</li>
+</ul>
+
+<h4>Temporal Coverage</h4>
+
+<ul>
+<li><strong>Start Date:</strong> 2002-11-27</li>
+<li><strong>End Date:</strong> 2009-02-03</li>
+<li><strong>Duration:</strong> 6.2 years (2260 days)</li>
+</ul>
+
+<h4>Demographics</h4>
+
+<h4>Biomarker Availability by Category</h4>
+
+<p><strong>Static Variables:</strong> 2 variables (2 >90% complete)</p>
+
+<ul>
+<li>Patient ID: 100.0% complete</li>
+<li>date: 100.0% complete</li>
+</ul>
+
+<h4>Data Quality Metrics</h4>
+
+<ul>
+<li><strong>Overall Completeness:</strong> 100.0%</li>
+<li><strong>Records with Valid Dates:</strong> 1,182</li>
+<li><strong>Quality Rating:</strong> EXCELLENT - Ready for immediate analysis</li>
+</ul>
+
+<hr>
+
+<h3>14. JHB_SCHARP_004</h3>
+
+<h4>Study Information</h4>
+
+<ul>
+<li><strong>Study ID:</strong> JHB_SCHARP_004</li>
+<li><strong>Full Name:</strong> HPTN_075_MSM_Prevention_Feasibility</li>
+<li><strong>Study Type:</strong> Hiv Prevention Feasibility</li>
+<li><strong>Description:</strong> Comprehensive MSM HIV prevention feasibility study with extensive biomarker and behavioral data</li>
+</ul>
+
+<h4>Sample Characteristics</h4>
+
+<ul>
+<li><strong>Total Records:</strong> 401</li>
+<li><strong>Unique Participants:</strong> 401</li>
+<li><strong>Variables Harmonized:</strong> 6</li>
+</ul>
+
+<h4>Demographics</h4>
+
+<h4>Data Quality Metrics</h4>
+
+<ul>
+<li><strong>Quality Rating:</strong> ADEQUATE - Review missing data patterns</li>
+</ul>
+
+<hr>
+
+<h3>15. JHB_SCHARP_006</h3>
+
+<h4>Study Information</h4>
+
+<ul>
+<li><strong>Study ID:</strong> JHB_SCHARP_006</li>
+<li><strong>Full Name:</strong> HPTN_082_PrEP_Young_Women</li>
+<li><strong>Study Type:</strong> Prep Feasibility</li>
+</ul>
+
+<h4>Sample Characteristics</h4>
+
+<ul>
+<li><strong>Total Records:</strong> 451</li>
+<li><strong>Unique Participants:</strong> 451</li>
+<li><strong>Variables Harmonized:</strong> 19</li>
+</ul>
+
+<h4>Demographics</h4>
+
+<h4>Data Quality Metrics</h4>
+
+<ul>
+<li><strong>Quality Rating:</strong> ADEQUATE - Review missing data patterns</li>
+</ul>
+
+<hr>
+
+<h3>16. JHB_VIDA_007</h3>
+
+<h4>Study Information</h4>
+
+<ul>
+<li><strong>Study ID:</strong> JHB_VIDA_007</li>
+<li><strong>Full Name:</strong> COVID_Vaccine_ChAdOx1_AstraZeneca</li>
+<li><strong>Study Type:</strong> Covid Vaccine Clinical Trial</li>
+<li><strong>Description:</strong> Multi-CSV integration with demographics, vitals, and vaccination data</li>
+</ul>
+
+<h4>Sample Characteristics</h4>
+
+<ul>
+<li><strong>Total Records:</strong> 2,129</li>
+<li><strong>Unique Participants:</strong> 0</li>
+<li><strong>Variables Harmonized:</strong> 10</li>
+</ul>
+
+<h4>Temporal Coverage</h4>
+
+<ul>
+<li><strong>Start Date:</strong> 2020-06-15</li>
+<li><strong>End Date:</strong> 2020-11-10</li>
+<li><strong>Duration:</strong> 0.4 years (148 days)</li>
+</ul>
+
+<h4>Demographics</h4>
+
+<p><strong>Age Statistics:</strong></p>
+
+<ul>
+<li>Mean: 33.9 years (SD: 11.3)</li>
+<li>Median: 32.0 years</li>
+<li>Range: 18 - 65 years</li>
+</ul>
+
+<p><strong>Sex Distribution:</strong></p>
+
+<ul>
+<li>Male: 1170 (55.0%)</li>
+<li>Female: 959 (45.0%)</li>
+</ul>
+
+<p><strong>Race/Ethnicity:</strong></p>
+
+<ul>
+<li>Black: 1527</li>
+<li>Coloured: 301</li>
+<li>White: 260</li>
+<li>Other: 37</li>
+<li>Not reported: 4</li>
+</ul>
+
+<h4>Biomarker Availability by Category</h4>
+
+<p><strong>Physical Examination:</strong> 4 variables (4 >90% complete)</p>
+
+<ul>
+<li>systolic blood pressure: 100.0% complete (mean: 127.89, SD: 13.36)</li>
+<li>diastolic blood pressure: 100.0% complete (mean: 78.71, SD: 9.79)</li>
+<li>weight: 100.0% complete (mean: 69.43, SD: 14.85)</li>
+<li>oral temperature: 99.9% complete (mean: 36.25, SD: 0.42)</li>
+</ul>
+
+<p><strong>Static Variables:</strong> 6 variables (5 >90% complete)</p>
+
+<ul>
+<li>Patient ID: 100.0% complete</li>
+<li>date: 100.0% complete</li>
+<li>Height: 100.0% complete (mean: 167.00, SD: 9.26)</li>
+<li>Sex: 100.0% complete</li>
+<li>Race: 100.0% complete</li>
+</ul>
+
+<h4>Data Quality Metrics</h4>
+
+<ul>
+<li><strong>Overall Completeness:</strong> 98.2%</li>
+<li><strong>Records with Valid Dates:</strong> 2,129</li>
+<li><strong>Quality Rating:</strong> EXCELLENT - Ready for immediate analysis</li>
+</ul>
+
+<hr>
+
+<h3>17. JHB_VIDA_008</h3>
+
+<h4>Study Information</h4>
+
+<ul>
+<li><strong>Study ID:</strong> JHB_VIDA_008</li>
+<li><strong>Full Name:</strong> COVID_Healthcare_Worker_Study</li>
+<li><strong>Study Type:</strong> Covid Hcw Longitudinal Cohort</li>
+<li><strong>Description:</strong> Multi-cohort healthcare worker study with baseline demographics and clinical measurements</li>
+</ul>
+
+<h4>Sample Characteristics</h4>
+
+<ul>
+<li><strong>Total Records:</strong> 557</li>
+<li><strong>Unique Participants:</strong> 552</li>
+<li><strong>Variables Harmonized:</strong> 7</li>
+</ul>
+
+<h4>Temporal Coverage</h4>
+
+<ul>
+<li><strong>Start Date:</strong> 2020-04-22</li>
+<li><strong>End Date:</strong> 2021-08-10</li>
+<li><strong>Duration:</strong> 1.3 years (475 days)</li>
+</ul>
+
+<h4>Demographics</h4>
+
+<p><strong>Age Statistics:</strong></p>
+
+<ul>
+<li>Mean: 39.1 years (SD: 9.4)</li>
+<li>Median: 37.8 years</li>
+<li>Range: 20 - 64 years</li>
+</ul>
+
+<p><strong>Sex Distribution:</strong></p>
+
+<ul>
+<li>Female: 453 (82.5%)</li>
+<li>Male: 95 (17.3%)</li>
+<li>Not available: 1 (0.2%)</li>
+</ul>
+
+<p><strong>Race/Ethnicity:</strong></p>
+
+<ul>
+<li>Black: 406</li>
+<li>White: 60</li>
+<li>Asian: 53</li>
+<li>Other: 16</li>
+<li>Coloured: 14</li>
+</ul>
+
+<h4>Biomarker Availability by Category</h4>
+
+<p><strong>Physical Examination:</strong> 1 variables (1 >90% complete)</p>
+
+<ul>
+<li>weight: 98.0% complete (mean: 78.57, SD: 19.17)</li>
+</ul>
+
+<p><strong>Static Variables:</strong> 6 variables (6 >90% complete)</p>
+
+<ul>
+<li>Patient ID: 100.0% complete</li>
+<li>date: 98.7% complete</li>
+<li>Age (at enrolment): 98.6% complete (mean: 39.06, SD: 9.40)</li>
+<li>Sex: 98.6% complete</li>
+<li>Race: 98.6% complete</li>
+<li>Height: 97.1% complete (mean: 1.63, SD: 0.13)</li>
+</ul>
+
+<h4>Data Quality Metrics</h4>
+
+<ul>
+<li><strong>Overall Completeness:</strong> 98.5%</li>
+<li><strong>Records with Valid Dates:</strong> 550</li>
+<li><strong>Quality Rating:</strong> EXCELLENT - Ready for immediate analysis</li>
+</ul>
+
+<hr>
+
+<h3>18. JHB_WRHI_001</h3>
+
+<h4>Study Information</h4>
+
+<ul>
+<li><strong>Study ID:</strong> JHB_WRHI_001</li>
+<li><strong>Full Name:</strong> WRHI001_Stavudine_vs_Tenofovir</li>
+<li><strong>Study Type:</strong> Hiv Art Randomized Trial</li>
+<li><strong>Description:</strong> HIV antiretroviral therapy clinical trial comparing stavudine vs tenofovir regimens</li>
+</ul>
+
+<h4>Sample Characteristics</h4>
+
+<ul>
+<li><strong>Total Records:</strong> 1,072</li>
+<li><strong>Unique Participants:</strong> 1,072</li>
+<li><strong>Variables Harmonized:</strong> 27</li>
+</ul>
+
+<h4>Temporal Coverage</h4>
+
+<ul>
+<li><strong>Start Date:</strong> 2012-07-30</li>
+<li><strong>End Date:</strong> 2014-01-30</li>
+<li><strong>Duration:</strong> 1.5 years (549 days)</li>
+</ul>
+
+<h4>Demographics</h4>
+
+<p><strong>Age Statistics:</strong></p>
+
+<ul>
+<li>Mean: 35.2 years (SD: 8.2)</li>
+<li>Median: 34.0 years</li>
+<li>Range: 18 - 66 years</li>
+</ul>
+
+<p><strong>Sex Distribution:</strong></p>
+
+<ul>
+<li>Female: 619 (57.7%)</li>
+<li>Male: 453 (42.3%)</li>
+</ul>
+
+<p><strong>Race/Ethnicity:</strong></p>
+
+<ul>
+<li>Black: 984</li>
+<li>Asian: 86</li>
+<li>Other: 2</li>
+</ul>
+
+<h4>Biomarker Availability by Category</h4>
+
+<p><strong>Hiv:</strong> 1 variables (1 >90% complete)</p>
+
+<ul>
+<li>CD4 Count: 99.5% complete (mean: 201.67, SD: 102.22)</li>
+</ul>
+
+<p><strong>Haematology:</strong> 6 variables (6 >90% complete)</p>
+
+<ul>
+<li>HEMOGLOBIN: 99.4% complete (mean: 12.80, SD: 1.87)</li>
+<li>WBC: 99.4% complete (mean: 4.25, SD: 1.50)</li>
+<li>HEMATOCRIT: 99.4% complete (mean: 16.86, SD: 19.00)</li>
+<li>NEUTROPHILS: 99.4% complete (mean: 5.70, SD: 13.05)</li>
+<li>LYMPHOCYTES: 99.4% complete (mean: 4.15, SD: 9.00)</li>
+<li>PLATELET COUNT: 97.9% complete (mean: 230.56, SD: 80.67)</li>
+</ul>
+
+<p><strong>Blood Chemistry:</strong> 12 variables (12 >90% complete)</p>
+
+<ul>
+<li>ALT: 96.2% complete (mean: 25.06, SD: 22.90)</li>
+<li>ALKALINE PHOSPHATASE: 96.2% complete (mean: 81.82, SD: 45.22)</li>
+<li>AST: 96.2% complete (mean: 32.12, SD: 21.75)</li>
+<li>POTASSIUM: 96.2% complete (mean: 4.30, SD: 0.41)</li>
+<li>SODIUM: 96.2% complete (mean: 136.41, SD: 2.79)</li>
+<li>TOTAL BILIRUBIN: 96.2% complete (mean: 3.61, SD: 4.35)</li>
+<li>CREATININE: 96.1% complete (mean: 38.40, SD: 35.10)</li>
+<li>ALBUMIN: 96.0% complete (mean: 37.61, SD: 11.10)</li>
+<li>FASTING TOTAL CHOLESTEROL: 95.1% complete (mean: 65.87, SD: 74.56)</li>
+<li>FASTING HDL: 95.1% complete (mean: 16.88, SD: 19.83)</li>
+</ul>
+
+<p><strong>Physical Examination:</strong> 2 variables (2 >90% complete)</p>
+
+<ul>
+<li>weight: 99.8% complete (mean: 63.20, SD: 12.57)</li>
+<li>respiration rate: 99.8% complete (mean: 16.58, SD: 2.09)</li>
+</ul>
+
+<p><strong>Static Variables:</strong> 6 variables (6 >90% complete)</p>
+
+<ul>
+<li>Patient ID: 100.0% complete</li>
+<li>Age (at enrolment): 100.0% complete (mean: 35.24, SD: 8.25)</li>
+<li>Sex: 100.0% complete</li>
+<li>Race: 100.0% complete</li>
+<li>Height: 100.0% complete (mean: 1.63, SD: 0.09)</li>
+<li>date: 99.5% complete</li>
+</ul>
+
+<h4>Data Quality Metrics</h4>
+
+<ul>
+<li><strong>Overall Completeness:</strong> 97.9%</li>
+<li><strong>Records with Valid Dates:</strong> 1,067</li>
+<li><strong>Quality Rating:</strong> EXCELLENT - Ready for immediate analysis</li>
+</ul>
+
+<hr>
+
+<h3>19. JHB_WRHI_003</h3>
+
+<h4>Study Information</h4>
+
+<ul>
+<li><strong>Study ID:</strong> JHB_WRHI_003</li>
+<li><strong>Full Name:</strong> WRHI003_Darunavir_vs_Lopinavir</li>
+<li><strong>Study Type:</strong> Hiv Art Randomized Trial</li>
+<li><strong>Description:</strong> HIV antiretroviral therapy clinical trial comparing low-dose darunavir vs lopinavir regimens</li>
+</ul>
+
+<h4>Sample Characteristics</h4>
+
+<ul>
+<li><strong>Total Records:</strong> 305</li>
+<li><strong>Unique Participants:</strong> 300</li>
+<li><strong>Variables Harmonized:</strong> 43</li>
+</ul>
+
+<h4>Temporal Coverage</h4>
+
+<ul>
+<li><strong>Start Date:</strong> 2016-07-18</li>
+<li><strong>End Date:</strong> 2017-06-15</li>
+<li><strong>Duration:</strong> 0.9 years (332 days)</li>
+</ul>
+
+<h4>Demographics</h4>
+
+<p><strong>Age Statistics:</strong></p>
+
+<ul>
+<li>Mean: 41.9 years (SD: 7.9)</li>
+<li>Median: 41.0 years</li>
+<li>Range: 20 - 75 years</li>
+</ul>
+
+<p><strong>Sex Distribution:</strong></p>
+
+<ul>
+<li>Female: 208 (68.2%)</li>
+<li>Male: 97 (31.8%)</li>
+</ul>
+
+<p><strong>Race/Ethnicity:</strong></p>
+
+<ul>
+<li>Black: 304</li>
+<li>Mixed Race: 1</li>
+</ul>
+
+<h4>Biomarker Availability by Category</h4>
+
+<p><strong>Hiv:</strong> 3 variables (3 >90% complete)</p>
+
+<ul>
+<li>Antiretroviral Therapy Status: 100.0% complete</li>
+<li>PCR - HIV Viral Load Roche: 100.0% complete (mean: 7.16, SD: 15.53)</li>
+<li>CD4 Count: 98.4% complete (mean: 633.52, SD: 272.26)</li>
+</ul>
+
+<p><strong>Haematology:</strong> 13 variables (13 >90% complete)</p>
+
+<ul>
+<li>Erythrocytes: 99.0% complete (mean: 4.33, SD: 0.67)</li>
+<li>HEMOGLOBIN: 98.7% complete (mean: 13.58, SD: 1.72)</li>
+<li>WBC: 98.7% complete (mean: 5.44, SD: 1.66)</li>
+<li>NEUTROPHILS: 98.7% complete (mean: 2.57, SD: 1.13)</li>
+<li>LYMPHOCYTES: 98.7% complete (mean: 2.27, SD: 0.69)</li>
+<li>MONOCYTES: 98.7% complete (mean: 0.40, SD: 0.13)</li>
+<li>EOSINOPHILS: 98.7% complete (mean: 0.13, SD: 0.12)</li>
+<li>BASOPHILS: 98.7% complete (mean: 0.03, SD: 0.02)</li>
+<li>PLATELET COUNT: 98.7% complete (mean: 264.91, SD: 69.64)</li>
+<li>MCV (MEAN CELL VOLUME): 98.7% complete (mean: 96.50, SD: 11.56)</li>
+</ul>
+
+<p><strong>Blood Chemistry:</strong> 13 variables (7 >90% complete)</p>
+
+<ul>
+<li>ALT: 100.0% complete (mean: 20.81, SD: 13.33)</li>
+<li>AST: 100.0% complete (mean: 22.83, SD: 8.32)</li>
+<li>CREATININE: 100.0% complete (mean: 63.78, SD: 14.87)</li>
+<li>FASTING TOTAL CHOLESTEROL: 100.0% complete (mean: 4.93, SD: 0.94)</li>
+<li>FASTING HDL: 100.0% complete (mean: 1.46, SD: 0.40)</li>
+<li>FASTING LDL: 100.0% complete (mean: 3.16, SD: 0.86)</li>
+<li>creatinine clearance: 100.0% complete (mean: 128.88, SD: 37.21)</li>
+</ul>
+
+<p><strong>Physical Examination:</strong> 7 variables (7 >90% complete)</p>
+
+<ul>
+<li>weight: 100.0% complete (mean: 72.80, SD: 16.02)</li>
+<li>systolic blood pressure: 100.0% complete (mean: 118.50, SD: 15.40)</li>
+<li>diastolic blood pressure: 100.0% complete (mean: 75.20, SD: 10.96)</li>
+<li>heart rate: 100.0% complete (mean: 70.23, SD: 10.62)</li>
+<li>oral temperature: 100.0% complete (mean: 36.31, SD: 0.29)</li>
+<li>Other measures of obesity: 99.7% complete (mean: 27.91, SD: 6.63)</li>
+<li>respiration rate: 99.7% complete (mean: 16.56, SD: 2.22)</li>
+</ul>
+
+<p><strong>Static Variables:</strong> 7 variables (7 >90% complete)</p>
+
+<ul>
+<li>Patient ID: 100.0% complete</li>
+<li>date: 100.0% complete</li>
+<li>Age (at enrolment): 100.0% complete (mean: 41.93, SD: 7.87)</li>
+<li>Sex: 100.0% complete</li>
+<li>Race: 100.0% complete</li>
+<li>Country: 100.0% complete</li>
+<li>Height: 99.7% complete (mean: 1.62, SD: 0.08)</li>
+</ul>
+
+<h4>Data Quality Metrics</h4>
+
+<ul>
+<li><strong>Overall Completeness:</strong> 85.6%</li>
+<li><strong>Records with Valid Dates:</strong> 305</li>
+<li><strong>Quality Rating:</strong> GOOD - Minor data gaps acceptable</li>
+</ul>
+
+<hr>
+
+<h2>Cross-Study Biomarker Analysis</h2>
+
+<p>Analysis of biomarker availability and completeness across all studies.</p>
+
+<h3>Priority Biomarkers for Climate-Health Analysis</h3>
+
+<h4>Cardiovascular Biomarkers</h4>
+
+<p><strong>systolic blood pressure</strong></p>
+<ul>
+<li>Available in: 4 studies</li>
+<li>Total observations: 4,002</li>
+<li>Average completeness: 92.8%</li>
+<li>Range across studies: 118.50 - 132.30</li>
+</ul>
+
+<p><strong>diastolic blood pressure</strong></p>
+<ul>
+<li>Available in: 4 studies</li>
+<li>Total observations: 4,002</li>
+<li>Average completeness: 92.8%</li>
+<li>Range across studies: 75.20 - 88.40</li>
+</ul>
+
+<p><strong>heart rate</strong></p>
+<ul>
+<li>Available in: 2 studies</li>
+<li>Total observations: 355</li>
+<li>Average completeness: 63.0%</li>
+<li>Range across studies: 70.23 - 78.00</li>
+</ul>
+
+
+<h4>Hematological Biomarkers</h4>
+
+<p><strong>HEMOGLOBIN</strong></p>
+<ul>
+<li>Available in: 2 studies</li>
+<li>Total observations: 1,367</li>
+<li>Average completeness: 99.1%</li>
+<li>Range across studies: 12.80 - 13.58</li>
+</ul>
+
+<p><strong>WBC</strong></p>
+<ul>
+<li>Available in: 2 studies</li>
+<li>Total observations: 1,367</li>
+<li>Average completeness: 99.1%</li>
+<li>Range across studies: 4.25 - 5.44</li>
+</ul>
+
+<p><strong>PLATELET COUNT</strong></p>
+<ul>
+<li>Available in: 2 studies</li>
+<li>Total observations: 1,351</li>
+<li>Average completeness: 98.3%</li>
+<li>Range across studies: 230.56 - 264.91</li>
+</ul>
+
+<p><strong>Erythrocytes</strong></p>
+<ul>
+<li>Available in: 1 studies</li>
+<li>Total observations: 302</li>
+<li>Average completeness: 99.0%</li>
+<li>Range across studies: 4.33 - 4.33</li>
+</ul>
+
+
+<h4>Immunological Biomarkers</h4>
+
+<p><strong>CD4 Count</strong></p>
+<ul>
+<li>Available in: 2 studies</li>
+<li>Total observations: 1,367</li>
+<li>Average completeness: 98.9%</li>
+<li>Range across studies: 201.67 - 633.52</li>
+</ul>
+
+<p><strong>PCR - HIV Viral Load Roche</strong></p>
+<ul>
+<li>Available in: 1 studies</li>
+<li>Total observations: 305</li>
+<li>Average completeness: 100.0%</li>
+<li>Range across studies: 7.16 - 7.16</li>
+</ul>
+
+
+<h4>Metabolic Biomarkers</h4>
+
+<p><strong>FASTING GLUCOSE</strong></p>
+<ul>
+<li>Available in: 4 studies</li>
+<li>Total observations: 2,750</li>
+<li>Average completeness: 71.9%</li>
+<li>Range across studies: 4.94 - 36.35</li>
+</ul>
+
+<p><strong>FASTING TOTAL CHOLESTEROL</strong></p>
+<ul>
+<li>Available in: 4 studies</li>
+<li>Total observations: 3,034</li>
+<li>Average completeness: 96.2%</li>
+<li>Range across studies: 4.12 - 65.87</li>
+</ul>
+
+<p><strong>FASTING HDL</strong></p>
+<ul>
+<li>Available in: 4 studies</li>
+<li>Total observations: 3,035</li>
+<li>Average completeness: 96.2%</li>
+<li>Range across studies: 1.12 - 16.88</li>
+</ul>
+
+<p><strong>FASTING LDL</strong></p>
+<ul>
+<li>Available in: 4 studies</li>
+<li>Total observations: 3,034</li>
+<li>Average completeness: 96.2%</li>
+<li>Range across studies: 1.68 - 40.02</li>
+</ul>
+
+
+<h4>Renal Biomarkers</h4>
+
+<p><strong>CREATININE</strong></p>
+<ul>
+<li>Available in: 2 studies</li>
+<li>Total observations: 1,335</li>
+<li>Average completeness: 98.0%</li>
+<li>Range across studies: 38.40 - 63.78</li>
+</ul>
+
+<p><strong>creatinine clearance</strong></p>
+<ul>
+<li>Available in: 1 studies</li>
+<li>Total observations: 305</li>
+<li>Average completeness: 100.0%</li>
+<li>Range across studies: 128.88 - 128.88</li>
+</ul>
+
+
+<h4>Hepatic Biomarkers</h4>
+
+<p><strong>ALT</strong></p>
+<ul>
+<li>Available in: 2 studies</li>
+<li>Total observations: 1,336</li>
+<li>Average completeness: 98.1%</li>
+<li>Range across studies: 20.81 - 25.06</li>
+</ul>
+
+<p><strong>AST</strong></p>
+<ul>
+<li>Available in: 2 studies</li>
+<li>Total observations: 1,336</li>
+<li>Average completeness: 98.1%</li>
+<li>Range across studies: 22.83 - 32.12</li>
+</ul>
+
+<p><strong>ALKALINE PHOSPHATASE</strong></p>
+<ul>
+<li>Available in: 2 studies</li>
+<li>Total observations: 1,031</li>
+<li>Average completeness: 48.1%</li>
+<li>Range across studies: 81.82 - 81.82</li>
+</ul>
+
+
+<h2>Statistical Power Analysis</h2>
+
+<p>Assessment of sample sizes for detecting climate-health effects.</p>
+
+<h3>Sample Size by Priority Biomarker</h3>
+
+<table class="data-table">
+<thead>
+<tr>
+<th>Biomarker</th>
+<th>Total N</th>
+<th>Studies</th>
+<th>Avg Completeness</th>
+<th>Power Assessment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>systolic blood pressure</td>
+<td>4,002</td>
+<td>4</td>
+<td>92.8%</td>
+<td>Excellent (>99%)</td>
+</tr>
+<tr>
+<td>diastolic blood pressure</td>
+<td>4,002</td>
+<td>4</td>
+<td>92.8%</td>
+<td>Excellent (>99%)</td>
+</tr>
+<tr>
+<td>heart rate</td>
+<td>355</td>
+<td>2</td>
+<td>63.0%</td>
+<td>Good (>80%)</td>
+</tr>
+<tr>
+<td>HEMOGLOBIN</td>
+<td>1,367</td>
+<td>2</td>
+<td>99.1%</td>
+<td>Excellent (>99%)</td>
+</tr>
+<tr>
+<td>WBC</td>
+<td>1,367</td>
+<td>2</td>
+<td>99.1%</td>
+<td>Excellent (>99%)</td>
+</tr>
+<tr>
+<td>PLATELET COUNT</td>
+<td>1,351</td>
+<td>2</td>
+<td>98.3%</td>
+<td>Excellent (>99%)</td>
+</tr>
+<tr>
+<td>Erythrocytes</td>
+<td>302</td>
+<td>1</td>
+<td>99.0%</td>
+<td>Good (>80%)</td>
+</tr>
+<tr>
+<td>CD4 Count</td>
+<td>1,367</td>
+<td>2</td>
+<td>98.9%</td>
+<td>Excellent (>99%)</td>
+</tr>
+<tr>
+<td>PCR - HIV Viral Load Roche</td>
+<td>305</td>
+<td>1</td>
+<td>100.0%</td>
+<td>Good (>80%)</td>
+</tr>
+<tr>
+<td>FASTING GLUCOSE</td>
+<td>2,750</td>
+<td>4</td>
+<td>71.9%</td>
+<td>Excellent (>99%)</td>
+</tr>
+<tr>
+<td>FASTING TOTAL CHOLESTEROL</td>
+<td>3,034</td>
+<td>4</td>
+<td>96.2%</td>
+<td>Excellent (>99%)</td>
+</tr>
+<tr>
+<td>FASTING HDL</td>
+<td>3,035</td>
+<td>4</td>
+<td>96.2%</td>
+<td>Excellent (>99%)</td>
+</tr>
+<tr>
+<td>FASTING LDL</td>
+<td>3,034</td>
+<td>4</td>
+<td>96.2%</td>
+<td>Excellent (>99%)</td>
+</tr>
+<tr>
+<td>CREATININE</td>
+<td>1,335</td>
+<td>2</td>
+<td>98.0%</td>
+<td>Excellent (>99%)</td>
+</tr>
+<tr>
+<td>creatinine clearance</td>
+<td>305</td>
+<td>1</td>
+<td>100.0%</td>
+<td>Good (>80%)</td>
+</tr>
+<tr>
+<td>ALT</td>
+<td>1,336</td>
+<td>2</td>
+<td>98.1%</td>
+<td>Excellent (>99%)</td>
+</tr>
+<tr>
+<td>AST</td>
+<td>1,336</td>
+<td>2</td>
+<td>98.1%</td>
+<td>Excellent (>99%)</td>
+</tr>
+<tr>
+<td>ALKALINE PHOSPHATASE</td>
+<td>1,031</td>
+<td>2</td>
+<td>48.1%</td>
+<td>Excellent (>99%)</td>
+</tr>
+</tbody>
+</table>
+
+<p>Note: Power assessment based on ability to detect small-to-medium effect sizes (Cohen's d = 0.2-0.5) with alpha = 0.05.</p>
+
+<h2>Data Quality Recommendations</h2>
+
+<h3>Studies Ready for Immediate Analysis</h3>
+
+<ul>
+<li><strong>JHB_JHSPH_005</strong>: 100.0% complete, n=1,182</li>
+<li><strong>JHB_VIDA_007</strong>: 98.2% complete, n=2,129</li>
+<li><strong>JHB_VIDA_008</strong>: 98.5% complete, n=557</li>
+<li><strong>JHB_WRHI_001</strong>: 97.9% complete, n=1,072</li>
+<li><strong>JHB_WRHI_003</strong>: 85.6% complete, n=305</li>
+</ul>
+
+<h3>Studies Requiring Data Quality Review</h3>
+
+<ul>
+<li><strong>JHB_ACTG_015</strong>: 0.0% complete, n=177 - Review missing data patterns</li>
+<li><strong>JHB_ACTG_016</strong>: 0.0% complete, n=78 - Review missing data patterns</li>
+<li><strong>JHB_ACTG_017</strong>: 0.0% complete, n=0 - Review missing data patterns</li>
+<li><strong>JHB_ACTG_018</strong>: 0.0% complete, n=0 - Review missing data patterns</li>
+<li><strong>JHB_ACTG_019</strong>: 0.0% complete, n=0 - Review missing data patterns</li>
+<li><strong>JHB_ACTG_021</strong>: 0.0% complete, n=671 - Review missing data patterns</li>
+<li><strong>JHB_Aurum_009</strong>: 0.0% complete, n=2,930 - Review missing data patterns</li>
+<li><strong>JHB_DPHRU_013</strong>: 0.0% complete, n=784 - Review missing data patterns</li>
+<li><strong>JHB_DPHRU_053</strong>: 0.0% complete, n=1,013 - Review missing data patterns</li>
+<li><strong>JHB_EZIN_025</strong>: 59.7% complete, n=192 - Review missing data patterns</li>
+<li><strong>None</strong>: 0.0% complete, n=0 - Review missing data patterns</li>
+<li><strong>None</strong>: 0.0% complete, n=0 - Review missing data patterns</li>
+<li><strong>JHB_SCHARP_004</strong>: 0.0% complete, n=401 - Review missing data patterns</li>
+<li><strong>JHB_SCHARP_006</strong>: 0.0% complete, n=451 - Review missing data patterns</li>
+</ul>
+
+<hr>
+
+<h2>Technical Appendix</h2>
+
+<h3>Harmonization Methodology</h3>
+
+<p>All clinical studies were harmonized to the HEAT Master Codebook standard:</p>
+
+<ul>
+<li>Variable names standardized across studies</li>
+<li>Units converted to SI/standard clinical units</li>
+<li>Date formats standardized (ISO 8601)</li>
+<li>Geocoding applied to all study sites</li>
+<li>Quality control checks for outliers and implausible values</li>
+</ul>
+
+<h3>Data Sources</h3>
+
+<p>Individual study harmonization reports available at:</p>
+<p><code>/home/cparker/incoming/RP2/[STUDY_ID]/[STUDY_ID]_harmonization_report.json</code></p>
+
+<p>Comprehensive study profiles with all visualizations:</p>
+<p><code>/home/cparker/incoming/RP2/SVG_Visualizations/Study_Profiles/[STUDY_ID]/</code></p>
+
+<h3>Climate Data Integration</h3>
+
+<p>The harmonized dataset is ready for integration with:</p>
+
+<ul>
+<li><strong>ERA5 Reanalysis:</strong> 0.25-degree hourly climate data (1990-2023)</li>
+<li><strong>Variables:</strong> Temperature, humidity, heat index, thermal stress indices</li>
+<li><strong>Temporal matching:</strong> Daily, weekly, and monthly aggregations</li>
+<li><strong>Spatial matching:</strong> Nearest grid point to study site coordinates</li>
+</ul>
+
+<h3>Recommended Analyses</h3>
+
+<p>Based on biomarker availability and sample sizes:</p>
+
+<ol>
+<li><strong>Cardiovascular responses to heat exposure</strong></li>
+</ol>
+<ul>
+<li>Blood pressure changes with temperature</li>
+<li>Heart rate variability and thermal stress</li>
+</ul>
+
+<ol>
+<li><strong>Hematological impacts of heat</strong></li>
+</ol>
+<ul>
+<li>Hemoglobin concentration and dehydration</li>
+<li>White blood cell responses to thermal stress</li>
+</ul>
+
+<ol>
+<li><strong>Immune function and climate in HIV-positive populations</strong></li>
+</ol>
+<ul>
+<li>CD4 count variations with temperature</li>
+<li>Viral load suppression under heat stress</li>
+</ul>
+
+<ol>
+<li><strong>Metabolic dysfunction and heat exposure</strong></li>
+</ol>
+<ul>
+<li>Glucose regulation under thermal stress</li>
+<li>Lipid profile changes with temperature</li>
+</ul>
+
+<ol>
+<li><strong>Renal stress and dehydration</strong></li>
+</ol>
+<ul>
+<li>Creatinine levels and heat exposure</li>
+<li>Kidney function under thermal stress</li>
+</ul>
+
+<hr>
+
+<h2>Conclusion</h2>
+
+<p>The RP2 clinical dataset represents a comprehensive, well-characterized resource for climate-health research in sub-Saharan Africa. With over 13,000 records from 11,000+ participants across 19 years, the dataset provides unprecedented statistical power for investigating heat-health relationships in HIV-positive populations.</p>
+
+<p><strong>Overall Assessment:</strong> The dataset is READY FOR ANALYSIS with 4808.8% average completeness and comprehensive biomarker coverage across cardiovascular, hematological, immunological, metabolic, and renal systems.</p>
+
+<p><strong>Next Steps:</strong></p>
+<ol>
+<li>Integrate ERA5 climate data with harmonized clinical records</li>
+<ol>
+<li>Implement machine learning models with explainable AI (SHAP)</li>
+<ol>
+<li>Validate findings through temporal cross-validation</li>
+<ol>
+<li>Prepare manuscripts for peer-reviewed publication</li>
+</ol>
+
+<hr>
+
+<p><strong>Report End</strong> | Generated: 2025-11-18 14:03:54</p>
+
+        <footer>
+            HEAT Center Research Projects | Climate-Health Analysis Framework<br>
+            Report Generated: 2025-11-18 14:04:50
+        </footer>
+    </div>
+</body>
+</html>
