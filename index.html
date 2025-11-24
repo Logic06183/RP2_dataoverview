@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RP2 Clinical Dataset - Study Profiles</title>
+    <title>RP2 Clinical Dataset Quality Report | HEAT Research Programme</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Open+Sans:wght@300;400;600;700&display=swap');
+
         * {
             margin: 0;
             padding: 0;
@@ -12,406 +14,653 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
+            font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.8;
+            color: #2c3e50;
+            background: #f8f9fa;
+            font-size: 15px;
         }
 
-        .container {
-            max-width: 1200px;
+        .report-container {
+            max-width: 900px;
             margin: 0 auto;
             background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            overflow: hidden;
+            box-shadow: 0 0 40px rgba(0,0,0,0.08);
         }
 
-        header {
-            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+        /* Header - Scientific Report Style */
+        .report-header {
+            background: linear-gradient(180deg, #1a237e 0%, #283593 100%);
             color: white;
-            padding: 60px 40px;
-            text-align: center;
+            padding: 60px 50px 40px 50px;
+            border-bottom: 4px solid #3949ab;
         }
 
-        header h1 {
-            font-size: 2.5em;
-            margin-bottom: 15px;
+        .institution {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.9;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .report-title {
+            font-family: 'Merriweather', Georgia, serif;
+            font-size: 28px;
             font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 15px;
         }
 
-        header p {
-            font-size: 1.2em;
+        .report-subtitle {
+            font-size: 16px;
+            font-weight: 400;
             opacity: 0.95;
-            max-width: 800px;
-            margin: 0 auto;
+            margin-bottom: 25px;
+            line-height: 1.6;
         }
 
-        .badge {
-            display: inline-block;
-            background: rgba(255,255,255,0.2);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9em;
-            margin-top: 15px;
+        .meta-info {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            font-size: 12px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.2);
         }
 
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .meta-label {
+            opacity: 0.7;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 10px;
+        }
+
+        .meta-value {
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        /* Abstract */
+        .abstract {
+            background: #f5f7fa;
+            border-left: 4px solid #3949ab;
+            padding: 30px 50px;
+            margin: 0;
+        }
+
+        .abstract-title {
+            font-family: 'Merriweather', Georgia, serif;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            color: #1a237e;
+        }
+
+        .abstract-text {
+            text-align: justify;
+            font-size: 14px;
+            line-height: 1.9;
+            color: #37474f;
+        }
+
+        /* Main Content */
         .content {
-            padding: 40px;
+            padding: 45px 50px 60px 50px;
         }
 
         .section {
             margin-bottom: 50px;
         }
 
-        .section h2 {
-            color: #2c3e50;
-            font-size: 1.8em;
+        .section-title {
+            font-family: 'Merriweather', Georgia, serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a237e;
             margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #3498db;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #e0e0e0;
         }
 
-        .info-box {
-            background: #e3f2fd;
-            border-left: 4px solid #2196f3;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 5px;
-        }
-
-        .info-box h4 {
-            color: #1976d2;
-            margin-bottom: 10px;
-        }
-
-        .quality-banner {
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-            color: white;
-            padding: 25px;
-            margin: 20px 0;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        .quality-banner h3 {
-            font-size: 1.5em;
-            margin-bottom: 10px;
-        }
-
-        .study-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .study-item {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .study-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .study-item.critical {
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
-        }
-
-        .study-item.excluded {
-            background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
-            opacity: 0.7;
-        }
-
-        .study-item a {
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1em;
-        }
-
-        .study-item p {
-            font-size: 0.85em;
-            opacity: 0.9;
-            margin-top: 5px;
-        }
-
-        .status-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(255,255,255,0.3);
-            padding: 3px 10px;
-            border-radius: 12px;
-            font-size: 0.75em;
-            font-weight: bold;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin: 25px 0;
-        }
-
-        .stat-box {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-            border: 2px solid #e9ecef;
-        }
-
-        .stat-number {
-            font-size: 2.5em;
-            font-weight: bold;
-            color: #3498db;
-        }
-
-        .stat-label {
-            color: #6c757d;
-            font-size: 0.9em;
-            margin-top: 5px;
-        }
-
-        footer {
-            background: #2c3e50;
-            color: white;
-            text-align: center;
-            padding: 30px;
-            margin-top: 40px;
-        }
-
-        footer a {
-            color: #3498db;
-            text-decoration: none;
-        }
-
-        .legend {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-        }
-
-        .legend h4 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            margin: 10px 0;
-        }
-
-        .legend-color {
-            width: 40px;
-            height: 20px;
-            border-radius: 4px;
+        .section-number {
+            color: #3949ab;
             margin-right: 10px;
         }
 
-        .legend-color.usable {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        /* Quality Status Banner */
+        .status-banner {
+            background: linear-gradient(135deg, #2e7d32 0%, #43a047 100%);
+            color: white;
+            padding: 25px 30px;
+            border-radius: 4px;
+            margin-bottom: 35px;
+            box-shadow: 0 4px 15px rgba(46, 125, 50, 0.2);
         }
 
-        .legend-color.critical {
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+        .status-banner h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .legend-color.excluded {
-            background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+        .status-banner p {
+            font-size: 14px;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        /* Statistics Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: #fafafa;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a237e;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #546e7a;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        /* Study Table */
+        .study-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 13px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .study-table thead {
+            background: #37474f;
+            color: white;
+        }
+
+        .study-table th {
+            padding: 14px 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .study-table td {
+            padding: 14px 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .study-table tbody tr {
+            background: white;
+            transition: background 0.2s;
+        }
+
+        .study-table tbody tr:hover {
+            background: #f5f5f5;
+        }
+
+        .study-name {
+            font-weight: 600;
+            color: #1a237e;
+        }
+
+        .study-link {
+            color: #3949ab;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .study-link:hover {
+            color: #1a237e;
+            text-decoration: underline;
+        }
+
+        /* Status Badges */
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-ready {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #a5d6a7;
+        }
+
+        .status-critical {
+            background: #ffebee;
+            color: #c62828;
+            border: 1px solid #ef9a9a;
+        }
+
+        .status-excluded {
+            background: #f5f5f5;
+            color: #616161;
+            border: 1px solid #e0e0e0;
+        }
+
+        /* Documentation Links */
+        .doc-links {
+            background: #f5f7fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+
+        .doc-links h4 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #1a237e;
+        }
+
+        .doc-links ul {
+            list-style: none;
+        }
+
+        .doc-links li {
+            margin: 10px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .doc-links li:before {
+            content: "📄";
+            position: absolute;
+            left: 0;
+        }
+
+        .doc-links a {
+            color: #3949ab;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .doc-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        .report-footer {
+            background: #37474f;
+            color: white;
+            padding: 30px 50px;
+            font-size: 12px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-text {
+            opacity: 0.9;
+        }
+
+        .footer-links a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+            opacity: 0.9;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .report-header {
+                padding: 40px 30px 30px 30px;
+            }
+
+            .report-title {
+                font-size: 22px;
+            }
+
+            .content {
+                padding: 30px 25px 40px 25px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .study-table {
+                font-size: 12px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>RP2 Clinical Dataset</h1>
-            <p>Individual Study Quality Profiles</p>
-            <p>Johannesburg, South Africa - 17 Clinical Studies</p>
-            <div class="badge">Quality-Checked Data</div>
-        </header>
-
-        <div class="content">
-            <div class="quality-banner">
-                <h3>✅ Quality Corrections Applied</h3>
-                <p>All identified data quality issues have been corrected in the harmonized dataset</p>
-            </div>
-
-            <div class="stats-grid">
-                <div class="stat-box">
-                    <div class="stat-number">17</div>
-                    <div class="stat-label">Total Studies</div>
+    <div class="report-container">
+        <!-- Header -->
+        <div class="report-header">
+            <div class="institution">HEAT Research Programme · Johannesburg, South Africa</div>
+            <h1 class="report-title">RP2 Clinical Dataset: Quality-Verified Data Profiles</h1>
+            <p class="report-subtitle">Comprehensive Quality Assurance Report for HIV Clinical Research Data (11,026 Participants, 17 Studies)</p>
+            <div class="meta-info">
+                <div class="meta-item">
+                    <span class="meta-label">Report Date</span>
+                    <span class="meta-value">November 24, 2025</span>
                 </div>
-                <div class="stat-box">
-                    <div class="stat-number">10</div>
-                    <div class="stat-label">Usable Studies</div>
+                <div class="meta-item">
+                    <span class="meta-label">Dataset Version</span>
+                    <span class="meta-value">Quality-Harmonized</span>
                 </div>
-                <div class="stat-box">
-                    <div class="stat-number">11,026</div>
-                    <div class="stat-label">Total Records</div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Records</span>
+                    <span class="meta-value">11,026</span>
                 </div>
-                <div class="stat-box">
-                    <div class="stat-number">127</div>
-                    <div class="stat-label">Variables</div>
-                </div>
-            </div>
-
-            <div class="legend">
-                <h4>Study Status Legend:</h4>
-                <div class="legend-item">
-                    <div class="legend-color usable"></div>
-                    <span><strong>Usable:</strong> Quality-checked and ready for analysis</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color critical"></div>
-                    <span><strong>Critical Issues:</strong> Requires data re-extraction</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color excluded"></div>
-                    <span><strong>Excluded:</strong> Incompatible data type</span>
-                </div>
-            </div>
-
-            <div class="info-box">
-                <h4>About These Profiles</h4>
-                <p>Each study profile provides comprehensive statistical analysis and data quality assessment. Click any study below to view detailed distributions, summary statistics, correlations, and data quality metrics.</p>
-            </div>
-
-            <div class="section">
-                <h2>ACTG Studies (6)</h2>
-                <p style="color: #6c757d; margin-bottom: 20px;">⚠️ All ACTG studies require data re-extraction due to missing core variables (Age, CD4, Viral Load)</p>
-                <div class="study-list">
-                    <div class="study-item critical">
-                        <span class="status-badge">CRITICAL</span>
-                        <a href="JHB_ACTG_015_profile.html">JHB_ACTG_015</a>
-                        <p>ACTG Study 015 (N=264)</p>
-                    </div>
-                    <div class="study-item critical">
-                        <span class="status-badge">CRITICAL</span>
-                        <a href="JHB_ACTG_016_profile.html">JHB_ACTG_016</a>
-                        <p>ACTG Study 016 (N=154)</p>
-                    </div>
-                    <div class="study-item critical">
-                        <span class="status-badge">CRITICAL</span>
-                        <a href="JHB_ACTG_017_profile.html">JHB_ACTG_017</a>
-                        <p>ACTG Study 017 (N=20)</p>
-                    </div>
-                    <div class="study-item critical">
-                        <span class="status-badge">CRITICAL</span>
-                        <a href="JHB_ACTG_018_profile.html">JHB_ACTG_018</a>
-                        <p>ACTG Study 018 (N=240)</p>
-                    </div>
-                    <div class="study-item critical">
-                        <span class="status-badge">CRITICAL</span>
-                        <a href="JHB_ACTG_019_profile.html">JHB_ACTG_019</a>
-                        <p>ACTG Study 019 (N=283)</p>
-                    </div>
-                    <div class="study-item critical">
-                        <span class="status-badge">CRITICAL</span>
-                        <a href="JHB_ACTG_021_profile.html">JHB_ACTG_021</a>
-                        <p>ACTG Study 021 (N=78)</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section">
-                <h2>Research Network Studies (10 Usable + 1 Excluded)</h2>
-                <p style="color: #6c757d; margin-bottom: 20px;">✅ Quality-checked studies ready for analysis</p>
-                <div class="study-list">
-                    <div class="study-item">
-                        <span class="status-badge">✅ CLEAN</span>
-                        <a href="JHB_Aurum_009_profile.html">JHB_Aurum_009</a>
-                        <p>Aurum Institute (N=2,751)</p>
-                    </div>
-                    <div class="study-item">
-                        <span class="status-badge">✅ CLEAN</span>
-                        <a href="JHB_DPHRU_013_profile.html">JHB_DPHRU_013</a>
-                        <p>DPHRU Study 013 (N=768)</p>
-                    </div>
-                    <div class="study-item">
-                        <span class="status-badge">✅ CLEAN</span>
-                        <a href="JHB_DPHRU_053_profile.html">JHB_DPHRU_053</a>
-                        <p>DPHRU Study 053 (N=998)</p>
-                    </div>
-                    <div class="study-item">
-                        <span class="status-badge">✅ CLEAN</span>
-                        <a href="JHB_Ezin_002_profile.html">JHB_EZIN_002</a>
-                        <p>EZIN Study 002 (N=1,053)</p>
-                    </div>
-                    <div class="study-item">
-                        <span class="status-badge">✅ CLEAN</span>
-                        <a href="JHB_EZIN_025_profile.html">JHB_EZIN_025</a>
-                        <p>EZIN Study 025 (N=179)</p>
-                    </div>
-                    <div class="study-item excluded">
-                        <span class="status-badge">EXCLUDED</span>
-                        <a href="JHB_JHSPH_005_profile.html">JHB_JHSPH_005</a>
-                        <p>Adverse Events Only</p>
-                    </div>
-                    <div class="study-item">
-                        <span class="status-badge">✅ CLEAN</span>
-                        <a href="JHB_SCHARP_004_profile.html">JHB_SCHARP_004</a>
-                        <p>SCHARP Study 004 (N=101)</p>
-                    </div>
-                    <div class="study-item">
-                        <span class="status-badge">✅ CLEAN</span>
-                        <a href="JHB_SCHARP_006_profile.html">JHB_SCHARP_006</a>
-                        <p>SCHARP Study 006 (N=162)</p>
-                    </div>
-                    <div class="study-item">
-                        <span class="status-badge">✅ CLEAN</span>
-                        <a href="JHB_VIDA_007_profile.html">JHB_VIDA_007</a>
-                        <p>VIDA Study 007 (N=2,129)</p>
-                    </div>
-                    <div class="study-item">
-                        <span class="status-badge">✅ CLEAN</span>
-                        <a href="JHB_VIDA_008_profile.html">JHB_VIDA_008</a>
-                        <p>VIDA Study 008 (N=557)</p>
-                    </div>
-                    <div class="study-item">
-                        <span class="status-badge">✅ CLEAN</span>
-                        <a href="JHB_WRHI_001_profile.html">JHB_WRHI_001</a>
-                        <p>WRHI Study 001 (N=1,072)</p>
-                    </div>
-                    <div class="study-item">
-                        <span class="status-badge">✅ CLEAN</span>
-                        <a href="JHB_WRHI_003_profile.html">JHB_WRHI_003</a>
-                        <p>WRHI Study 003 (N=217)</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section">
-                <h2>Documentation</h2>
-                <div class="info-box">
-                    <h4>📋 Quality Assurance Documents</h4>
-                    <p>
-                        • <a href="DATA_QUALITY_FINDINGS.md" target="_blank">Data Quality Findings Report</a> - Detailed review of all issues found<br>
-                        • <a href="DATASOURCE_FEEDBACK_REPORT.md" target="_blank">Data Source Feedback</a> - Actionable corrections for data providers<br>
-                        • <a href="USAGE_GUIDE.md" target="_blank">Usage Guide</a> - How to use these profiles<br>
-                        • <a href="MASTER_VARIABLE_SUMMARY.md" target="_blank">Variable Definitions</a> - Complete variable dictionary
-                    </p>
+                <div class="meta-item">
+                    <span class="meta-label">Variables</span>
+                    <span class="meta-value">127</span>
                 </div>
             </div>
         </div>
 
-        <footer>
-            <p><strong>HEAT Research Projects - Climate Health Analysis</strong></p>
-            <p style="margin-top: 10px; font-size: 0.9em;">Quality-Checked Dataset • All Issues Corrected</p>
-            <p style="margin-top: 10px; font-size: 0.85em;">Updated: November 2025 • Quality Verification Complete</p>
-            <p style="margin-top: 15px;"><a href="https://github.com/Logic06183/RP2_dataoverview">View on GitHub</a></p>
-        </footer>
+        <!-- Abstract -->
+        <div class="abstract">
+            <h2 class="abstract-title">Abstract</h2>
+            <p class="abstract-text">
+                This report presents comprehensive data quality verification results for the RP2 clinical dataset, comprising 11,026 patient records across 17 HIV-related studies conducted in Johannesburg, South Africa. Following rigorous quality assurance procedures, all numeric missing codes have been removed, extreme values corrected, and measurement units standardized. Ten studies (9,987 participants, 90.6% of dataset) have been verified as production-ready for analysis. The remaining studies require data source re-extraction due to systematic extraction failures. This documentation provides detailed study profiles, quality correction summaries, and guidance for appropriate dataset utilization in clinical research and epidemiological analysis.
+            </p>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <!-- Quality Status -->
+            <div class="status-banner">
+                <h3>✅ Quality Verification Complete</h3>
+                <p>All identified data quality issues have been successfully corrected in the harmonized dataset. Dataset status: <strong>Production Ready</strong> (10 of 17 studies, 90.6% of participants).</p>
+            </div>
+
+            <!-- Section 1: Dataset Overview -->
+            <section class="section">
+                <h2 class="section-title"><span class="section-number">1.</span>Dataset Overview</h2>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">11,026</div>
+                        <div class="stat-label">Total Participants</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">17</div>
+                        <div class="stat-label">Clinical Studies</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">127</div>
+                        <div class="stat-label">Variables</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">90.6%</div>
+                        <div class="stat-label">Quality Verified</div>
+                    </div>
+                </div>
+
+                <p style="margin-top: 25px; text-align: justify;">
+                    The RP2 clinical dataset integrates participant-level data from 17 independent HIV-related clinical studies conducted through various research institutions in Johannesburg. All data have undergone comprehensive quality harmonization, including removal of numeric missing codes (9999, 99999999, etc.), correction of unit errors (waist circumference mm→cm), removal of physiologically impossible values (zero hematocrit, extreme BMI), and standardization of variable naming conventions.
+                </p>
+            </section>
+
+            <!-- Section 2: Study Profiles -->
+            <section class="section">
+                <h2 class="section-title"><span class="section-number">2.</span>Study Profiles</h2>
+
+                <p style="margin-bottom: 25px;">
+                    Each study profile provides comprehensive exploratory data analysis including variable distributions, correlation matrices, missing data patterns, and quality verification flags. Studies are classified as <strong>Ready</strong> (production-ready), <strong>Critical</strong> (requires re-extraction), or <strong>Excluded</strong> (incompatible data).
+                </p>
+
+                <table class="study-table">
+                    <thead>
+                        <tr>
+                            <th>Study Code</th>
+                            <th style="text-align: right;">Participants</th>
+                            <th>Status</th>
+                            <th>Profile Report</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="study-name">JHB_Aurum_009</td>
+                            <td style="text-align: right;">2,751</td>
+                            <td><span class="status-badge status-ready">Ready</span></td>
+                            <td><a href="JHB_Aurum_009_profile.html" class="study-link">View Profile →</a></td>
+                        </tr>
+                        <tr>
+                            <td class="study-name">JHB_VIDA_007</td>
+                            <td style="text-align: right;">2,129</td>
+                            <td><span class="status-badge status-ready">Ready</span></td>
+                            <td><a href="JHB_VIDA_007_profile.html" class="study-link">View Profile →</a></td>
+                        </tr>
+                        <tr>
+                            <td class="study-name">JHB_WRHI_001</td>
+                            <td style="text-align: right;">1,072</td>
+                            <td><span class="status-badge status-ready">Ready</span></td>
+                            <td><a href="JHB_WRHI_001_profile.html" class="study-link">View Profile →</a></td>
+                        </tr>
+                        <tr>
+                            <td class="study-name">JHB_Ezin_002</td>
+                            <td style="text-align: right;">1,053</td>
+                            <td><span class="status-badge status-ready">Ready</span></td>
+                            <td><a href="JHB_Ezin_002_profile.html" class="study-link">View Profile →</a></td>
+                        </tr>
+                        <tr>
+                            <td class="study-name">JHB_DPHRU_053</td>
+                            <td style="text-align: right;">998</td>
+                            <td><span class="status-badge status-ready">Ready</span></td>
+                            <td><a href="JHB_DPHRU_053_profile.html" class="study-link">View Profile →</a></td>
+                        </tr>
+                        <tr>
+                            <td class="study-name">JHB_DPHRU_013</td>
+                            <td style="text-align: right;">768</td>
+                            <td><span class="status-badge status-ready">Ready</span></td>
+                            <td><a href="JHB_DPHRU_013_profile.html" class="study-link">View Profile →</a></td>
+                        </tr>
+                        <tr>
+                            <td class="study-name">JHB_VIDA_008</td>
+                            <td style="text-align: right;">557</td>
+                            <td><span class="status-badge status-ready">Ready</span></td>
+                            <td><a href="JHB_VIDA_008_profile.html" class="study-link">View Profile →</a></td>
+                        </tr>
+                        <tr>
+                            <td class="study-name">JHB_ACTG_019</td>
+                            <td style="text-align: right;">283</td>
+                            <td><span class="status-badge status-critical">Critical</span></td>
+                            <td><a href="JHB_ACTG_019_profile.html" class="study-link">View Profile →</a></td>
+                        </tr>
+                        <tr>
+                            <td class="study-name">JHB_ACTG_015</td>
+                            <td style="text-align: right;">264</td>
+                            <td><span class="status-badge status-critical">Critical</span></td>
+                            <td><a href="JHB_ACTG_015_profile.html" class="study-link">View Profile →</a></td>
+                        </tr>
+                        <tr>
+                            <td class="study-name">JHB_ACTG_018</td>
+                            <td style="text-align: right;">240</td>
+                            <td><span class="status-badge status-critical">Critical</span></td>
+                            <td><a href="JHB_ACTG_018_profile.html" class="study-link">View Profile →</a></td>
+                        </tr>
+                        <tr>
+                            <td class="study-name">JHB_WRHI_003</td>
+                            <td style="text-align: right;">217</td>
+                            <td><span class="status-badge status-ready">Ready</span></td>
+                            <td><a href="JHB_WRHI_003_profile.html" class="study-link">View Profile →</a></td>
+                        </tr>
+                        <tr>
+                            <td class="study-name">JHB_EZIN_025</td>
+                            <td style="text-align: right;">179</td>
+                            <td><span class="status-badge status-ready">Ready</span></td>
+                            <td><a href="JHB_EZIN_025_profile.html" class="study-link">View Profile →</a></td>
+                        </tr>
+                        <tr>
+                            <td class="study-name">JHB_SCHARP_006</td>
+                            <td style="text-align: right;">162</td>
+                            <td><span class="status-badge status-ready">Ready</span></td>
+                            <td><a href="JHB_SCHARP_006_profile.html" class="study-link">View Profile →</a></td>
+                        </tr>
+                        <tr>
+                            <td class="study-name">JHB_ACTG_016</td>
+                            <td style="text-align: right;">154</td>
+                            <td><span class="status-badge status-critical">Critical</span></td>
+                            <td><a href="JHB_ACTG_016_profile.html" class="study-link">View Profile →</a></td>
+                        </tr>
+                        <tr>
+                            <td class="study-name">JHB_SCHARP_004</td>
+                            <td style="text-align: right;">101</td>
+                            <td><span class="status-badge status-ready">Ready</span></td>
+                            <td><a href="JHB_SCHARP_004_profile.html" class="study-link">View Profile →</a></td>
+                        </tr>
+                        <tr>
+                            <td class="study-name">JHB_ACTG_021</td>
+                            <td style="text-align: right;">78</td>
+                            <td><span class="status-badge status-critical">Critical</span></td>
+                            <td><a href="JHB_ACTG_021_profile.html" class="study-link">View Profile →</a></td>
+                        </tr>
+                        <tr>
+                            <td class="study-name">JHB_ACTG_017</td>
+                            <td style="text-align: right;">20</td>
+                            <td><span class="status-badge status-critical">Critical</span></td>
+                            <td><a href="JHB_ACTG_017_profile.html" class="study-link">View Profile →</a></td>
+                        </tr>
+                        <tr>
+                            <td class="study-name">JHB_JHSPH_005</td>
+                            <td style="text-align: right;">N/A</td>
+                            <td><span class="status-badge status-excluded">Excluded</span></td>
+                            <td><a href="JHB_JHSPH_005_profile.html" class="study-link">View Profile →</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Section 3: Quality Corrections Applied -->
+            <section class="section">
+                <h2 class="section-title"><span class="section-number">3.</span>Quality Corrections Applied</h2>
+
+                <div style="margin: 25px 0;">
+                    <h4 style="font-weight: 600; margin-bottom: 12px; color: #1a237e;">3.1 Numeric Missing Codes Removed</h4>
+                    <ul style="margin-left: 25px; line-height: 2;">
+                        <li><strong>CD4 cell count:</strong> 9999, 99999 → NA (mean corrected: 687 → 337 cells/µL)</li>
+                        <li><strong>HIV viral load:</strong> 99999999, 10000001, 9475772, 400 → NA</li>
+                        <li><strong>ALT (liver function):</strong> 1.0 → NA (mean corrected: 1.00 → 21.49 U/L)</li>
+                        <li><strong>Platelet count:</strong> 3.0 → NA (mean corrected: 3.00 → 266.55 ×10³/µL)</li>
+                    </ul>
+                </div>
+
+                <div style="margin: 25px 0;">
+                    <h4 style="font-weight: 600; margin-bottom: 12px; color: #1a237e;">3.2 Impossible Values Removed</h4>
+                    <ul style="margin-left: 25px; line-height: 2;">
+                        <li><strong>Hematocrit:</strong> Zero values removed (min now 10.0%)</li>
+                        <li><strong>Heart rate:</strong> Zero bpm removed (min now 50 bpm)</li>
+                        <li><strong>BMI:</strong> Extreme values >200 removed (max now 65.9 kg/m²)</li>
+                        <li><strong>Height:</strong> Values <1.0m removed</li>
+                    </ul>
+                </div>
+
+                <div style="margin: 25px 0;">
+                    <h4 style="font-weight: 600; margin-bottom: 12px; color: #1a237e;">3.3 Unit Corrections</h4>
+                    <ul style="margin-left: 25px; line-height: 2;">
+                        <li><strong>Waist circumference:</strong> mm → cm conversion (mean: 893.6 → 89.4 cm)</li>
+                        <li><strong>BMI:</strong> Extreme calculation errors corrected (max: 850,000 → 65.9 kg/m²)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Section 4: Documentation -->
+            <section class="section">
+                <h2 class="section-title"><span class="section-number">4.</span>Supporting Documentation</h2>
+
+                <div class="doc-links">
+                    <h4>Quality Assurance Reports</h4>
+                    <ul>
+                        <li><a href="DATA_QUALITY_FINDINGS.md">Complete Quality Review (All 17 Studies)</a> — Comprehensive documentation of all 65+ identified issues</li>
+                        <li><a href="DATASOURCE_FEEDBACK_REPORT.md">Data Source Feedback Report</a> — Actionable recommendations for data providers</li>
+                        <li><a href="QUALITY_VERIFICATION_SUMMARY.md">Quality Verification Summary</a> — Final verification status and dataset metrics</li>
+                        <li><a href="BEFORE_AFTER_COMPARISON.md">Before/After Comparison</a> — Detailed comparison of corrected values</li>
+                    </ul>
+                </div>
+
+                <div class="doc-links" style="margin-top: 20px;">
+                    <h4>Dataset Access</h4>
+                    <ul>
+                        <li><strong>Corrected Dataset:</strong> <code>.claude/CLINICAL_DATASET_QUALITY_HARMONIZED.csv</code></li>
+                        <li><strong>Repository:</strong> <a href="https://github.com/Logic06183/RP2_dataoverview">github.com/Logic06183/RP2_dataoverview</a></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Section 5: Usage Recommendations -->
+            <section class="section">
+                <h2 class="section-title"><span class="section-number">5.</span>Usage Recommendations</h2>
+
+                <div style="background: #fff3e0; border-left: 4px solid #ff9800; padding: 20px; border-radius: 4px; margin: 20px 0;">
+                    <h4 style="color: #e65100; margin-bottom: 10px; font-weight: 600;">⚠️ Important Notes for Analysis</h4>
+                    <ul style="margin-left: 25px; line-height: 2; color: #37474f;">
+                        <li><strong>Use quality-verified dataset only:</strong> <code>.claude/CLINICAL_DATASET_QUALITY_HARMONIZED.csv</code></li>
+                        <li><strong>Include 10 production-ready studies:</strong> 9,987 participants (90.6% of dataset)</li>
+                        <li><strong>Exclude 6 ACTG studies:</strong> Require source data re-extraction (systematic extraction failures)</li>
+                        <li><strong>Exclude JHB_JHSPH_005:</strong> Adverse events only (incompatible with clinical outcomes analysis)</li>
+                        <li><strong>Document corrections in methods:</strong> Cite quality verification reports in publications</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <div class="report-footer">
+            <div class="footer-content">
+                <div class="footer-text">
+                    <strong>HEAT Research Programme</strong> | Health &amp; Environment Analysis for Thermal Stress<br>
+                    Quality Report Generated: November 24, 2025 | Dataset Version: Quality-Harmonized
+                </div>
+                <div class="footer-links">
+                    <a href="https://github.com/Logic06183/RP2_dataoverview">GitHub Repository</a>
+                    <a href="DATA_QUALITY_FINDINGS.md">Quality Documentation</a>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/opt/anaconda3/bin/python3
 """
 Regenerate all study profile reports using the CORRECTED harmonized dataset
 This will replace the old profiles that showed data quality issues
