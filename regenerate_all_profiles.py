@@ -43,54 +43,29 @@ except ImportError:
     print("✅ ydata-profiling installed")
     print()
 
-# Select key variables to include in profiles (to keep file sizes manageable)
-# We'll focus on the most important clinical and quality variables
-profile_variables = [
-    # IDs and dates
-    'anonymous_patient_id', 'Patient ID', 'study_source', 'primary_date', 'visit_date',
+# Include ALL clinical and biomarker variables, excluding only IDs and internal metadata
+# This gives comprehensive biomarker analysis requested by user
+exclude_variables = [
+    # IDs - not needed for profiling
+    'anonymous_patient_id', 'Patient ID', 'original_record_index',
 
-    # Demographics
-    'Age (at enrolment)', 'Sex', 'Race',
+    # Internal metadata
+    'harmonization_date', 'cleaning_date', 'export_date',
+    'consolidation_date', 'consolidation_source',
 
-    # Location
-    'latitude', 'longitude', 'province', 'city', 'jhb_subregion',
+    # Quality tracking dates (keep the applied flags for reference)
+    'cd4_correction_date', 'final_comprehensive_fix_date',
+    'dphru_053_final_corrections_date', 'ezin_002_final_corrections_date',
+    'waist_circ_unit_correction_date', 'quality_harmonization_date',
 
-    # HIV biomarkers
-    'CD4 cell count (cells/µL)', 'HIV viral load (copies/mL)',
-    'HIV_status', 'Antiretroviral Therapy Status',
-
-    # Hematology (CORRECTED)
-    'Hematocrit (%)', 'White blood cell count (×10³/µL)',
-    'Platelet count (×10³/µL)', 'hemoglobin_g_dL',
-
-    # Cell counts (RENAMED - no longer mislabeled)
-    'Lymphocyte count (×10⁹/L)', 'Neutrophil count (×10⁹/L)',
-    'Monocyte count (×10⁹/L)', 'Eosinophil count (×10⁹/L)',
-    'Basophil count (×10⁹/L)',
-
-    # Liver function (CORRECTED)
-    'ALT (U/L)', 'AST (U/L)',
-
-    # Anthropometrics (CORRECTED)
-    'BMI (kg/m²)', 'Waist circumference (cm)',
-    'weight_kg', 'height_m',
-
-    # Vital signs
-    'heart_rate_bpm', 'systolic_bp_mmHg', 'diastolic_bp_mmHg',
-    'body_temperature_celsius', 'Respiratory rate (breaths/min)',
-
-    # Lipids
-    'hdl_cholesterol_mg_dL', 'ldl_cholesterol_mg_dL',
-    'total_cholesterol_mg_dL', 'Triglycerides (mg/dL)',
-
-    # Quality tracking flags
-    'cd4_correction_applied', 'final_comprehensive_fix_applied',
-    'waist_circ_unit_correction_applied',
+    # Redundant or parsing fields
+    'primary_date_parsed', 'data_source', 'dataset_type', 'dataset_version',
 ]
 
-# Filter to variables that exist in the dataset
-available_vars = [v for v in profile_variables if v in df.columns]
-print(f"📊 Using {len(available_vars)} variables for profiles")
+# Get ALL variables except excluded ones
+all_vars = [col for col in df.columns if col not in exclude_variables]
+print(f"📊 Using {len(all_vars)} variables for comprehensive biomarker profiles (from {len(df.columns)} total)")
+print(f"   Excluded {len(exclude_variables)} metadata/ID variables")
 print()
 
 # Generate profiles for each study
@@ -104,9 +79,10 @@ for i, study in enumerate(sorted(studies), 1):
     study_df = df[df['study_source'] == study].copy()
     print(f"  Records: {len(study_df):,}")
 
-    # Select available variables
-    study_vars = [v for v in available_vars if v in study_df.columns and study_df[v].notna().any()]
+    # Select available variables (all except excluded ones)
+    study_vars = [v for v in all_vars if v in study_df.columns and study_df[v].notna().any()]
     study_profile_df = study_df[study_vars].copy()
+    print(f"  Variables: {len(study_vars)} (with data)")
 
     # Create profile report
     try:
@@ -121,19 +97,81 @@ for i, study in enumerate(sorted(studies), 1):
             },
             variables={
                 "descriptions": {
+                    # Demographics & Clinical
                     "Age (at enrolment)": "Patient age at study enrollment",
+                    "Sex": "Biological sex",
+                    "Race": "Racial/ethnic group",
+
+                    # HIV biomarkers (CORRECTED)
                     "CD4 cell count (cells/µL)": "CD4+ T lymphocyte count (missing codes removed)",
                     "HIV viral load (copies/mL)": "HIV RNA copies per mL (missing codes removed)",
+                    "Antiretroviral Therapy Status": "Current ART status",
+
+                    # Anthropometrics (CORRECTED)
                     "BMI (kg/m²)": "Body Mass Index (extreme values removed)",
                     "Waist circumference (cm)": "Waist circumference (corrected from mm to cm)",
-                    "ALT (U/L)": "Alanine aminotransferase (missing codes removed)",
-                    "Platelet count (×10³/µL)": "Platelet count (missing codes removed)",
+                    "weight_kg": "Body weight in kilograms",
+                    "height_m": "Height in meters",
+
+                    # Hematology (CORRECTED)
                     "Hematocrit (%)": "Hematocrit (zero values removed)",
+                    "hemoglobin_g_dL": "Hemoglobin concentration",
+                    "White blood cell count (×10³/µL)": "Total WBC count",
+                    "Red blood cell count (×10⁶/µL)": "Total RBC count",
+                    "Platelet count (×10³/µL)": "Platelet count (missing codes removed)",
+                    "MCV (MEAN CELL VOLUME)": "Mean corpuscular volume",
+                    "mch_pg": "Mean corpuscular hemoglobin",
+                    "mchc_g_dL": "Mean corpuscular hemoglobin concentration",
+                    "RDW": "Red cell distribution width",
+
+                    # Differential counts (CORRECTED LABELING)
                     "Lymphocyte count (×10⁹/L)": "Lymphocyte absolute count (corrected labeling)",
                     "Neutrophil count (×10⁹/L)": "Neutrophil absolute count (corrected labeling)",
+                    "Monocyte count (×10⁹/L)": "Monocyte absolute count (corrected labeling)",
+                    "Eosinophil count (×10⁹/L)": "Eosinophil absolute count (corrected labeling)",
+                    "Basophil count (×10⁹/L)": "Basophil absolute count (corrected labeling)",
+
+                    # Biochemistry (CORRECTED)
+                    "ALT (U/L)": "Alanine aminotransferase (missing codes removed)",
+                    "AST (U/L)": "Aspartate aminotransferase",
+                    "Alkaline phosphatase (U/L)": "Alkaline phosphatase",
+                    "Total bilirubin (mg/dL)": "Total bilirubin",
+                    "Albumin (g/dL)": "Serum albumin",
+                    "Total protein (g/dL)": "Total serum protein",
+                    "creatinine_umol_L": "Serum creatinine",
+                    "creatinine clearance": "Estimated creatinine clearance",
+
+                    # Electrolytes
+                    "Sodium (mEq/L)": "Serum sodium",
+                    "Potassium (mEq/L)": "Serum potassium",
+
+                    # Lipids & Metabolic
+                    "fasting_glucose_mmol_L": "Fasting blood glucose",
+                    "total_cholesterol_mg_dL": "Total cholesterol",
+                    "hdl_cholesterol_mg_dL": "HDL cholesterol",
+                    "ldl_cholesterol_mg_dL": "LDL cholesterol",
+                    "Triglycerides (mg/dL)": "Triglycerides",
+
+                    # Vital signs
+                    "systolic_bp_mmHg": "Systolic blood pressure",
+                    "diastolic_bp_mmHg": "Diastolic blood pressure",
+                    "heart_rate_bpm": "Heart rate (zero values removed)",
+                    "Respiratory rate (breaths/min)": "Respiratory rate",
+                    "Oxygen saturation (%)": "Oxygen saturation",
+                    "body_temperature_celsius": "Body temperature",
+
+                    # Climate data
+                    "climate_daily_mean_temp": "Daily mean temperature",
+                    "climate_daily_max_temp": "Daily maximum temperature",
+                    "climate_temp_anomaly": "Temperature anomaly from baseline",
+                    "climate_heat_day_p90": "Heat day indicator (>90th percentile)",
+                    "climate_heat_stress_index": "Heat stress index",
+
+                    # Quality flags
                     "cd4_correction_applied": "Quality flag: CD4 missing codes removed",
                     "final_comprehensive_fix_applied": "Quality flag: Comprehensive corrections applied",
-                    "waist_circ_unit_correction_applied": "Quality flag: Waist circ unit corrected"
+                    "waist_circ_unit_correction_applied": "Quality flag: Waist circ unit corrected",
+                    "sa_biomarker_standards": "South African biomarker reference standards",
                 }
             },
             minimal=False,
