@@ -1,0 +1,125 @@
+================================================================================
+BIOMARKER AVAILABILITY ANALYSIS
+================================================================================
+
+📊 Loading dataset...
+✅ Loaded 11,026 records from 17 studies
+
+🔬 Defining biomarker categories...
+
+Total biomarker variables defined: 63
+
+📋 Building biomarker availability matrix...
+
+✅ Availability matrix built: 63 biomarkers × 17 studies
+
+================================================================================
+BIOMARKER AVAILABILITY SUMMARY
+================================================================================
+
+📊 HIV Markers: 3/4 biomarkers available
+  ✅ CD4 cell count (cells/µL): 3 studies, 3,484 records
+  ❌ CD8 cell count (cells/µL): NOT FOUND IN DATASET
+  ✅ HIV viral load (copies/mL): 3 studies, 1,558 records
+  ⚠️  Antiretroviral Therapy Status: 1 studies, 217 records (LIMITED)
+
+📊 Hematology: 7/18 biomarkers available
+  ✅ Hematocrit (%): 5 studies, 1,750 records
+  ✅ hemoglobin_g_dL: 3 studies, 1,370 records
+  ✅ White blood cell count (×10³/µL): 5 studies, 1,957 records
+  ✅ Platelet count (×10³/µL): 3 studies, 1,370 records
+  ⚠️  Mean corpuscular volume (fL): 1 studies, 1,052 records (LIMITED)
+  ❌ Mean corpuscular hemoglobin (pg): NOT FOUND IN DATASET
+  ❌ Mean corpuscular hemoglobin concentration (g/dL): NOT FOUND IN DATASET
+  ❌ Red cell distribution width (%): NOT FOUND IN DATASET
+  ⚠️  Neutrophil count (×10³/µL): 1 studies, 217 records (LIMITED)
+  ⚠️  Lymphocyte count (×10³/µL): 1 studies, 217 records (LIMITED)
+  ❌ Monocyte count (×10³/µL): NOT FOUND IN DATASET
+  ❌ Eosinophil count (×10³/µL): NOT FOUND IN DATASET
+  ❌ Basophil count (×10³/µL): NOT FOUND IN DATASET
+  ❌ neutrophils_percent: NOT FOUND IN DATASET
+  ❌ lymphocytes_percent: NOT FOUND IN DATASET
+  ❌ monocytes_percent: NOT FOUND IN DATASET
+  ❌ eosinophils_percent: NOT FOUND IN DATASET
+  ❌ basophils_percent: NOT FOUND IN DATASET
+
+📊 Biochemistry - Liver: 6/8 biomarkers available
+  ⚠️  ALT (U/L): 2 studies, 318 records (LIMITED)
+  ✅ AST (U/L): 5 studies, 741 records
+  ⚠️  Alkaline phosphatase (U/L): 0 studies, 0 records
+  ⚠️  Total bilirubin (mg/dL): 0 studies, 0 records
+  ❌ Direct bilirubin (mg/dL): NOT FOUND IN DATASET
+  ⚠️  Albumin (g/dL): 2 studies, 943 records (LIMITED)
+  ⚠️  Total protein (g/dL): 1 studies, 929 records (LIMITED)
+  ❌ Gamma-glutamyl transferase (U/L): NOT FOUND IN DATASET
+
+📊 Biochemistry - Renal: 1/5 biomarkers available
+  ⚠️  creatinine_umol_L: 1 studies, 217 records (LIMITED)
+  ❌ Blood urea nitrogen (mg/dL): NOT FOUND IN DATASET
+  ❌ urea_mmol_L: NOT FOUND IN DATASET
+  ❌ Estimated glomerular filtration rate (mL/min/1.73m²): NOT FOUND IN DATASET
+  ❌ Creatinine clearance (mL/min): NOT FOUND IN DATASET
+
+❌ Electrolytes: 0/7 biomarkers available
+📊 Lipids: 1/6 biomarkers available
+  ❌ Total cholesterol (mg/dL): NOT FOUND IN DATASET
+  ❌ HDL cholesterol (mg/dL): NOT FOUND IN DATASET
+  ❌ LDL cholesterol (mg/dL): NOT FOUND IN DATASET
+  ❌ VLDL cholesterol (mg/dL): NOT FOUND IN DATASET
+  ⚠️  Triglycerides (mg/dL): 1 studies, 972 records (LIMITED)
+  ❌ cholesterol_hdl_ratio: NOT FOUND IN DATASET
+
+❌ Metabolic: 0/5 biomarkers available
+❌ Inflammatory: 0/2 biomarkers available
+❌ Other Labs: 0/5 biomarkers available
+❌ Coagulation: 0/3 biomarkers available
+================================================================================
+GENERATING VISUALIZATIONS
+================================================================================
+
+✅ Saved: biomarker_availability_heatmap.png
+✅ Saved: biomarker_categories_by_study.png
+
+================================================================================
+VARIABLE NAMING CONSISTENCY CHECK
+================================================================================
+
+🔍 Checking for potential naming inconsistencies...
+
+✅ No obvious naming inconsistencies detected
+
+================================================================================
+CROSS-STUDY COMPARABILITY
+================================================================================
+
+Checking key biomarkers for cross-study comparability...
+
+✅ CD4 cell count (cells/µL): Comparable across 3 studies
+✅ HIV viral load (copies/mL): Comparable across 3 studies
+✅ hemoglobin_g_dL: Comparable across 3 studies
+✅ White blood cell count (×10³/µL): Comparable across 5 studies
+✅ Platelet count (×10³/µL): Comparable across 3 studies
+✅ ALT (U/L): Comparable across 2 studies
+✅ AST (U/L): Comparable across 5 studies
+ℹ️  creatinine_umol_L: Only 1 study has data
+❌ glucose_mmol_L: NOT IN DATASET
+
+================================================================================
+SAVING REPORTS
+================================================================================
+
+✅ Saved: biomarker_availability_matrix.csv
+✅ Saved: biomarker_categories_summary.csv
+✅ Saved: BIOMARKER_AVAILABILITY_REPORT.md
+
+================================================================================
+✅ BIOMARKER AVAILABILITY ANALYSIS COMPLETE
+================================================================================
+
+Generated files:
+  • biomarker_availability_heatmap.png
+  • biomarker_categories_by_study.png
+  • biomarker_availability_matrix.csv
+  • biomarker_categories_summary.csv
+  • BIOMARKER_AVAILABILITY_REPORT.md
+
