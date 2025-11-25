@@ -70,7 +70,7 @@ biomarker_columns = [
 ]
 
 # Get list of all studies
-study_col = 'Clinical Study ID'
+study_col = 'study_source'
 studies = sorted(df[study_col].dropna().unique())
 
 print(f"Generating profiles for {len(studies)} studies...")
