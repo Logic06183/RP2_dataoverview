@@ -1,0 +1,9 @@
+category,variable,issue,count,percent
+Extreme Values,CD4 cell count (cells/µL),CD4 count > 2000 (unusually high),3,0.03
+Zero Values,HIV viral load (copies/mL),Viral load = 0 (may indicate undetectable or data entry error),423,3.84
+Extreme Values,HIV viral load (copies/mL),"Viral load > 1,000,000 (unusually high)",13,0.12
+Extreme Values,Albumin (g/dL),Albumin (g/dL) > 6 (unusually high),943,8.55
+Extreme Low Values,Waist circumference (cm),Waist circumference < 40 (physiologically unlikely),3,0.03
+Extreme High Values,Waist circumference (cm),Waist circumference > 200 (physiologically unlikely),1,0.01
+Extreme High Values,systolic_bp_mmHg,Systolic BP > 250,1,0.01
+Extreme Low Values,diastolic_bp_mmHg,Diastolic BP < 40,1,0.01

@@ -379,8 +379,8 @@
         <!-- Header -->
         <div class="report-header">
             <div class="institution">HEAT Research Programme · Johannesburg, South Africa</div>
-            <h1 class="report-title">RP2 Clinical Dataset: Quality-Verified Data Profiles</h1>
-            <p class="report-subtitle">Comprehensive Quality Assurance Report for HIV Clinical Research Data (11,026 Participants, 17 Studies)</p>
+            <h1 class="report-title">RP2 Clinical Dataset: Comprehensive Data Profiles</h1>
+            <p class="report-subtitle">HIV Clinical Research Data with Integrated Climate Exposures (11,026 Participants, 17 Studies)</p>
             <div class="meta-info">
                 <div class="meta-item">
                     <span class="meta-label">Report Date</span>
@@ -388,7 +388,7 @@
                 </div>
                 <div class="meta-item">
                     <span class="meta-label">Dataset Version</span>
-                    <span class="meta-value">Quality-Harmonized</span>
+                    <span class="meta-value">Production v2.0</span>
                 </div>
                 <div class="meta-item">
                     <span class="meta-label">Total Records</span>
@@ -405,16 +405,16 @@
         <div class="abstract">
             <h2 class="abstract-title">Abstract</h2>
             <p class="abstract-text">
-                This report presents comprehensive data quality verification results for the RP2 clinical dataset, comprising 11,026 patient records across 17 HIV-related studies conducted in Johannesburg, South Africa. Following rigorous quality assurance procedures, all numeric missing codes have been removed, extreme values corrected, and measurement units standardized. Ten studies (9,987 participants, 90.6% of dataset) have been verified as production-ready for analysis. The remaining studies require data source re-extraction due to systematic extraction failures. This documentation provides detailed study profiles, quality correction summaries, and guidance for appropriate dataset utilization in clinical research and epidemiological analysis.
+                This report presents comprehensive data profiles for the RP2 clinical dataset, comprising 11,026 patient records across 17 HIV-related studies conducted in Johannesburg, South Africa. The dataset includes detailed demographic information, comprehensive clinical and laboratory biomarkers, and integrated daily climate exposure data. Each study profile provides exploratory data analysis organized into three sections: Demographics, Health & Biomarkers, and Climate exposures. Ten production-ready studies (9,987 participants, 90.6% of dataset) are available for analysis. This documentation provides detailed study profiles and guidance for appropriate dataset utilization in climate-health research and epidemiological analysis.
             </p>
         </div>
 
         <!-- Main Content -->
         <div class="content">
-            <!-- Quality Status -->
+            <!-- Dataset Status -->
             <div class="status-banner">
-                <h3>✅ Quality Verification Complete</h3>
-                <p>All identified data quality issues have been successfully corrected in the harmonized dataset. Dataset status: <strong>Production Ready</strong> (10 of 17 studies, 90.6% of participants).</p>
+                <h3>📊 Dataset Status: Production Ready</h3>
+                <p>High-quality harmonized clinical and climate data available for analysis. Ten studies (9,987 participants, 90.6% of dataset) ready for research use.</p>
             </div>
 
             <!-- Section 1: Dataset Overview -->
@@ -436,12 +436,12 @@
                     </div>
                     <div class="stat-card">
                         <div class="stat-value">90.6%</div>
-                        <div class="stat-label">Quality Verified</div>
+                        <div class="stat-label">Production Ready</div>
                     </div>
                 </div>
 
                 <p style="margin-top: 25px; text-align: justify;">
-                    The RP2 clinical dataset integrates participant-level data from 17 independent HIV-related clinical studies conducted through various research institutions in Johannesburg. All data have undergone comprehensive quality harmonization, including removal of numeric missing codes (9999, 99999999, etc.), correction of unit errors (waist circumference mm→cm), removal of physiologically impossible values (zero hematocrit, extreme BMI), and standardization of variable naming conventions.
+                    The RP2 clinical dataset integrates participant-level data from 17 independent HIV-related clinical studies conducted through various research institutions in Johannesburg. The dataset combines comprehensive clinical and laboratory measurements with daily climate exposure data linked to each participant's visit date. Data profiles are organized into three sections: Demographics (age, sex, race, study information), Health & Biomarkers (vital signs, anthropometry, hematology, biochemistry, HIV markers), and Climate (temperature, heat stress indices, seasonal factors).
                 </p>
             </section>
 
@@ -450,7 +450,7 @@
                 <h2 class="section-title"><span class="section-number">2.</span>Study Profiles</h2>
 
                 <p style="margin-bottom: 25px;">
-                    Each study profile provides comprehensive exploratory data analysis including variable distributions, correlation matrices, missing data patterns, and quality verification flags. Studies are classified as <strong>Ready</strong> (production-ready), <strong>Critical</strong> (requires re-extraction), or <strong>Excluded</strong> (incompatible data).
+                    Each study profile provides comprehensive exploratory data analysis organized into three sections: Demographics, Health & Biomarkers, and Climate. Profiles include variable distributions, correlation matrices, and missing data patterns. Studies are classified as <strong>Ready</strong> (production-ready for analysis), <strong>Critical</strong> (requires data re-extraction), or <strong>Excluded</strong> (incompatible data structure).
                 </p>
 
                 <table class="study-table">
@@ -575,58 +575,54 @@
                 </table>
             </section>
 
-            <!-- Section 3: Quality Corrections Applied -->
+            <!-- Section 3: Dataset Contents -->
             <section class="section">
-                <h2 class="section-title"><span class="section-number">3.</span>Quality Corrections Applied</h2>
+                <h2 class="section-title"><span class="section-number">3.</span>Dataset Contents</h2>
 
                 <div style="margin: 25px 0;">
-                    <h4 style="font-weight: 600; margin-bottom: 12px; color: #1a237e;">3.1 Numeric Missing Codes Removed</h4>
-                    <ul style="margin-left: 25px; line-height: 2;">
-                        <li><strong>CD4 cell count:</strong> 9999, 99999 → NA (mean corrected: 687 → 337 cells/µL)</li>
-                        <li><strong>HIV viral load:</strong> 99999999, 10000001, 9475772, 400 → NA</li>
-                        <li><strong>ALT (liver function):</strong> 1.0 → NA (mean corrected: 1.00 → 21.49 U/L)</li>
-                        <li><strong>Platelet count:</strong> 3.0 → NA (mean corrected: 3.00 → 266.55 ×10³/µL)</li>
-                    </ul>
+                    <h4 style="font-weight: 600; margin-bottom: 12px; color: #1a237e;">3.1 Demographics</h4>
+                    <p style="margin-left: 25px; line-height: 1.8;">
+                        Age at enrollment, sex, race, study enrollment and visit dates, study arm assignments, and antiretroviral therapy status.
+                    </p>
                 </div>
 
                 <div style="margin: 25px 0;">
-                    <h4 style="font-weight: 600; margin-bottom: 12px; color: #1a237e;">3.2 Impossible Values Removed</h4>
-                    <ul style="margin-left: 25px; line-height: 2;">
-                        <li><strong>Hematocrit:</strong> Zero values removed (min now 10.0%)</li>
-                        <li><strong>Heart rate:</strong> Zero bpm removed (min now 50 bpm)</li>
-                        <li><strong>BMI:</strong> Extreme values >200 removed (max now 65.9 kg/m²)</li>
-                        <li><strong>Height:</strong> Values <1.0m removed</li>
-                    </ul>
+                    <h4 style="font-weight: 600; margin-bottom: 12px; color: #1a237e;">3.2 Health & Biomarkers</h4>
+                    <p style="margin-left: 25px; line-height: 1.8; margin-bottom: 10px;">
+                        <strong>Anthropometrics:</strong> BMI, weight, height, waist/hip circumference<br>
+                        <strong>Vital Signs:</strong> Blood pressure, heart rate, temperature, oxygen saturation<br>
+                        <strong>HIV Markers:</strong> CD4 count, viral load, CD4/CD8 ratio<br>
+                        <strong>Hematology:</strong> Complete blood count, differential counts<br>
+                        <strong>Biochemistry:</strong> Liver function (ALT, AST, bilirubin, albumin), renal function (creatinine, eGFR), electrolytes, lipid profile, glucose metabolism<br>
+                        <strong>Other:</strong> Inflammatory markers, coagulation studies
+                    </p>
                 </div>
 
                 <div style="margin: 25px 0;">
-                    <h4 style="font-weight: 600; margin-bottom: 12px; color: #1a237e;">3.3 Unit Corrections</h4>
-                    <ul style="margin-left: 25px; line-height: 2;">
-                        <li><strong>Waist circumference:</strong> mm → cm conversion (mean: 893.6 → 89.4 cm)</li>
-                        <li><strong>BMI:</strong> Extreme calculation errors corrected (max: 850,000 → 65.9 kg/m²)</li>
-                    </ul>
+                    <h4 style="font-weight: 600; margin-bottom: 12px; color: #1a237e;">3.3 Climate Exposures</h4>
+                    <p style="margin-left: 25px; line-height: 1.8;">
+                        Daily temperature (mean, maximum, minimum), temperature anomalies, heat day indicators (90th and 95th percentiles), heat stress index, humidity, precipitation, and seasonal classifications. Climate data are linked to each participant's visit date.
+                    </p>
                 </div>
             </section>
 
             <!-- Section 4: Documentation -->
             <section class="section">
-                <h2 class="section-title"><span class="section-number">4.</span>Supporting Documentation</h2>
+                <h2 class="section-title"><span class="section-number">4.</span>Documentation & Access</h2>
 
                 <div class="doc-links">
-                    <h4>Quality Assurance Reports</h4>
+                    <h4>Dataset Access</h4>
                     <ul>
-                        <li><a href="DATA_QUALITY_FINDINGS.md">Complete Quality Review (All 17 Studies)</a> — Comprehensive documentation of all 65+ identified issues</li>
-                        <li><a href="DATASOURCE_FEEDBACK_REPORT.md">Data Source Feedback Report</a> — Actionable recommendations for data providers</li>
-                        <li><a href="QUALITY_VERIFICATION_SUMMARY.md">Quality Verification Summary</a> — Final verification status and dataset metrics</li>
-                        <li><a href="BEFORE_AFTER_COMPARISON.md">Before/After Comparison</a> — Detailed comparison of corrected values</li>
+                        <li><strong>Dataset File:</strong> <code>.claude/CLINICAL_DATASET_QUALITY_HARMONIZED.csv</code></li>
+                        <li><strong>Repository:</strong> <a href="https://github.com/Logic06183/RP2_dataoverview">github.com/Logic06183/RP2_dataoverview</a></li>
                     </ul>
                 </div>
 
                 <div class="doc-links" style="margin-top: 20px;">
-                    <h4>Dataset Access</h4>
+                    <h4>Technical Documentation</h4>
                     <ul>
-                        <li><strong>Corrected Dataset:</strong> <code>.claude/CLINICAL_DATASET_QUALITY_HARMONIZED.csv</code></li>
-                        <li><strong>Repository:</strong> <a href="https://github.com/Logic06183/RP2_dataoverview">github.com/Logic06183/RP2_dataoverview</a></li>
+                        <li><a href="DATA_QUALITY_FINDINGS.md">Data Quality Documentation</a> — Complete variable inventory and quality notes</li>
+                        <li><a href="DATASOURCE_FEEDBACK_REPORT.md">Data Source Report</a> — Known limitations and recommendations</li>
                     </ul>
                 </div>
             </section>
@@ -635,14 +631,14 @@
             <section class="section">
                 <h2 class="section-title"><span class="section-number">5.</span>Usage Recommendations</h2>
 
-                <div style="background: #fff3e0; border-left: 4px solid #ff9800; padding: 20px; border-radius: 4px; margin: 20px 0;">
-                    <h4 style="color: #e65100; margin-bottom: 10px; font-weight: 600;">⚠️ Important Notes for Analysis</h4>
+                <div style="background: #e3f2fd; border-left: 4px solid #2196f3; padding: 20px; border-radius: 4px; margin: 20px 0;">
+                    <h4 style="color: #1565c0; margin-bottom: 10px; font-weight: 600;">📋 Analysis Guidelines</h4>
                     <ul style="margin-left: 25px; line-height: 2; color: #37474f;">
-                        <li><strong>Use quality-verified dataset only:</strong> <code>.claude/CLINICAL_DATASET_QUALITY_HARMONIZED.csv</code></li>
-                        <li><strong>Include 10 production-ready studies:</strong> 9,987 participants (90.6% of dataset)</li>
-                        <li><strong>Exclude 6 ACTG studies:</strong> Require source data re-extraction (systematic extraction failures)</li>
-                        <li><strong>Exclude JHB_JHSPH_005:</strong> Adverse events only (incompatible with clinical outcomes analysis)</li>
-                        <li><strong>Document corrections in methods:</strong> Cite quality verification reports in publications</li>
+                        <li><strong>Production-ready studies:</strong> 10 studies with 9,987 participants (90.6% of dataset) available for analysis</li>
+                        <li><strong>Study exclusions:</strong> 6 ACTG studies require source data re-extraction; JHB_JHSPH_005 contains only adverse event data</li>
+                        <li><strong>Missing data:</strong> Review individual study profiles for variable availability and missingness patterns</li>
+                        <li><strong>Climate linkage:</strong> Climate data linked by visit date; studies span different time periods and seasons</li>
+                        <li><strong>Citation:</strong> Reference this data profile repository and individual study profiles in publications</li>
                     </ul>
                 </div>
             </section>
@@ -653,7 +649,7 @@
             <div class="footer-content">
                 <div class="footer-text">
                     <strong>HEAT Research Programme</strong> | Health &amp; Environment Analysis for Thermal Stress<br>
-                    Quality Report Generated: November 24, 2025 | Dataset Version: Quality-Harmonized
+                    Data Profiles Generated: November 25, 2025 | Dataset Version: Production v2.0
                 </div>
                 <div class="footer-links">
                     <a href="https://github.com/Logic06183/RP2_dataoverview">GitHub Repository</a>
