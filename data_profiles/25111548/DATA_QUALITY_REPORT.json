@@ -1,0 +1,268 @@
+{
+  "report_metadata": {
+    "generated_at": "2025-11-25T14:36:18.401344",
+    "dataset_file": "JOHANNESBURG_CLINICAL_ANALYSIS_READY.csv",
+    "framework": "ALCOA+ Data Integrity",
+    "version": "1.0"
+  },
+  "dataset_summary": {
+    "total_records": 11114,
+    "total_columns": 80,
+    "unique_patients": 9756,
+    "studies_included": 17,
+    "study_list": [
+      "JHB_WRHI_003",
+      "JHB_DPHRU_013",
+      "JHB_ACTG_016",
+      "JHB_ACTG_015",
+      "JHB_ACTG_017",
+      "JHB_ACTG_018",
+      "JHB_ACTG_019",
+      "JHB_ACTG_021",
+      "JHB_DPHRU_053",
+      "JHB_EZIN_025",
+      "JHB_Ezin_002",
+      "JHB_SCHARP_004",
+      "JHB_SCHARP_006",
+      "JHB_VIDA_007",
+      "JHB_VIDA_008",
+      "JHB_WRHI_001",
+      "JHB_Aurum_009"
+    ],
+    "temporal_coverage": {
+      "min_date": "2003-10-20",
+      "max_date": "2021-08-10",
+      "date_coverage": "10,851 records with valid dates"
+    }
+  },
+  "fixes_applied": {
+    "C1_JHB_ACTG_016_viral_load": {
+      "description": "Set viral_load to NA for JHB_ACTG_016 (all 78 values were placeholder code 400)",
+      "records_affected": 78,
+      "action": "viral_load set to NA"
+    },
+    "C2_JHB_WRHI_003_viral_load": {
+      "description": "Set viral_load to NA for JHB_WRHI_003 (categorical values 0,40,41,63 not copies/mL)",
+      "records_affected": 221,
+      "action": "Original values preserved in viral_load_wrhi003_category column, viral_load set to NA"
+    },
+    "C3_viral_load_undetectable_flag": {
+      "description": "Created viral_load_undetectable flag for values \u226450 copies/mL",
+      "threshold": "\u226450 copies/mL",
+      "action": "New column viral_load_undetectable created"
+    },
+    "H1_glucose_unit_conversion": {
+      "description": "Converted glucose values from mmol/L to mg/dL where value <30",
+      "records_affected": 35,
+      "conversion_factor": 18.0182
+    },
+    "H3_empty_columns_removed": {
+      "description": "Removed 7 columns with 100% missing values",
+      "columns_removed": [
+        "hiv_viral_load",
+        "cd4_cells_ul",
+        "hemoglobin_g_dl",
+        "hematocrit_pct",
+        "fasting_glucose_mg_dl",
+        "total_cholesterol_mg_dl",
+        "systolic_bp_mmhg"
+      ]
+    },
+    "M3_log_transformations": {
+      "description": "Created log10 transformations for skewed variables",
+      "columns_created": [
+        "log10_viral_load",
+        "log10_fasting_glucose"
+      ]
+    }
+  },
+  "biomarker_summary": {
+    "cd4_count": {
+      "name": "CD4 Count",
+      "unit": "cells/\u00b5L",
+      "n_valid": 4555,
+      "n_missing": 6559,
+      "pct_available": 41.0,
+      "statistics": {
+        "mean": 379.35,
+        "median": 321.0,
+        "std": 260.35,
+        "min": 1.0,
+        "max": 2703.0,
+        "q25": 199.0,
+        "q75": 509.0
+      }
+    },
+    "viral_load": {
+      "name": "HIV Viral Load",
+      "unit": "copies/mL",
+      "n_valid": 2520,
+      "n_missing": 8594,
+      "pct_available": 22.7,
+      "statistics": {
+        "mean": 2118245.26,
+        "median": 39014.5,
+        "std": 10528497.2,
+        "min": 0.0,
+        "max": 96299000.0,
+        "q25": 6647.25,
+        "q75": 158609.25
+      }
+    },
+    "hemoglobin": {
+      "name": "Hemoglobin",
+      "unit": "g/dL",
+      "n_valid": 3036,
+      "n_missing": 8078,
+      "pct_available": 27.3,
+      "statistics": {
+        "mean": 12.8,
+        "median": 12.9,
+        "std": 1.9,
+        "min": 5.2,
+        "max": 20.5,
+        "q25": 11.6,
+        "q75": 14.1
+      }
+    },
+    "hematocrit": {
+      "name": "Hematocrit",
+      "unit": "%",
+      "n_valid": 2717,
+      "n_missing": 8397,
+      "pct_available": 24.4,
+      "statistics": {
+        "mean": 38.63,
+        "median": 39.5,
+        "std": 7.77,
+        "min": 10.0,
+        "max": 60.3,
+        "q25": 35.0,
+        "q75": 43.5
+      }
+    },
+    "fasting_glucose": {
+      "name": "Fasting Glucose",
+      "unit": "mg/dL",
+      "n_valid": 2768,
+      "n_missing": 8346,
+      "pct_available": 24.9,
+      "statistics": {
+        "mean": 89.2,
+        "median": 84.73,
+        "std": 29.0,
+        "min": 36.4,
+        "max": 535.68,
+        "q25": 77.19,
+        "q75": 94.68
+      }
+    },
+    "total_cholesterol": {
+      "name": "Total Cholesterol",
+      "unit": "mg/dL",
+      "n_valid": 2969,
+      "n_missing": 8145,
+      "pct_available": 26.7,
+      "statistics": {
+        "mean": 158.72,
+        "median": 155.45,
+        "std": 38.59,
+        "min": 57.78,
+        "max": 463.27,
+        "q25": 131.48,
+        "q75": 182.91
+      }
+    },
+    "creatinine": {
+      "name": "Creatinine",
+      "unit": "mg/dL",
+      "n_valid": 1252,
+      "n_missing": 9862,
+      "pct_available": 11.3,
+      "statistics": {
+        "mean": 0.76,
+        "median": 0.73,
+        "std": 0.19,
+        "min": 0.35,
+        "max": 2.68,
+        "q25": 0.63,
+        "q75": 0.86
+      }
+    },
+    "systolic_bp": {
+      "name": "Systolic BP",
+      "unit": "mmHg",
+      "n_valid": 5178,
+      "n_missing": 5936,
+      "pct_available": 46.6,
+      "statistics": {
+        "mean": 126.35,
+        "median": 125.0,
+        "std": 16.4,
+        "min": 81.0,
+        "max": 258.5,
+        "q25": 115.0,
+        "q75": 136.0
+      }
+    },
+    "diastolic_bp": {
+      "name": "Diastolic BP",
+      "unit": "mmHg",
+      "n_valid": 5178,
+      "n_missing": 5936,
+      "pct_available": 46.6,
+      "statistics": {
+        "mean": 80.6,
+        "median": 80.0,
+        "std": 11.84,
+        "min": 39.0,
+        "max": 150.0,
+        "q25": 73.0,
+        "q75": 87.0
+      }
+    },
+    "bmi": {
+      "name": "BMI",
+      "unit": "kg/m\u00b2",
+      "n_valid": 6611,
+      "n_missing": 4503,
+      "pct_available": 59.5,
+      "statistics": {
+        "mean": 26.06,
+        "median": 24.8,
+        "std": 6.44,
+        "min": 14.0,
+        "max": 70.03,
+        "q25": 21.21,
+        "q75": 29.7
+      }
+    }
+  },
+  "viral_load_analysis": {
+    "total_valid": 2520,
+    "undetectable_count": 249,
+    "undetectable_pct": 9.9,
+    "detectable_count": 2271,
+    "studies_with_valid_vl": 3,
+    "studies_excluded": [
+      "JHB_ACTG_016 (placeholder codes)",
+      "JHB_WRHI_003 (categorical data)"
+    ]
+  },
+  "demographics": {
+    "age": {
+      "n_valid": 9486,
+      "mean": 36.3,
+      "range": "0-76"
+    },
+    "sex": {
+      "Female": 4838,
+      "Male": 4519,
+      "Unknown": 423,
+      "Not available": 1
+    },
+    "hiv_status": {
+      "Positive": 6226
+    }
+  }
+}

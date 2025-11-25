@@ -1,0 +1,415 @@
+{
+  "document_metadata": {
+    "title": "Data Traceability Report - HEAT Center Johannesburg Clinical Dataset",
+    "generated_at": "2025-11-25T15:42:36.097627",
+    "version": "2.0",
+    "framework": "ALCOA+ Data Integrity",
+    "prepared_by": "Claude Code QA Pipeline"
+  },
+  "final_dataset": {
+    "name": "JOHANNESBURG_CLINICAL_ANALYSIS_READY.csv",
+    "location": "/home/cparker/HEAT_RESEARCH_PROJECTS/heat_analysis_projects/heat_analysis_optimized/FINAL_DATASETS/",
+    "records": 11114,
+    "columns": 79,
+    "file_hash": "489466f3a985",
+    "unique_patients": 9756,
+    "date_range": "2003-10-20 to 2021-08-10"
+  },
+  "data_lineage": {
+    "level_0_raw_data": {
+      "description": "Original clinical trial datasets from ACTG, WRHI, Aurum, etc.",
+      "location": "/home/cparker/incoming/RP2/JHB_*/raw/",
+      "format": "Excel (.xlsx)",
+      "studies": {
+        "JHB_ACTG_015": {
+          "raw_files": "42 Excel files",
+          "codebook": "A5208 Codebook master file.pdf"
+        },
+        "JHB_ACTG_016": {
+          "raw_files": "39 Excel files",
+          "codebook": "A5221 Codebook master file.pdf"
+        },
+        "JHB_ACTG_017": {
+          "raw_files": "44 Excel files",
+          "codebook": "A5073 Codebook master file.pdf"
+        },
+        "JHB_ACTG_018": {
+          "raw_files": "Multiple Excel files"
+        },
+        "JHB_ACTG_019": {
+          "raw_files": "50 Excel files",
+          "codebook": "A5175 Codebook master file.pdf"
+        },
+        "JHB_ACTG_021": {
+          "raw_files": "Multiple Excel files"
+        },
+        "JHB_Aurum_009": {
+          "raw_files": "Original Aurum data"
+        },
+        "JHB_DPHRU_013": {
+          "raw_files": "Hypertension study data"
+        },
+        "JHB_DPHRU_053": {
+          "raw_files": "Metabolic study data"
+        },
+        "JHB_EZIN_002": {
+          "raw_files": "HIV treatment RCT"
+        },
+        "JHB_EZIN_025": {
+          "raw_files": "COVID-19 RCT"
+        },
+        "JHB_SCHARP_004": {
+          "raw_files": "HIV vaccine trial"
+        },
+        "JHB_SCHARP_006": {
+          "raw_files": "HIV vaccine trial"
+        },
+        "JHB_VIDA_007": {
+          "raw_files": "HIV treatment data"
+        },
+        "JHB_VIDA_008": {
+          "raw_files": "HIV treatment data"
+        },
+        "JHB_WRHI_001": {
+          "raw_files": "HIV cohort data"
+        },
+        "JHB_WRHI_003": {
+          "raw_files": "HIV cohort data"
+        }
+      }
+    },
+    "level_1_harmonization": {
+      "description": "Study-specific harmonization scripts",
+      "location": "/home/cparker/incoming/RP2/07_HARMONIZERS_CONSOLIDATED/",
+      "scripts": [
+        "JHB_ACTG_015_harmonizer.py",
+        "JHB_ACTG_016_harmonizer.py",
+        "JHB_ACTG_021_harmonizer.py",
+        "JHB_Aurum_009_harmonizer.py",
+        "JHB_DPHRU_013_harmonizer.py",
+        "JHB_DPHRU_053_harmonizer.py",
+        "JHB_EZIN_002_harmonizer.py",
+        "JHB_EZIN_025_harmonizer.py",
+        "JHB_SCHARP_004_harmonizer.py",
+        "JHB_SCHARP_006_harmonizer.py",
+        "JHB_VIDA_007_harmonizer.py",
+        "JHB_VIDA_008_harmonizer.py",
+        "JHB_WRHI_001_harmonizer.py",
+        "JHB_WRHI_003_harmonizer.py"
+      ],
+      "output": "/home/cparker/incoming/RP2/JHB_*/JHB_*_harmonized.csv",
+      "master_codebook": "/home/cparker/selected_data_all/data/HEAT_Master_Codebook.csv"
+    },
+    "level_2_integration": {
+      "description": "Integration of all harmonized studies",
+      "location": "/home/cparker/incoming/RP2/00_FINAL_DATASETS/01_PRIMARY_DATASETS/",
+      "primary_source": "JOHANNESBURG_COMPLETE_BIOMARKERS_FULLY_HARMONIZED.csv",
+      "intermediate_files": [
+        "JOHANNESBURG_COMPLETE_BIOMARKERS.csv",
+        "JOHANNESBURG_COMPLETE_BIOMARKERS_ENHANCED.csv",
+        "JOHANNESBURG_COMPLETE_BIOMARKERS_CD4_CLEANED.csv",
+        "JOHANNESBURG_COMPLETE_BIOMARKERS_FULLY_CLEANED.csv"
+      ]
+    },
+    "level_3_climate_integration": {
+      "description": "Climate data extraction and integration",
+      "climate_source": "/home/cparker/selected_data_all/data/RP2_subsets/JHB/ERA5_tas_native.zarr",
+      "script": "VERIFIED_WORKING_CLIMATE_EXTRACTION.py",
+      "variables_added": [
+        "temp_mean_c",
+        "temp_max_c",
+        "temp_min_c",
+        "temp_range_c",
+        "temp_lag1d",
+        "temp_lag3d",
+        "temp_lag7d",
+        "temp_lag14d",
+        "temp_lag21d",
+        "temp_lag30d",
+        "temp_variability_7d",
+        "temp_variability_30d",
+        "apparent_temp",
+        "temp_anomaly",
+        "heat_wave_day",
+        "heat_stress_category"
+      ]
+    },
+    "level_4_quality_control": {
+      "description": "Comprehensive QC using ALCOA+ framework",
+      "location": "/home/cparker/HEAT_RESEARCH_PROJECTS/heat_analysis_projects/heat_analysis_optimized/FINAL_DATASETS/",
+      "input": "JOHANNESBURG_CLINICAL_CONSOLIDATED.csv",
+      "output": "JOHANNESBURG_CLINICAL_ANALYSIS_READY.csv",
+      "qa_reports": [
+        "COMPREHENSIVE_QA_REPORT.json",
+        "DATA_QUALITY_REPORT.json"
+      ]
+    }
+  },
+  "transformations_applied": {
+    "harmonization_phase": {
+      "variable_renaming": "Standardized to snake_case naming convention",
+      "unit_standardization": "All units converted to standard clinical units",
+      "date_parsing": "All dates standardized to ISO format (YYYY-MM-DD)",
+      "coordinate_assignment": "Geographic coordinates assigned per study site"
+    },
+    "quality_control_phase": {
+      "round_1": [
+        {
+          "fix_id": "C1",
+          "description": "JHB_ACTG_016 viral_load placeholder (400) \u2192 NA",
+          "records_affected": 78
+        },
+        {
+          "fix_id": "C2",
+          "description": "JHB_WRHI_003 viral_load categorical \u2192 NA (preserved)",
+          "records_affected": 221
+        },
+        {
+          "fix_id": "C3",
+          "description": "Created viral_load_undetectable flag (\u226450 copies/mL)",
+          "records_affected": 2520
+        },
+        {
+          "fix_id": "H1",
+          "description": "Glucose mmol/L \u2192 mg/dL conversion",
+          "records_affected": 35
+        },
+        {
+          "fix_id": "H3",
+          "description": "Removed empty columns",
+          "columns_removed": 7
+        },
+        {
+          "fix_id": "M3",
+          "description": "Created log10 transformations",
+          "columns_created": 2
+        }
+      ],
+      "round_2": [
+        {
+          "fix_id": "U1",
+          "description": "Albumin g/L \u2192 g/dL conversion (\u00f710)",
+          "records_affected": 1869
+        },
+        {
+          "fix_id": "U2",
+          "description": "Total bilirubin \u00b5mol/L \u2192 mg/dL conversion (\u00f717.1)",
+          "records_affected": 876
+        },
+        {
+          "fix_id": "U3",
+          "description": "HDL implausible values (<10 or >150) \u2192 NA",
+          "records_affected": 7
+        },
+        {
+          "fix_id": "U4",
+          "description": "LDL mmol/L \u2192 mg/dL conversion + Friedewald fixes",
+          "records_affected": 40
+        },
+        {
+          "fix_id": "U5",
+          "description": "Waist circumference implausible (<50) \u2192 NA",
+          "records_affected": 1
+        },
+        {
+          "fix_id": "U6",
+          "description": "BP invalid (SBP\u2264DBP) \u2192 NA",
+          "records_affected": 2
+        },
+        {
+          "fix_id": "U7",
+          "description": "BMI recalculation from height/weight",
+          "records_affected": 1
+        }
+      ]
+    }
+  },
+  "variable_mapping": {
+    "identifiers": {
+      "study_source": "Original study identifier (e.g., JHB_ACTG_015)",
+      "patient_id": "HEAT Center anonymized patient ID"
+    },
+    "demographics": {
+      "age_years": "Age at visit in years",
+      "sex": "Male/Female",
+      "race": "Self-reported race/ethnicity"
+    },
+    "hiv_status": {
+      "hiv_status": "Positive/Negative/Unknown",
+      "hiv_positive": "Binary indicator (1=positive)",
+      "on_art": "Currently on antiretroviral therapy",
+      "virally_suppressed": "Viral load undetectable"
+    },
+    "biomarkers": {
+      "cd4_count": "CD4+ T-cell count (cells/\u00b5L)",
+      "viral_load": "HIV-1 RNA (copies/mL)",
+      "hemoglobin": "Hemoglobin (g/dL)",
+      "hematocrit": "Hematocrit (%)",
+      "fasting_glucose": "Fasting glucose (mg/dL)",
+      "total_cholesterol": "Total cholesterol (mg/dL)",
+      "hdl_cholesterol": "HDL cholesterol (mg/dL)",
+      "ldl_cholesterol": "LDL cholesterol (mg/dL)",
+      "triglycerides": "Triglycerides (mg/dL)",
+      "creatinine": "Serum creatinine (mg/dL)",
+      "albumin": "Serum albumin (g/dL)",
+      "alt": "Alanine aminotransferase (U/L)",
+      "ast": "Aspartate aminotransferase (U/L)"
+    },
+    "vital_signs": {
+      "systolic_bp": "Systolic blood pressure (mmHg)",
+      "diastolic_bp": "Diastolic blood pressure (mmHg)",
+      "heart_rate": "Heart rate (bpm)",
+      "temperature": "Body temperature (\u00b0C)"
+    },
+    "anthropometrics": {
+      "height_m": "Height (meters)",
+      "weight_kg": "Weight (kg)",
+      "bmi": "Body mass index (kg/m\u00b2)"
+    },
+    "climate": {
+      "temp_mean_c": "Daily mean temperature (\u00b0C) from ERA5",
+      "temp_max_c": "Daily maximum temperature (\u00b0C)",
+      "temp_lag7d": "7-day rolling mean temperature (\u00b0C)",
+      "heat_wave_day": "Binary: max temp > 30\u00b0C",
+      "heat_stress_category": "Cold/Comfortable/Warm/Hot/Extreme"
+    }
+  },
+  "study_contributions": {
+    "JHB_WRHI_003": {
+      "n_records": 221,
+      "n_patients": 217,
+      "cd4_available": 217,
+      "viral_load_available": 0,
+      "hemoglobin_available": 221,
+      "bp_available": 221
+    },
+    "JHB_DPHRU_013": {
+      "n_records": 784,
+      "n_patients": 247,
+      "cd4_available": 0,
+      "viral_load_available": 0,
+      "hemoglobin_available": 0,
+      "bp_available": 784
+    },
+    "JHB_ACTG_016": {
+      "n_records": 154,
+      "n_patients": 76,
+      "cd4_available": 0,
+      "viral_load_available": 0,
+      "hemoglobin_available": 154,
+      "bp_available": 0
+    },
+    "JHB_ACTG_015": {
+      "n_records": 264,
+      "n_patients": 87,
+      "cd4_available": 0,
+      "viral_load_available": 0,
+      "hemoglobin_available": 262,
+      "bp_available": 0
+    },
+    "JHB_ACTG_017": {
+      "n_records": 20,
+      "n_patients": 20,
+      "cd4_available": 0,
+      "viral_load_available": 0,
+      "hemoglobin_available": 0,
+      "bp_available": 0
+    },
+    "JHB_ACTG_018": {
+      "n_records": 240,
+      "n_patients": 240,
+      "cd4_available": 0,
+      "viral_load_available": 0,
+      "hemoglobin_available": 0,
+      "bp_available": 0
+    },
+    "JHB_ACTG_019": {
+      "n_records": 283,
+      "n_patients": 100,
+      "cd4_available": 0,
+      "viral_load_available": 0,
+      "hemoglobin_available": 279,
+      "bp_available": 0
+    },
+    "JHB_ACTG_021": {
+      "n_records": 78,
+      "n_patients": 78,
+      "cd4_available": 0,
+      "viral_load_available": 0,
+      "hemoglobin_available": 0,
+      "bp_available": 0
+    },
+    "JHB_DPHRU_053": {
+      "n_records": 998,
+      "n_patients": 998,
+      "cd4_available": 0,
+      "viral_load_available": 0,
+      "hemoglobin_available": 0,
+      "bp_available": 990
+    },
+    "JHB_EZIN_025": {
+      "n_records": 179,
+      "n_patients": 179,
+      "cd4_available": 0,
+      "viral_load_available": 0,
+      "hemoglobin_available": 0,
+      "bp_available": 0
+    },
+    "JHB_Ezin_002": {
+      "n_records": 1053,
+      "n_patients": 1053,
+      "cd4_available": 1053,
+      "viral_load_available": 1051,
+      "hemoglobin_available": 1052,
+      "bp_available": 1053
+    },
+    "JHB_SCHARP_004": {
+      "n_records": 2,
+      "n_patients": 2,
+      "cd4_available": 0,
+      "viral_load_available": 0,
+      "hemoglobin_available": 2,
+      "bp_available": 0
+    },
+    "JHB_SCHARP_006": {
+      "n_records": 162,
+      "n_patients": 162,
+      "cd4_available": 0,
+      "viral_load_available": 0,
+      "hemoglobin_available": 0,
+      "bp_available": 0
+    },
+    "JHB_VIDA_007": {
+      "n_records": 2129,
+      "n_patients": 2129,
+      "cd4_available": 0,
+      "viral_load_available": 0,
+      "hemoglobin_available": 0,
+      "bp_available": 2128
+    },
+    "JHB_VIDA_008": {
+      "n_records": 550,
+      "n_patients": 550,
+      "cd4_available": 0,
+      "viral_load_available": 0,
+      "hemoglobin_available": 0,
+      "bp_available": 0
+    },
+    "JHB_WRHI_001": {
+      "n_records": 1067,
+      "n_patients": 1067,
+      "cd4_available": 1067,
+      "viral_load_available": 1062,
+      "hemoglobin_available": 1066,
+      "bp_available": 0
+    },
+    "JHB_Aurum_009": {
+      "n_records": 2930,
+      "n_patients": 2551,
+      "cd4_available": 2218,
+      "viral_load_available": 407,
+      "hemoglobin_available": 0,
+      "bp_available": 0
+    }
+  }
+}
