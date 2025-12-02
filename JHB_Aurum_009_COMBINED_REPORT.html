@@ -345,3 +345,116 @@ iVBORw0KGgoAAAANSUhEUgAAAc4AAAE0CAYAAACl79PPAAEAAElEQVR4nOy9d3gd13nn/5mZ2zsueiUK
         });
     });
 });</script>
+
+    <div class="lineage-section" style="margin: 40px 20px; padding: 30px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #007bff;">
+        <h2 style="color: #1a237e; margin-bottom: 20px; font-family: 'Segoe UI', sans-serif;">📋 Data Lineage & Traceability</h2>
+        <p style="margin-bottom: 20px; line-height: 1.6;">
+            This section provides complete traceability for all variables in this dataset, showing source files,
+            transformations, and methodologies used in data harmonization.
+        </p>
+    
+        <div style="background: white; padding: 20px; border-radius: 4px; margin-bottom: 20px;">
+            <h3 style="color: #007bff; margin-bottom: 15px;">Study Information</h3>
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr><td style="padding: 8px; font-weight: 600; width: 200px;">Study ID:</td><td style="padding: 8px;">JHB_Aurum_009</td></tr>
+                <tr><td style="padding: 8px; font-weight: 600;">Version:</td><td style="padding: 8px;">2.0 - Full Longitudinal</td></tr>
+                <tr><td style="padding: 8px; font-weight: 600;">Harmonization Date:</td><td style="padding: 8px;">2025-12-02T16:26:10.389948</td></tr>
+                <tr><td style="padding: 8px; font-weight: 600;">Source Path:</td><td style="padding: 8px;"><code>/home/cparker/incoming/RP2/JHB_Aurum_009/csv</code></td></tr>
+            </table>
+        </div>
+        
+        <div style="background: white; padding: 20px; border-radius: 4px; margin-bottom: 20px;">
+            <h3 style="color: #007bff; margin-bottom: 15px;">Source Files Used</h3>
+            <table style="width: 100%; border-collapse: collapse; border: 1px solid #ddd;">
+                <thead>
+                    <tr style="background: #007bff; color: white;">
+                        <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">File ID</th>
+                        <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Description</th>
+                        <th style="padding: 12px; text-align: right; border: 1px solid #ddd;">Records</th>
+                    </tr>
+                </thead>
+                <tbody>
+        
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd;"><code>EL001</code></td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">Enrollment/Demographics</td>
+                        <td style="padding: 10px; text-align: right; border: 1px solid #ddd;">2,550</td>
+                    </tr>
+            
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd;"><code>AD001</code></td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">Main Visits</td>
+                        <td style="padding: 10px; text-align: right; border: 1px solid #ddd;">12,575</td>
+                    </tr>
+            
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd;"><code>LT001</code></td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">CD4 Lab Tests</td>
+                        <td style="padding: 10px; text-align: right; border: 1px solid #ddd;">1,883</td>
+                    </tr>
+            
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd;"><code>FV001</code></td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">Follow-up Abstraction</td>
+                        <td style="padding: 10px; text-align: right; border: 1px solid #ddd;">1,407</td>
+                    </tr>
+            
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd;"><code>SS005</code></td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">Additional CD4</td>
+                        <td style="padding: 10px; text-align: right; border: 1px solid #ddd;">990</td>
+                    </tr>
+            
+                </tbody>
+            </table>
+        </div>
+        
+        <div style="background: white; padding: 20px; border-radius: 4px; margin-bottom: 20px;">
+            <h3 style="color: #007bff; margin-bottom: 15px;">Variable Lineage & Source Mappings</h3>
+            <p style="margin-bottom: 15px; color: #666;">
+                This table shows the exact source of each harmonized variable, enabling complete traceability.
+            </p>
+            <table style="width: 100%; border-collapse: collapse; border: 1px solid #ddd;">
+                <thead>
+                    <tr style="background: #007bff; color: white;">
+                        <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Variable Name</th>
+                        <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Source</th>
+                        <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Description / Mapping</th>
+                    </tr>
+                </thead>
+                <tbody>
+        
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">cd4_count</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;"><code>LT001.cd4res</code> (primary)<br><code>SS005.cd4result</code> (secondary)</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">CD4 cell count from lab tests</td>
+                    </tr>
+                
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">viral_load</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;"><code>FV001.vloadresult</code></td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">HIV viral load from chart abstraction</td>
+                    </tr>
+                
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">visit</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;"><code>AD001.vcode</code></td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">Visit schedule from main visits table<br><strong>Mappings:</strong><br>• 1.0 → Screening<br>• 2.0 → Month 3<br>• 3.0 → Month 6<br>• 4.0 → Month 9<br>• 5.0 → Month 12<br><em>...and 3 more</em></td>
+                    </tr>
+                
+                </tbody>
+            </table>
+        </div>
+        
+        <div style="background: white; padding: 20px; border-radius: 4px;">
+            <h3 style="color: #007bff; margin-bottom: 15px;">Output Dataset Summary</h3>
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr><td style="padding: 8px; font-weight: 600; width: 200px;">Total Records:</td><td style="padding: 8px;">12,575</td></tr>
+                <tr><td style="padding: 8px; font-weight: 600;">Unique Patients:</td><td style="padding: 8px;">2,550</td></tr>
+                <tr><td style="padding: 8px; font-weight: 600;">Records per Patient:</td><td style="padding: 8px;">4.9</td></tr>
+            </table>
+        </div>
+        
+    </div>
+    </body>
+</html>

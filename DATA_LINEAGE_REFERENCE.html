@@ -1,0 +1,2714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RP2 Data Lineage Reference - Complete Traceability Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .meta-info {
+            background: #f8f9fa;
+            padding: 20px 40px;
+            border-bottom: 3px solid #007bff;
+        }
+
+        .meta-info p {
+            margin: 5px 0;
+            font-size: 0.95em;
+        }
+
+        .toc {
+            background: #fff;
+            padding: 30px 40px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .toc h2 {
+            color: #1a237e;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .toc ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 10px;
+        }
+
+        .toc a {
+            display: block;
+            padding: 12px 20px;
+            background: #f8f9fa;
+            color: #007bff;
+            text-decoration: none;
+            border-radius: 6px;
+            border-left: 4px solid #007bff;
+            transition: all 0.3s ease;
+        }
+
+        .toc a:hover {
+            background: #007bff;
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .study-section {
+            margin-bottom: 60px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 5px solid #007bff;
+        }
+
+        .study-section h2 {
+            color: #1a237e;
+            margin-bottom: 20px;
+            font-size: 2em;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #007bff;
+        }
+
+        .info-card {
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-card h3 {
+            color: #007bff;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            background: white;
+        }
+
+        th {
+            background: #007bff;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #0056b3;
+        }
+
+        td {
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        tr:hover {
+            background: #e3f2fd;
+        }
+
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #d63384;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stat-box {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #28a745;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-box strong {
+            display: block;
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+
+        .stat-box span {
+            display: block;
+            font-size: 1.5em;
+            color: #28a745;
+            font-weight: 700;
+        }
+
+        .footer {
+            background: #1a237e;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .back-to-top:hover {
+            background: #0056b3;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📋 RP2 Data Lineage Reference</h1>
+            <p>Complete Traceability Documentation for All Studies</p>
+        </div>
+
+        <div class="meta-info">
+            <p><strong>Generated:</strong> 2025-12-02 20:33:44</p>
+            <p><strong>Purpose:</strong> Comprehensive data lineage and traceability documentation for ALCOA+ compliance</p>
+            <p><strong>Coverage:</strong> 13 Studies | 73,125 Records | 12,804 Unique Patients</p>
+        </div>
+
+        <div class="toc">
+            <h2>📑 Table of Contents</h2>
+            <ul>
+                <li><a href="#JHB_ACTG_015">JHB_ACTG_015</a></li>
+                <li><a href="#JHB_ACTG_016">JHB_ACTG_016</a></li>
+                <li><a href="#JHB_ACTG_019">JHB_ACTG_019</a></li>
+                <li><a href="#JHB_Aurum_009">JHB_Aurum_009</a></li>
+                <li><a href="#JHB_DPHRU_013">JHB_DPHRU_013</a></li>
+                <li><a href="#JHB_DPHRU_053">JHB_DPHRU_053</a></li>
+                <li><a href="#JHB_EZIN_025">JHB_EZIN_025</a></li>
+                <li><a href="#JHB_Ezin_002">JHB_Ezin_002</a></li>
+                <li><a href="#JHB_SCHARP_004">JHB_SCHARP_004</a></li>
+                <li><a href="#JHB_SCHARP_006">JHB_SCHARP_006</a></li>
+                <li><a href="#JHB_VIDA_007">JHB_VIDA_007</a></li>
+                <li><a href="#JHB_WRHI_001">JHB_WRHI_001</a></li>
+                <li><a href="#JHB_WRHI_003">JHB_WRHI_003</a></li>
+
+            </ul>
+        </div>
+<div class="content">
+
+        <div id="JHB_ACTG_015" class="study-section">
+            <h2>JHB_ACTG_015</h2>
+
+            <div class="info-card">
+                <h3>Study Information</h3>
+                <table>
+                    <tr><td style="width: 250px; font-weight: 600;">Study ID:</td><td>JHB_ACTG_015</td></tr>
+                    <tr><td style="font-weight: 600;">Version:</td><td>2.0 - Enhanced</td></tr>
+                    <tr><td style="font-weight: 600;">Harmonization Date:</td><td>2025-12-02T18:08:42.152850</td></tr>
+                    <tr><td style="font-weight: 600;">Source Path:</td><td><code>/home/cparker/incoming/RP2/JHB_ACTG_015/csv</code></td></tr>
+                </table>
+            </div>
+
+            <div class="info-card">
+                <h3>Dataset Summary</h3>
+                <div class="stat-grid">
+
+                    <div class="stat-box">
+                        <strong>Total Records</strong>
+                        <span>2,364</span>
+                    </div>
+                    <div class="stat-box">
+                        <strong>Unique Patients</strong>
+                        <span>153</span>
+                    </div>
+                    <div class="stat-box">
+                        <strong>Records per Patient</strong>
+                        <span>15.5</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3>Variable Lineage & Source Mappings</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Variable Name</th>
+                            <th>Source</th>
+                            <th>Description / Mapping</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td style="font-weight: 600;">patient_id</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">visit_date</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">viral_load</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">cd4_count</td>
+                            <td>Multiple sources</td>
+                            <td>CD3+4+ absolute count</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">cd4_percent</td>
+                            <td>Multiple sources</td>
+                            <td>CD3+4+ percent</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">hemoglobin</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">hematocrit</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">platelets</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">ast</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">alt</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">creatinine</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">sodium</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">albumin</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">total_bilirubin</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-card">
+                <h3>Biomarker Coverage</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Biomarker</th>
+                            <th style="text-align: right;">Total Measurements</th>
+                            <th style="text-align: right;">Unique Patients</th>
+                            <th style="text-align: right;">Measurements per Patient</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td style="font-weight: 600;">viral_load</td>
+                            <td style="text-align: right;" colspan="3">2,360</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">cd4_count</td>
+                            <td style="text-align: right;" colspan="3">1,254</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">cd4_percent</td>
+                            <td style="text-align: right;" colspan="3">1,253</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">hemoglobin</td>
+                            <td style="text-align: right;" colspan="3">342</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">hematocrit</td>
+                            <td style="text-align: right;" colspan="3">334</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">platelets</td>
+                            <td style="text-align: right;" colspan="3">334</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">ast</td>
+                            <td style="text-align: right;" colspan="3">342</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">alt</td>
+                            <td style="text-align: right;" colspan="3">342</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">creatinine</td>
+                            <td style="text-align: right;" colspan="3">0</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">sodium</td>
+                            <td style="text-align: right;" colspan="3">342</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">albumin</td>
+                            <td style="text-align: right;" colspan="3">0</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">total_bilirubin</td>
+                            <td style="text-align: right;" colspan="3">318</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div id="JHB_ACTG_016" class="study-section">
+            <h2>JHB_ACTG_016</h2>
+
+            <div class="info-card">
+                <h3>Study Information</h3>
+                <table>
+                    <tr><td style="width: 250px; font-weight: 600;">Study ID:</td><td>JHB_ACTG_016</td></tr>
+                    <tr><td style="font-weight: 600;">Version:</td><td>2.0 - Enhanced</td></tr>
+                    <tr><td style="font-weight: 600;">Harmonization Date:</td><td>2025-12-02T18:12:28.727604</td></tr>
+                    <tr><td style="font-weight: 600;">Source Path:</td><td><code>/home/cparker/incoming/RP2/JHB_ACTG_016/csv</code></td></tr>
+                </table>
+            </div>
+
+            <div class="info-card">
+                <h3>Dataset Summary</h3>
+                <div class="stat-grid">
+
+                    <div class="stat-box">
+                        <strong>Total Records</strong>
+                        <span>766</span>
+                    </div>
+                    <div class="stat-box">
+                        <strong>Unique Patients</strong>
+                        <span>108</span>
+                    </div>
+                    <div class="stat-box">
+                        <strong>Records per Patient</strong>
+                        <span>7.1</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3>Variable Lineage & Source Mappings</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Variable Name</th>
+                            <th>Source</th>
+                            <th>Description / Mapping</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td style="font-weight: 600;">patient_id</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">visit_date</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">viral_load</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">cd4_count</td>
+                            <td>Multiple sources</td>
+                            <td>CD3+4+ absolute count</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">cd4_percent</td>
+                            <td>Multiple sources</td>
+                            <td>CD3+4+ percent</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">hemoglobin</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">hematocrit</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">platelets</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">ast</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">alt</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">creatinine</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">sodium</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">albumin</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">total_bilirubin</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-card">
+                <h3>Biomarker Coverage</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Biomarker</th>
+                            <th style="text-align: right;">Total Measurements</th>
+                            <th style="text-align: right;">Unique Patients</th>
+                            <th style="text-align: right;">Measurements per Patient</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td style="font-weight: 600;">viral_load</td>
+                            <td style="text-align: right;" colspan="3">748</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">cd4_count</td>
+                            <td style="text-align: right;" colspan="3">508</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">cd4_percent</td>
+                            <td style="text-align: right;" colspan="3">508</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">hemoglobin</td>
+                            <td style="text-align: right;" colspan="3">76</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">hematocrit</td>
+                            <td style="text-align: right;" colspan="3">67</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">platelets</td>
+                            <td style="text-align: right;" colspan="3">53</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">ast</td>
+                            <td style="text-align: right;" colspan="3">76</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">alt</td>
+                            <td style="text-align: right;" colspan="3">75</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">creatinine</td>
+                            <td style="text-align: right;" colspan="3">0</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">sodium</td>
+                            <td style="text-align: right;" colspan="3">76</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">albumin</td>
+                            <td style="text-align: right;" colspan="3">0</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">total_bilirubin</td>
+                            <td style="text-align: right;" colspan="3">66</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div id="JHB_ACTG_019" class="study-section">
+            <h2>JHB_ACTG_019</h2>
+
+            <div class="info-card">
+                <h3>Study Information</h3>
+                <table>
+                    <tr><td style="width: 250px; font-weight: 600;">Study ID:</td><td>JHB_ACTG_019</td></tr>
+                    <tr><td style="font-weight: 600;">Version:</td><td>2.0 - Enhanced</td></tr>
+                    <tr><td style="font-weight: 600;">Harmonization Date:</td><td>2025-12-02T18:13:55.909356</td></tr>
+                    <tr><td style="font-weight: 600;">Source Path:</td><td><code>/home/cparker/incoming/RP2/JHB_ACTG_019/csv</code></td></tr>
+                </table>
+            </div>
+
+            <div class="info-card">
+                <h3>Dataset Summary</h3>
+                <div class="stat-grid">
+
+                    <div class="stat-box">
+                        <strong>Total Records</strong>
+                        <span>2,594</span>
+                    </div>
+                    <div class="stat-box">
+                        <strong>Unique Patients</strong>
+                        <span>100</span>
+                    </div>
+                    <div class="stat-box">
+                        <strong>Records per Patient</strong>
+                        <span>25.9</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3>Variable Lineage & Source Mappings</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Variable Name</th>
+                            <th>Source</th>
+                            <th>Description / Mapping</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td style="font-weight: 600;">patient_id</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">visit_date</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">viral_load</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">cd4_count</td>
+                            <td>Multiple sources</td>
+                            <td>CD3+4+ absolute count</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">cd4_percent</td>
+                            <td>Multiple sources</td>
+                            <td>CD3+4+ percent</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">hemoglobin</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">hematocrit</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">platelets</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">ast</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">alt</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">creatinine</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">sodium</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">albumin</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">total_bilirubin</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-card">
+                <h3>Biomarker Coverage</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Biomarker</th>
+                            <th style="text-align: right;">Total Measurements</th>
+                            <th style="text-align: right;">Unique Patients</th>
+                            <th style="text-align: right;">Measurements per Patient</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td style="font-weight: 600;">viral_load</td>
+                            <td style="text-align: right;" colspan="3">2,584</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">cd4_count</td>
+                            <td style="text-align: right;" colspan="3">2,564</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">cd4_percent</td>
+                            <td style="text-align: right;" colspan="3">2,561</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">hemoglobin</td>
+                            <td style="text-align: right;" colspan="3">167</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">hematocrit</td>
+                            <td style="text-align: right;" colspan="3">160</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">platelets</td>
+                            <td style="text-align: right;" colspan="3">167</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">ast</td>
+                            <td style="text-align: right;" colspan="3">168</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">alt</td>
+                            <td style="text-align: right;" colspan="3">168</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">creatinine</td>
+                            <td style="text-align: right;" colspan="3">0</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">sodium</td>
+                            <td style="text-align: right;" colspan="3">168</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">albumin</td>
+                            <td style="text-align: right;" colspan="3">0</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">total_bilirubin</td>
+                            <td style="text-align: right;" colspan="3">157</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div id="JHB_Aurum_009" class="study-section">
+            <h2>JHB_Aurum_009</h2>
+
+            <div class="info-card">
+                <h3>Study Information</h3>
+                <table>
+                    <tr><td style="width: 250px; font-weight: 600;">Study ID:</td><td>JHB_Aurum_009</td></tr>
+                    <tr><td style="font-weight: 600;">Version:</td><td>2.0 - Full Longitudinal</td></tr>
+                    <tr><td style="font-weight: 600;">Harmonization Date:</td><td>2025-12-02T16:26:10.389948</td></tr>
+                    <tr><td style="font-weight: 600;">Source Path:</td><td><code>/home/cparker/incoming/RP2/JHB_Aurum_009/csv</code></td></tr>
+                </table>
+            </div>
+
+            <div class="info-card">
+                <h3>Dataset Summary</h3>
+                <div class="stat-grid">
+
+                    <div class="stat-box">
+                        <strong>Total Records</strong>
+                        <span>12,575</span>
+                    </div>
+                    <div class="stat-box">
+                        <strong>Unique Patients</strong>
+                        <span>2,550</span>
+                    </div>
+                    <div class="stat-box">
+                        <strong>Records per Patient</strong>
+                        <span>4.9</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3>Source Files Used</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>File ID</th>
+                            <th>Description</th>
+                            <th style="text-align: right;">Records</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td><code>EL001</code></td>
+                            <td>Enrollment/Demographics</td>
+                            <td style="text-align: right;">2,550</td>
+                        </tr>
+
+                        <tr>
+                            <td><code>AD001</code></td>
+                            <td>Main Visits</td>
+                            <td style="text-align: right;">12,575</td>
+                        </tr>
+
+                        <tr>
+                            <td><code>LT001</code></td>
+                            <td>CD4 Lab Tests</td>
+                            <td style="text-align: right;">1,883</td>
+                        </tr>
+
+                        <tr>
+                            <td><code>FV001</code></td>
+                            <td>Follow-up Abstraction</td>
+                            <td style="text-align: right;">1,407</td>
+                        </tr>
+
+                        <tr>
+                            <td><code>SS005</code></td>
+                            <td>Additional CD4</td>
+                            <td style="text-align: right;">990</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-card">
+                <h3>Variable Lineage & Source Mappings</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Variable Name</th>
+                            <th>Source</th>
+                            <th>Description / Mapping</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td style="font-weight: 600;">cd4_count</td>
+                            <td><code>LT001.cd4res</code> (primary)<br><code>SS005.cd4result</code> (secondary)</td>
+                            <td>CD4 cell count from lab tests</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">viral_load</td>
+                            <td><code>FV001.vloadresult</code></td>
+                            <td>HIV viral load from chart abstraction</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">visit</td>
+                            <td><code>AD001.vcode</code></td>
+                            <td>Visit schedule from main visits table<br><strong>Mappings:</strong><br>• 1.0 → Screening<br>• 2.0 → Month 3<br>• 3.0 → Month 6<br>• 4.0 → Month 9<br>• 5.0 → Month 12<br>• 6.0 → Month 18<br>• 12.0 → Study Completion<br>• 99.0 → Off-Study<br></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-card">
+                <h3>Biomarker Coverage</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Biomarker</th>
+                            <th style="text-align: right;">Total Measurements</th>
+                            <th style="text-align: right;">Unique Patients</th>
+                            <th style="text-align: right;">Measurements per Patient</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td style="font-weight: 600;">cd4_count</td>
+                            <td style="text-align: right;" colspan="3">2,872</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">viral_load</td>
+                            <td style="text-align: right;" colspan="3">2,014</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">age_years</td>
+                            <td style="text-align: right;" colspan="3">12,575</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">sex</td>
+                            <td style="text-align: right;" colspan="3">12,575</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div id="JHB_DPHRU_013" class="study-section">
+            <h2>JHB_DPHRU_013</h2>
+
+            <div class="info-card">
+                <h3>Study Information</h3>
+                <table>
+                    <tr><td style="width: 250px; font-weight: 600;">Study ID:</td><td>JHB_DPHRU_013</td></tr>
+                    <tr><td style="font-weight: 600;">Version:</td><td>2.0 - Enhanced</td></tr>
+                    <tr><td style="font-weight: 600;">Harmonization Date:</td><td>2025-12-02T17:17:36.530176</td></tr>
+                    <tr><td style="font-weight: 600;">Source Path:</td><td><code>/home/cparker/incoming/RP2/JHB_DPHRU_013/raw</code></td></tr>
+                </table>
+            </div>
+
+            <div class="info-card">
+                <h3>Dataset Summary</h3>
+                <div class="stat-grid">
+
+                    <div class="stat-box">
+                        <strong>Total Records</strong>
+                        <span>784</span>
+                    </div>
+                    <div class="stat-box">
+                        <strong>Unique Patients</strong>
+                        <span>247</span>
+                    </div>
+                    <div class="stat-box">
+                        <strong>Records per Patient</strong>
+                        <span>3.2</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3>Variable Lineage & Source Mappings</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Variable Name</th>
+                            <th>Source</th>
+                            <th>Description / Mapping</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td style="font-weight: 600;">patient_id</td>
+                            <td colspan="2">wbs_id</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">visit_date</td>
+                            <td colspan="2">date</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">age_years</td>
+                            <td colspan="2">age</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">systolic_bp</td>
+                            <td colspan="2">sbp_mean</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">diastolic_bp</td>
+                            <td colspan="2">dbp_mean</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">heart_rate</td>
+                            <td colspan="2">pulse_mean</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">height_cm</td>
+                            <td colspan="2">height</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">weight_kg</td>
+                            <td colspan="2">weight</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">bmi</td>
+                            <td colspan="2">bmi</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">waist_circumference</td>
+                            <td colspan="2">waist_circum</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">hip_circumference</td>
+                            <td colspan="2">hip_circum</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">fasting_glucose</td>
+                            <td colspan="2">glucose</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">fasting_insulin</td>
+                            <td colspan="2">insulin</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">total_cholesterol</td>
+                            <td colspan="2">cholesterole</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">hdl_cholesterol</td>
+                            <td colspan="2">hdl</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">ldl_cholesterol</td>
+                            <td colspan="2">ldl</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">triglycerides</td>
+                            <td colspan="2">trigs</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">vitamin_d</td>
+                            <td colspan="2">vit_d_25</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">total_fat_mass</td>
+                            <td colspan="2">subtot_fat</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">total_lean_mass</td>
+                            <td colspan="2">subtot_lean</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">body_fat_percent</td>
+                            <td colspan="2">subtot_pfat</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">grip_strength</td>
+                            <td colspan="2">flex_grip_mean</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-card">
+                <h3>Biomarker Coverage</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Biomarker</th>
+                            <th style="text-align: right;">Total Measurements</th>
+                            <th style="text-align: right;">Unique Patients</th>
+                            <th style="text-align: right;">Measurements per Patient</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td style="font-weight: 600;">systolic_bp</td>
+                            <td style="text-align: right;" colspan="3">563</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">diastolic_bp</td>
+                            <td style="text-align: right;" colspan="3">563</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">heart_rate</td>
+                            <td style="text-align: right;" colspan="3">563</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">height_cm</td>
+                            <td style="text-align: right;" colspan="3">563</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">weight_kg</td>
+                            <td style="text-align: right;" colspan="3">563</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">bmi</td>
+                            <td style="text-align: right;" colspan="3">767</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">waist_circumference</td>
+                            <td style="text-align: right;" colspan="3">563</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">hip_circumference</td>
+                            <td style="text-align: right;" colspan="3">563</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">fasting_glucose</td>
+                            <td style="text-align: right;" colspan="3">750</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">fasting_insulin</td>
+                            <td style="text-align: right;" colspan="3">727</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">total_cholesterol</td>
+                            <td style="text-align: right;" colspan="3">724</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">hdl_cholesterol</td>
+                            <td style="text-align: right;" colspan="3">725</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">ldl_cholesterol</td>
+                            <td style="text-align: right;" colspan="3">725</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">triglycerides</td>
+                            <td style="text-align: right;" colspan="3">724</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">vitamin_d</td>
+                            <td style="text-align: right;" colspan="3">433</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">total_fat_mass</td>
+                            <td style="text-align: right;" colspan="3">774</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">total_lean_mass</td>
+                            <td style="text-align: right;" colspan="3">774</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">body_fat_percent</td>
+                            <td style="text-align: right;" colspan="3">774</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">grip_strength</td>
+                            <td style="text-align: right;" colspan="3">544</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div id="JHB_DPHRU_053" class="study-section">
+            <h2>JHB_DPHRU_053</h2>
+
+            <div class="info-card">
+                <h3>Study Information</h3>
+                <table>
+                    <tr><td style="width: 250px; font-weight: 600;">Study ID:</td><td>JHB_DPHRU_053</td></tr>
+                    <tr><td style="font-weight: 600;">Version:</td><td>2.0 - Enhanced</td></tr>
+                    <tr><td style="font-weight: 600;">Harmonization Date:</td><td>2025-12-02T17:10:09.381872</td></tr>
+                    <tr><td style="font-weight: 600;">Source Path:</td><td><code>/home/cparker/incoming/RP2/JHB_DPHRU_053/csv</code></td></tr>
+                </table>
+            </div>
+
+            <div class="info-card">
+                <h3>Dataset Summary</h3>
+                <div class="stat-grid">
+
+                    <div class="stat-box">
+                        <strong>Total Records</strong>
+                        <span>1,013</span>
+                    </div>
+                    <div class="stat-box">
+                        <strong>Unique Patients</strong>
+                        <span>1,013</span>
+                    </div>
+                    <div class="stat-box">
+                        <strong>Records per Patient</strong>
+                        <span>N/A</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3>Variable Lineage & Source Mappings</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Variable Name</th>
+                            <th>Source</th>
+                            <th>Description / Mapping</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td style="font-weight: 600;">patient_id</td>
+                            <td colspan="2">gsk_id</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">visit_date</td>
+                            <td colspan="2">gsk_date</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">age_years</td>
+                            <td colspan="2">age</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">sex</td>
+                            <td colspan="2">gender (0=Female, 1=Male)</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">hiv_status</td>
+                            <td colspan="2">test_result_hiv (0=Neg, 1=Pos, 2=Unk)</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">systolic_bp</td>
+                            <td colspan="2">systolic_bp_average</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">diastolic_bp</td>
+                            <td colspan="2">diastolic_bp_average</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">height_cm</td>
+                            <td colspan="2">height</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">weight_kg</td>
+                            <td colspan="2">weight</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">bmi</td>
+                            <td colspan="2">bmi</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">waist_circumference</td>
+                            <td colspan="2">waist_circumference_average</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">hip_circumference</td>
+                            <td colspan="2">hip_circumference_average</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">hemoglobin</td>
+                            <td colspan="2">hb_value</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">fasting_glucose</td>
+                            <td colspan="2">glucose_0</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">fasting_insulin</td>
+                            <td colspan="2">insulin_0</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">hba1c</td>
+                            <td colspan="2">lab_hba1c</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">total_cholesterol</td>
+                            <td colspan="2">total_cholesterol</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">hdl_cholesterol</td>
+                            <td colspan="2">high_density_lipoprotein</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">ldl_cholesterol</td>
+                            <td colspan="2">lab_calculated_ldl</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">triglycerides</td>
+                            <td colspan="2">triglycerides</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">albumin</td>
+                            <td colspan="2">serum_albumin</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">hs_crp</td>
+                            <td colspan="2">hs_c_reactive_protein</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">total_fat_mass</td>
+                            <td colspan="2">total_fm</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">body_fat_percent</td>
+                            <td colspan="2">total_percentage_fm</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">grip_strength</td>
+                            <td colspan="2">grip_strength_max</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-card">
+                <h3>Biomarker Coverage</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Biomarker</th>
+                            <th style="text-align: right;">Total Measurements</th>
+                            <th style="text-align: right;">Unique Patients</th>
+                            <th style="text-align: right;">Measurements per Patient</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td style="font-weight: 600;">systolic_bp</td>
+                            <td style="text-align: right;" colspan="3">1,005</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">diastolic_bp</td>
+                            <td style="text-align: right;" colspan="3">1,005</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">height_cm</td>
+                            <td style="text-align: right;" colspan="3">1,007</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">weight_kg</td>
+                            <td style="text-align: right;" colspan="3">1,007</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">bmi</td>
+                            <td style="text-align: right;" colspan="3">1,007</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">waist_circumference</td>
+                            <td style="text-align: right;" colspan="3">1,004</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">hip_circumference</td>
+                            <td style="text-align: right;" colspan="3">1,004</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">hemoglobin</td>
+                            <td style="text-align: right;" colspan="3">737</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">fasting_glucose</td>
+                            <td style="text-align: right;" colspan="3">988</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">fasting_insulin</td>
+                            <td style="text-align: right;" colspan="3">986</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">hba1c</td>
+                            <td style="text-align: right;" colspan="3">985</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">total_cholesterol</td>
+                            <td style="text-align: right;" colspan="3">986</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">hdl_cholesterol</td>
+                            <td style="text-align: right;" colspan="3">986</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">ldl_cholesterol</td>
+                            <td style="text-align: right;" colspan="3">986</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">triglycerides</td>
+                            <td style="text-align: right;" colspan="3">986</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">albumin</td>
+                            <td style="text-align: right;" colspan="3">956</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">hs_crp</td>
+                            <td style="text-align: right;" colspan="3">955</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">total_fat_mass</td>
+                            <td style="text-align: right;" colspan="3">954</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">body_fat_percent</td>
+                            <td style="text-align: right;" colspan="3">954</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">grip_strength</td>
+                            <td style="text-align: right;" colspan="3">978</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div id="JHB_EZIN_025" class="study-section">
+            <h2>JHB_EZIN_025</h2>
+
+            <div class="info-card">
+                <h3>Study Information</h3>
+                <table>
+                    <tr><td style="width: 250px; font-weight: 600;">Study ID:</td><td>JHB_EZIN_025</td></tr>
+                    <tr><td style="font-weight: 600;">Version:</td><td>2.0 - Enhanced</td></tr>
+                    <tr><td style="font-weight: 600;">Harmonization Date:</td><td>2025-12-02T17:37:53.381419</td></tr>
+                    <tr><td style="font-weight: 600;">Source Path:</td><td><code>/home/cparker/incoming/RP2/JHB_EZIN_025/raw</code></td></tr>
+                </table>
+            </div>
+
+            <div class="info-card">
+                <h3>Dataset Summary</h3>
+                <div class="stat-grid">
+
+                    <div class="stat-box">
+                        <strong>Total Records</strong>
+                        <span>489</span>
+                    </div>
+                    <div class="stat-box">
+                        <strong>Unique Patients</strong>
+                        <span>489</span>
+                    </div>
+                    <div class="stat-box">
+                        <strong>Records per Patient</strong>
+                        <span>1.0</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3>Variable Lineage & Source Mappings</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Variable Name</th>
+                            <th>Source</th>
+                            <th>Description / Mapping</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td style="font-weight: 600;">patient_id</td>
+                            <td colspan="2">Participant ID</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">visit_date</td>
+                            <td colspan="2">Vital Signs Date</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">weight_kg</td>
+                            <td colspan="2">Weight</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">height_cm</td>
+                            <td colspan="2">Height</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">temperature_c</td>
+                            <td colspan="2">Oral temperature</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">heart_rate</td>
+                            <td colspan="2">Pulse rate</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">respiratory_rate</td>
+                            <td colspan="2">Respiratory rate</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">oxygen_saturation</td>
+                            <td colspan="2">Oxygen saturation level</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-card">
+                <h3>Biomarker Coverage</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Biomarker</th>
+                            <th style="text-align: right;">Total Measurements</th>
+                            <th style="text-align: right;">Unique Patients</th>
+                            <th style="text-align: right;">Measurements per Patient</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td style="font-weight: 600;">weight_kg</td>
+                            <td style="text-align: right;" colspan="3">486</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">height_cm</td>
+                            <td style="text-align: right;" colspan="3">486</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">temperature_c</td>
+                            <td style="text-align: right;" colspan="3">487</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">heart_rate</td>
+                            <td style="text-align: right;" colspan="3">487</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">respiratory_rate</td>
+                            <td style="text-align: right;" colspan="3">487</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">oxygen_saturation</td>
+                            <td style="text-align: right;" colspan="3">487</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">bmi</td>
+                            <td style="text-align: right;" colspan="3">486</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div id="JHB_Ezin_002" class="study-section">
+            <h2>JHB_Ezin_002</h2>
+
+            <div class="info-card">
+                <h3>Study Information</h3>
+                <table>
+                    <tr><td style="width: 250px; font-weight: 600;">Study ID:</td><td>JHB_Ezin_002</td></tr>
+                    <tr><td style="font-weight: 600;">Version:</td><td>2.0 - Full Longitudinal</td></tr>
+                    <tr><td style="font-weight: 600;">Harmonization Date:</td><td>2025-12-02T16:56:47.831351</td></tr>
+                    <tr><td style="font-weight: 600;">Source Path:</td><td><code>/home/cparker/incoming/RP2/JHB_Ezin_002/csv</code></td></tr>
+                </table>
+            </div>
+
+            <div class="info-card">
+                <h3>Dataset Summary</h3>
+                <div class="stat-grid">
+
+                    <div class="stat-box">
+                        <strong>Total Records</strong>
+                        <span>11,059</span>
+                    </div>
+                    <div class="stat-box">
+                        <strong>Unique Patients</strong>
+                        <span>1,053</span>
+                    </div>
+                    <div class="stat-box">
+                        <strong>Records per Patient</strong>
+                        <span>10.5</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3>Variable Lineage & Source Mappings</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Variable Name</th>
+                            <th>Source</th>
+                            <th>Description / Mapping</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td style="font-weight: 600;">vital_signs</td>
+                            <td colspan="2">JHB_Ezin_002_200327_adv Weight&Vitals.csv</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">viral_load</td>
+                            <td colspan="2">JHB_Ezin_002_200326_adv hiv rna.csv</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">hematology</td>
+                            <td colspan="2">JHB_Ezin_002_200408_adv haematology.csv</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-card">
+                <h3>Biomarker Coverage</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Biomarker</th>
+                            <th style="text-align: right;">Total Measurements</th>
+                            <th style="text-align: right;">Unique Patients</th>
+                            <th style="text-align: right;">Measurements per Patient</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td style="font-weight: 600;">viral_load</td>
+                            <td style="text-align: right;" colspan="3">7,063</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">cd4_count</td>
+                            <td style="text-align: right;" colspan="3">2,937</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">hemoglobin</td>
+                            <td style="text-align: right;" colspan="3">8,437</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">systolic_bp</td>
+                            <td style="text-align: right;" colspan="3">11,024</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">diastolic_bp</td>
+                            <td style="text-align: right;" colspan="3">11,025</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">heart_rate</td>
+                            <td style="text-align: right;" colspan="3">11,017</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">temperature_c</td>
+                            <td style="text-align: right;" colspan="3">10,864</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">bmi</td>
+                            <td style="text-align: right;" colspan="3">1,053</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div id="JHB_SCHARP_004" class="study-section">
+            <h2>JHB_SCHARP_004</h2>
+
+            <div class="info-card">
+                <h3>Study Information</h3>
+                <table>
+                    <tr><td style="width: 250px; font-weight: 600;">Study ID:</td><td>JHB_SCHARP_004</td></tr>
+                    <tr><td style="font-weight: 600;">Version:</td><td>2.0 - Enhanced</td></tr>
+                    <tr><td style="font-weight: 600;">Harmonization Date:</td><td>2025-12-02T17:51:26.310286</td></tr>
+                    <tr><td style="font-weight: 600;">Source Path:</td><td><code>/home/cparker/incoming/RP2/JHB_SCHARP_004/csv</code></td></tr>
+                </table>
+            </div>
+
+            <div class="info-card">
+                <h3>Dataset Summary</h3>
+                <div class="stat-grid">
+
+                    <div class="stat-box">
+                        <strong>Total Records</strong>
+                        <span>403</span>
+                    </div>
+                    <div class="stat-box">
+                        <strong>Unique Patients</strong>
+                        <span>401</span>
+                    </div>
+                    <div class="stat-box">
+                        <strong>Records per Patient</strong>
+                        <span>1.0</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3>Variable Lineage & Source Mappings</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Variable Name</th>
+                            <th>Source</th>
+                            <th>Description / Mapping</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td style="font-weight: 600;">patient_id</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">visit</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">hemoglobin</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">hematocrit</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">mcv</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">platelets</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">wbc</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">ast</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">alt</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">total_bilirubin</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">creatinine</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">phosphorus</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">age_years</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">sex</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-card">
+                <h3>Biomarker Coverage</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Biomarker</th>
+                            <th style="text-align: right;">Total Measurements</th>
+                            <th style="text-align: right;">Unique Patients</th>
+                            <th style="text-align: right;">Measurements per Patient</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td style="font-weight: 600;">hemoglobin</td>
+                            <td style="text-align: right;" colspan="3">402</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">hematocrit</td>
+                            <td style="text-align: right;" colspan="3">402</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">mcv</td>
+                            <td style="text-align: right;" colspan="3">402</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">platelets</td>
+                            <td style="text-align: right;" colspan="3">401</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">wbc</td>
+                            <td style="text-align: right;" colspan="3">402</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">ast</td>
+                            <td style="text-align: right;" colspan="3">402</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">alt</td>
+                            <td style="text-align: right;" colspan="3">402</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">total_bilirubin</td>
+                            <td style="text-align: right;" colspan="3">402</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">creatinine</td>
+                            <td style="text-align: right;" colspan="3">104</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">phosphorus</td>
+                            <td style="text-align: right;" colspan="3">401</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">age_years</td>
+                            <td style="text-align: right;" colspan="3">403</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">sex</td>
+                            <td style="text-align: right;" colspan="3">0</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div id="JHB_SCHARP_006" class="study-section">
+            <h2>JHB_SCHARP_006</h2>
+
+            <div class="info-card">
+                <h3>Study Information</h3>
+                <table>
+                    <tr><td style="width: 250px; font-weight: 600;">Study ID:</td><td>JHB_SCHARP_006</td></tr>
+                    <tr><td style="font-weight: 600;">Version:</td><td>2.0 - Enhanced</td></tr>
+                    <tr><td style="font-weight: 600;">Harmonization Date:</td><td>2025-12-02T17:47:08.211726</td></tr>
+                    <tr><td style="font-weight: 600;">Source Path:</td><td><code>/home/cparker/incoming/RP2/JHB_SCHARP_006/csv</code></td></tr>
+                </table>
+            </div>
+
+            <div class="info-card">
+                <h3>Dataset Summary</h3>
+                <div class="stat-grid">
+
+                    <div class="stat-box">
+                        <strong>Total Records</strong>
+                        <span>1,359</span>
+                    </div>
+                    <div class="stat-box">
+                        <strong>Unique Patients</strong>
+                        <span>451</span>
+                    </div>
+                    <div class="stat-box">
+                        <strong>Records per Patient</strong>
+                        <span>3.0</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3>Variable Lineage & Source Mappings</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Variable Name</th>
+                            <th>Source</th>
+                            <th>Description / Mapping</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td style="font-weight: 600;">patient_id</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">visit</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">height_cm</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">weight_kg</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">bmi</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">creatinine</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">creatinine_clearance</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">age_years</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">sex</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-card">
+                <h3>Biomarker Coverage</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Biomarker</th>
+                            <th style="text-align: right;">Total Measurements</th>
+                            <th style="text-align: right;">Unique Patients</th>
+                            <th style="text-align: right;">Measurements per Patient</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td style="font-weight: 600;">height_cm</td>
+                            <td style="text-align: right;" colspan="3">465</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">weight_kg</td>
+                            <td style="text-align: right;" colspan="3">1,314</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">bmi</td>
+                            <td style="text-align: right;" colspan="3">464</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">creatinine</td>
+                            <td style="text-align: right;" colspan="3">417</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">creatinine_clearance</td>
+                            <td style="text-align: right;" colspan="3">1,300</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">age_years</td>
+                            <td style="text-align: right;" colspan="3">1,359</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">sex</td>
+                            <td style="text-align: right;" colspan="3">0</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div id="JHB_VIDA_007" class="study-section">
+            <h2>JHB_VIDA_007</h2>
+
+            <div class="info-card">
+                <h3>Study Information</h3>
+                <table>
+                    <tr><td style="width: 250px; font-weight: 600;">Study ID:</td><td>JHB_VIDA_007</td></tr>
+                    <tr><td style="font-weight: 600;">Version:</td><td>2.0 - Full Longitudinal</td></tr>
+                    <tr><td style="font-weight: 600;">Harmonization Date:</td><td>2025-12-02T16:42:22.095162</td></tr>
+                    <tr><td style="font-weight: 600;">Source Path:</td><td><code>/home/cparker/incoming/RP2/JHB_VIDA_007/csv</code></td></tr>
+                </table>
+            </div>
+
+            <div class="info-card">
+                <h3>Dataset Summary</h3>
+                <div class="stat-grid">
+
+                    <div class="stat-box">
+                        <strong>Total Records</strong>
+                        <span>15,581</span>
+                    </div>
+                    <div class="stat-box">
+                        <strong>Unique Patients</strong>
+                        <span>4,254</span>
+                    </div>
+                    <div class="stat-box">
+                        <strong>Records per Patient</strong>
+                        <span>3.7</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3>Variable Lineage & Source Mappings</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Variable Name</th>
+                            <th>Source</th>
+                            <th>Description / Mapping</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td style="font-weight: 600;">systolic_bp</td>
+                            <td>Multiple sources</td>
+                            <td>Systolic blood pressure from each visit file</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">temperature_c</td>
+                            <td>Multiple sources</td>
+                            <td>Body temperature - excellent for climate-health analysis</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-card">
+                <h3>Biomarker Coverage</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Biomarker</th>
+                            <th style="text-align: right;">Total Measurements</th>
+                            <th style="text-align: right;">Unique Patients</th>
+                            <th style="text-align: right;">Measurements per Patient</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td style="font-weight: 600;">systolic_bp</td>
+                            <td style="text-align: right;" colspan="3">15,552</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">diastolic_bp</td>
+                            <td style="text-align: right;" colspan="3">15,552</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">heart_rate</td>
+                            <td style="text-align: right;" colspan="3">15,575</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">temperature_c</td>
+                            <td style="text-align: right;" colspan="3">15,571</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">respiratory_rate</td>
+                            <td style="text-align: right;" colspan="3">15,565</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">bmi</td>
+                            <td style="text-align: right;" colspan="3">2,128</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">weight</td>
+                            <td style="text-align: right;" colspan="3">2,128</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">height</td>
+                            <td style="text-align: right;" colspan="3">2,129</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div id="JHB_WRHI_001" class="study-section">
+            <h2>JHB_WRHI_001</h2>
+
+            <div class="info-card">
+                <h3>Study Information</h3>
+                <table>
+                    <tr><td style="width: 250px; font-weight: 600;">Study Name:</td><td>A5175/PEARLS - Stavudine vs Tenofovir ART Trial</td></tr>
+                    <tr><td style="font-weight: 600;">Study Type:</td><td>Randomized Controlled Trial</td></tr>
+                    <tr><td style="font-weight: 600;">Location:</td><td>Johannesburg, South Africa</td></tr>
+                    <tr><td style="font-weight: 600;">Duration:</td><td>96 weeks</td></tr>
+                    <tr><td style="font-weight: 600;">Data Format:</td><td>ADaM (CDISC)</td></tr>
+                </table>
+            </div>
+
+            <div class="info-card">
+                <h3>Dataset Summary</h3>
+                <div class="stat-grid">
+
+                    <div class="stat-box">
+                        <strong>Total Records</strong>
+                        <span>21,015</span>
+                    </div>
+                    <div class="stat-box">
+                        <strong>Unique Patients</strong>
+                        <span>1,072</span>
+                    </div>
+                    <div class="stat-box">
+                        <strong>Records per Patient</strong>
+                        <span>19.6</span>
+                    </div>
+                    <div class="stat-box">
+                        <strong>Columns</strong>
+                        <span>62</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3>Biomarker Coverage</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Biomarker</th>
+                            <th style="text-align: right;">Total Measurements</th>
+                            <th style="text-align: right;">Unique Patients</th>
+                            <th style="text-align: right;">Measurements per Patient</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td style="font-weight: 600;">viral_load</td>
+                            <td style="text-align: right;">9,307</td>
+                            <td style="text-align: right;">1,072</td>
+                            <td style="text-align: right;">8.68</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">cd4_count</td>
+                            <td style="text-align: right;">8,103</td>
+                            <td style="text-align: right;">1,072</td>
+                            <td style="text-align: right;">7.56</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">hemoglobin</td>
+                            <td style="text-align: right;">8,111</td>
+                            <td style="text-align: right;">1,072</td>
+                            <td style="text-align: right;">7.57</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">wbc</td>
+                            <td style="text-align: right;">8,109</td>
+                            <td style="text-align: right;">1,072</td>
+                            <td style="text-align: right;">7.56</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">platelets</td>
+                            <td style="text-align: right;">8,075</td>
+                            <td style="text-align: right;">1,072</td>
+                            <td style="text-align: right;">7.53</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">ast</td>
+                            <td style="text-align: right;">8,109</td>
+                            <td style="text-align: right;">1,072</td>
+                            <td style="text-align: right;">7.56</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">alt</td>
+                            <td style="text-align: right;">8,111</td>
+                            <td style="text-align: right;">1,072</td>
+                            <td style="text-align: right;">7.57</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">creatinine</td>
+                            <td style="text-align: right;">6,175</td>
+                            <td style="text-align: right;">1,072</td>
+                            <td style="text-align: right;">5.76</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">fasting_glucose</td>
+                            <td style="text-align: right;">4,886</td>
+                            <td style="text-align: right;">1,070</td>
+                            <td style="text-align: right;">4.57</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">total_cholesterol</td>
+                            <td style="text-align: right;">4,880</td>
+                            <td style="text-align: right;">1,070</td>
+                            <td style="text-align: right;">4.56</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">systolic_bp</td>
+                            <td style="text-align: right;">8,765</td>
+                            <td style="text-align: right;">1,072</td>
+                            <td style="text-align: right;">8.18</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">diastolic_bp</td>
+                            <td style="text-align: right;">8,765</td>
+                            <td style="text-align: right;">1,072</td>
+                            <td style="text-align: right;">8.18</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">heart_rate</td>
+                            <td style="text-align: right;">8,762</td>
+                            <td style="text-align: right;">1,072</td>
+                            <td style="text-align: right;">8.17</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div id="JHB_WRHI_003" class="study-section">
+            <h2>JHB_WRHI_003</h2>
+
+            <div class="info-card">
+                <h3>Study Information</h3>
+                <table>
+                    <tr><td style="width: 250px; font-weight: 600;">Study Name:</td><td>WRHI003 Low-dose Ritonavir-boosted Darunavir HIV Trial</td></tr>
+                    <tr><td style="font-weight: 600;">Study Type:</td><td>Randomized Controlled Trial</td></tr>
+                    <tr><td style="font-weight: 600;">Location:</td><td>Johannesburg, South Africa</td></tr>
+                    <tr><td style="font-weight: 600;">Duration:</td><td>N/A weeks</td></tr>
+                    <tr><td style="font-weight: 600;">Data Format:</td><td>N/A</td></tr>
+                </table>
+            </div>
+
+            <div class="info-card">
+                <h3>Dataset Summary</h3>
+                <div class="stat-grid">
+
+                    <div class="stat-box">
+                        <strong>Total Records</strong>
+                        <span>2,235</span>
+                    </div>
+                    <div class="stat-box">
+                        <strong>Unique Patients</strong>
+                        <span>300</span>
+                    </div>
+                    <div class="stat-box">
+                        <strong>Records per Patient</strong>
+                        <span>7.45</span>
+                    </div>
+                    <div class="stat-box">
+                        <strong>Columns</strong>
+                        <span>54</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3>Variable Lineage & Source Mappings</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Variable Name</th>
+                            <th>Source</th>
+                            <th>Description / Mapping</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td style="font-weight: 600;">viral_load</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">cd4_count</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">hemoglobin</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">systolic_bp</td>
+                            <td>Multiple sources</td>
+                            <td></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-card">
+                <h3>Biomarker Coverage</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Biomarker</th>
+                            <th style="text-align: right;">Total Measurements</th>
+                            <th style="text-align: right;">Unique Patients</th>
+                            <th style="text-align: right;">Measurements per Patient</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td style="font-weight: 600;">viral_load</td>
+                            <td style="text-align: right;">1,542</td>
+                            <td style="text-align: right;">300</td>
+                            <td style="text-align: right;">5.14</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">cd4_count</td>
+                            <td style="text-align: right;">602</td>
+                            <td style="text-align: right;">300</td>
+                            <td style="text-align: right;">2.01</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">hemoglobin</td>
+                            <td style="text-align: right;">1,524</td>
+                            <td style="text-align: right;">300</td>
+                            <td style="text-align: right;">5.08</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">wbc</td>
+                            <td style="text-align: right;">602</td>
+                            <td style="text-align: right;">300</td>
+                            <td style="text-align: right;">2.01</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">platelets</td>
+                            <td style="text-align: right;">602</td>
+                            <td style="text-align: right;">300</td>
+                            <td style="text-align: right;">2.01</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">ast</td>
+                            <td style="text-align: right;">1,259</td>
+                            <td style="text-align: right;">300</td>
+                            <td style="text-align: right;">4.2</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">alt</td>
+                            <td style="text-align: right;">1,259</td>
+                            <td style="text-align: right;">300</td>
+                            <td style="text-align: right;">4.2</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">creatinine</td>
+                            <td style="text-align: right;">1,234</td>
+                            <td style="text-align: right;">300</td>
+                            <td style="text-align: right;">4.11</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">fasting_glucose</td>
+                            <td style="text-align: right;">603</td>
+                            <td style="text-align: right;">300</td>
+                            <td style="text-align: right;">2.01</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">total_cholesterol</td>
+                            <td style="text-align: right;">920</td>
+                            <td style="text-align: right;">300</td>
+                            <td style="text-align: right;">3.07</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">systolic_bp</td>
+                            <td style="text-align: right;">2,211</td>
+                            <td style="text-align: right;">300</td>
+                            <td style="text-align: right;">7.37</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">diastolic_bp</td>
+                            <td style="text-align: right;">2,211</td>
+                            <td style="text-align: right;">300</td>
+                            <td style="text-align: right;">7.37</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: 600;">heart_rate</td>
+                            <td style="text-align: right;">2,204</td>
+                            <td style="text-align: right;">300</td>
+                            <td style="text-align: right;">7.35</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+</div>
+
+        <div class="footer">
+            <p><strong>RP2 Data Overview Project</strong></p>
+            <p>ALCOA+ Compliant Data Lineage Documentation</p>
+            <p>Generated automatically from harmonization metadata</p>
+        </div>
+    </div>
+
+    <a href="#" class="back-to-top">↑ Back to Top</a>
+</body>
+</html>

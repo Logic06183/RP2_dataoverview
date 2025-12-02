@@ -393,3 +393,177 @@ iVBORw0KGgoAAAANSUhEUgAAAc4AAAE0CAYAAACl79PPAAEAAElEQVR4nOy9d3Qc15Xt/avQ1RHdjUbO
         });
     });
 });</script>
+
+    <div class="lineage-section" style="margin: 40px 20px; padding: 30px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #007bff;">
+        <h2 style="color: #1a237e; margin-bottom: 20px; font-family: 'Segoe UI', sans-serif;">📋 Data Lineage & Traceability</h2>
+        <p style="margin-bottom: 20px; line-height: 1.6;">
+            This section provides complete traceability for all variables in this dataset, showing source files,
+            transformations, and methodologies used in data harmonization.
+        </p>
+    
+        <div style="background: white; padding: 20px; border-radius: 4px; margin-bottom: 20px;">
+            <h3 style="color: #007bff; margin-bottom: 15px;">Study Information</h3>
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr><td style="padding: 8px; font-weight: 600; width: 200px;">Study ID:</td><td style="padding: 8px;">JHB_DPHRU_053</td></tr>
+                <tr><td style="padding: 8px; font-weight: 600;">Version:</td><td style="padding: 8px;">2.0 - Enhanced</td></tr>
+                <tr><td style="padding: 8px; font-weight: 600;">Harmonization Date:</td><td style="padding: 8px;">2025-12-02T17:10:09.381872</td></tr>
+                <tr><td style="padding: 8px; font-weight: 600;">Source Path:</td><td style="padding: 8px;"><code>/home/cparker/incoming/RP2/JHB_DPHRU_053/csv</code></td></tr>
+            </table>
+        </div>
+        
+        <div style="background: white; padding: 20px; border-radius: 4px; margin-bottom: 20px;">
+            <h3 style="color: #007bff; margin-bottom: 15px;">Variable Lineage & Source Mappings</h3>
+            <p style="margin-bottom: 15px; color: #666;">
+                This table shows the exact source of each harmonized variable, enabling complete traceability.
+            </p>
+            <table style="width: 100%; border-collapse: collapse; border: 1px solid #ddd;">
+                <thead>
+                    <tr style="background: #007bff; color: white;">
+                        <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Variable Name</th>
+                        <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Source</th>
+                        <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Description / Mapping</th>
+                    </tr>
+                </thead>
+                <tbody>
+        
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">patient_id</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;" colspan="2">gsk_id</td>
+                    </tr>
+                
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">visit_date</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;" colspan="2">gsk_date</td>
+                    </tr>
+                
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">age_years</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;" colspan="2">age</td>
+                    </tr>
+                
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">sex</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;" colspan="2">gender (0=Female, 1=Male)</td>
+                    </tr>
+                
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">hiv_status</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;" colspan="2">test_result_hiv (0=Neg, 1=Pos, 2=Unk)</td>
+                    </tr>
+                
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">systolic_bp</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;" colspan="2">systolic_bp_average</td>
+                    </tr>
+                
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">diastolic_bp</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;" colspan="2">diastolic_bp_average</td>
+                    </tr>
+                
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">height_cm</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;" colspan="2">height</td>
+                    </tr>
+                
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">weight_kg</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;" colspan="2">weight</td>
+                    </tr>
+                
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">bmi</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;" colspan="2">bmi</td>
+                    </tr>
+                
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">waist_circumference</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;" colspan="2">waist_circumference_average</td>
+                    </tr>
+                
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">hip_circumference</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;" colspan="2">hip_circumference_average</td>
+                    </tr>
+                
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">hemoglobin</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;" colspan="2">hb_value</td>
+                    </tr>
+                
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">fasting_glucose</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;" colspan="2">glucose_0</td>
+                    </tr>
+                
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">fasting_insulin</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;" colspan="2">insulin_0</td>
+                    </tr>
+                
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">hba1c</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;" colspan="2">lab_hba1c</td>
+                    </tr>
+                
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">total_cholesterol</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;" colspan="2">total_cholesterol</td>
+                    </tr>
+                
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">hdl_cholesterol</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;" colspan="2">high_density_lipoprotein</td>
+                    </tr>
+                
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">ldl_cholesterol</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;" colspan="2">lab_calculated_ldl</td>
+                    </tr>
+                
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">triglycerides</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;" colspan="2">triglycerides</td>
+                    </tr>
+                
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">albumin</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;" colspan="2">serum_albumin</td>
+                    </tr>
+                
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">hs_crp</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;" colspan="2">hs_c_reactive_protein</td>
+                    </tr>
+                
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">total_fat_mass</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;" colspan="2">total_fm</td>
+                    </tr>
+                
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">body_fat_percent</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;" colspan="2">total_percentage_fm</td>
+                    </tr>
+                
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">grip_strength</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;" colspan="2">grip_strength_max</td>
+                    </tr>
+                
+                </tbody>
+            </table>
+        </div>
+        
+        <div style="background: white; padding: 20px; border-radius: 4px;">
+            <h3 style="color: #007bff; margin-bottom: 15px;">Output Dataset Summary</h3>
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr><td style="padding: 8px; font-weight: 600; width: 200px;">Total Records:</td><td style="padding: 8px;">1,013</td></tr>
+                <tr><td style="padding: 8px; font-weight: 600;">Unique Patients:</td><td style="padding: 8px;">1,013</td></tr>
+                <tr><td style="padding: 8px; font-weight: 600;">Records per Patient:</td><td style="padding: 8px;">N/A</td></tr>
+            </table>
+        </div>
+        
+    </div>
+    </body>
+</html>
