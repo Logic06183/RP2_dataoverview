@@ -423,14 +423,39 @@ def create_study_section(study_id, lineage_data):
         for variable, info in lineage_data['data_lineage'].items():
             if isinstance(info, dict):
                 sources = []
+
+                # Handle primary/secondary source format (study-specific file IDs)
                 if 'source' in info:
                     sources.append(f"<code>{info['source']}</code>")
                 if 'primary_source' in info:
-                    sources.append(f"<code>{info['primary_source']}</code> (primary)")
+                    sources.append(f"<code>{info['primary_source']}</code> <span style='background:#e3f2fd;padding:2px 6px;border-radius:3px;font-size:0.85em;'>primary</span>")
                 if 'secondary_source' in info:
-                    sources.append(f"<code>{info['secondary_source']}</code> (secondary)")
+                    sources.append(f"<code>{info['secondary_source']}</code> <span style='background:#fff3e0;padding:2px 6px;border-radius:3px;font-size:0.85em;'>secondary</span>")
 
-                source_text = "<br>".join(sources) if sources else "Multiple sources"
+                # Handle sources list format (multiple visit-specific sources)
+                if 'sources' in info and isinstance(info['sources'], list):
+                    sources.append("<strong>Multiple visit sources:</strong>")
+                    for src in info['sources'][:10]:  # Show first 10
+                        sources.append(f"• <code>{src}</code>")
+                    if len(info['sources']) > 10:
+                        sources.append(f"<em>...and {len(info['sources']) - 10} more</em>")
+
+                # Handle source_file/source_column format (actual CSV files and columns)
+                if 'source_file' in info:
+                    file_column = f"<strong>File:</strong> <code>{info['source_file']}</code>"
+                    if 'source_column' in info:
+                        file_column += f"<br><strong>Column:</strong> <code>{info['source_column']}</code>"
+                    sources.append(file_column)
+
+                # Add transformation details if present
+                if 'transformation' in info:
+                    sources.append(f"<em>Transformation:</em> {info['transformation']}")
+
+                # Add units if present
+                if 'units' in info:
+                    sources.append(f"<strong>Units:</strong> {info['units']}")
+
+                source_text = "<br>".join(sources) if sources else "<em style='color:#999;'>No source information available</em>"
 
                 description = info.get('description', '')
                 if 'mapping' in info and isinstance(info['mapping'], dict):

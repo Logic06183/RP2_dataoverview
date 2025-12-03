@@ -59,6 +59,8 @@ def create_variable_lineage_sheet(all_lineage):
             if isinstance(info, dict):
                 # Extract sources
                 sources = []
+
+                # Handle primary/secondary source format
                 if 'source' in info:
                     sources.append(info['source'])
                 if 'primary_source' in info:
@@ -66,7 +68,30 @@ def create_variable_lineage_sheet(all_lineage):
                 if 'secondary_source' in info:
                     sources.append(f"{info['secondary_source']} (secondary)")
 
-                source_text = "; ".join(sources) if sources else "Multiple sources"
+                # Handle sources list format (multiple visit-specific sources)
+                if 'sources' in info and isinstance(info['sources'], list):
+                    sources_list = info['sources']
+                    if len(sources_list) <= 3:
+                        sources.extend(sources_list)
+                    else:
+                        sources.append(f"Multiple sources ({len(sources_list)} visit files): {', '.join(sources_list[:3])}... and {len(sources_list)-3} more")
+
+                # Handle source_file/source_column format
+                source_file = info.get('source_file', '')
+                source_column = info.get('source_column', '')
+
+                if source_file:
+                    if source_column:
+                        sources.append(f"File: {source_file} | Column: {source_column}")
+                    else:
+                        sources.append(f"File: {source_file}")
+
+                source_text = "; ".join(sources) if sources else "No source information"
+
+                # Get units, transformation, description
+                units = info.get('units', '')
+                transformation = info.get('transformation', '')
+                description = info.get('description', '')
 
                 # Handle mappings
                 mapping_text = ""
@@ -80,7 +105,9 @@ def create_variable_lineage_sheet(all_lineage):
                     'Study ID': study_id,
                     'Variable Name': variable,
                     'Source(s)': source_text,
-                    'Description': info.get('description', ''),
+                    'Units': units,
+                    'Transformation': transformation,
+                    'Description': description,
                     'Value Mappings': mapping_text,
                 }
             else:
@@ -88,6 +115,8 @@ def create_variable_lineage_sheet(all_lineage):
                     'Study ID': study_id,
                     'Variable Name': variable,
                     'Source(s)': str(info),
+                    'Units': '',
+                    'Transformation': '',
                     'Description': '',
                     'Value Mappings': '',
                 }
