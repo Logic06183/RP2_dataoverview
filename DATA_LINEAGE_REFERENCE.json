@@ -1,0 +1,4888 @@
+{
+  "JHB_WRHI_001": {
+    "study_info": {
+      "study_name": "A5175/PEARLS - Stavudine vs Tenofovir ART Trial",
+      "study_type": "Randomized Controlled Trial",
+      "data_format": "ADaM (CDISC)",
+      "site": "Johannesburg, South Africa",
+      "source_path": "/home/cparker/incoming/RP2/JHB_WRHI_001/csv",
+      "population": "HIV-positive adults initiating ART",
+      "duration": "96 weeks follow-up"
+    },
+    "harmonization_info": {
+      "harmonization_version": "2.0_LONGITUDINAL",
+      "harmonizer_script": "JHB_WRHI_001_LONGITUDINAL_HARMONIZER.py",
+      "harmonization_date": "2025-12-02"
+    },
+    "study_notes": [
+      "All participants are HIV-positive adults",
+      "Randomized to Stavudine-based vs Tenofovir-based ART",
+      "ADaM format follows CDISC standards",
+      "Laboratory data in wide format with LBORRESN__* columns"
+    ],
+    "source_files": {
+      "ADSL.csv": {
+        "description": "Subject-level demographics (baseline characteristics)",
+        "records": 1072,
+        "key_columns": [
+          "PT",
+          "PTAGE",
+          "SEX",
+          "RACE",
+          "TRT01A"
+        ]
+      },
+      "ADHIV.csv": {
+        "description": "HIV viral load measurements (longitudinal)",
+        "records": 9093,
+        "key_columns": [
+          "PT",
+          "AVISIT",
+          "AVISITN",
+          "LBDTN",
+          "LBORRESN"
+        ]
+      },
+      "ADLB.csv": {
+        "description": "Laboratory results - CD4, CBC, chemistry (longitudinal)",
+        "records": 11319,
+        "key_columns": [
+          "PT",
+          "AVISIT",
+          "AVISITN",
+          "LBDTN",
+          "LBORRESN__*"
+        ]
+      },
+      "ADVS.csv": {
+        "description": "Vital signs measurements (longitudinal)",
+        "records": 8613,
+        "key_columns": [
+          "PT",
+          "AVISIT",
+          "AVISITN",
+          "VSDTN",
+          "SYSBP",
+          "DIABP",
+          "PULSE"
+        ]
+      }
+    },
+    "variable_lineage": {
+      "patient_id": {
+        "source_file": "ADSL.csv",
+        "source_columns": [
+          "PT"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['patient_id'] = df['PT']",
+        "transformation_description": "Direct mapping, no transformation",
+        "notes": "Unique patient identifier across all ADaM datasets"
+      },
+      "age_years": {
+        "source_file": "ADSL.csv",
+        "source_columns": [
+          "PTAGE"
+        ],
+        "units": "years",
+        "formula": null,
+        "transformation_code": "df['age_years'] = df['PTAGE']",
+        "transformation_description": "Direct mapping, no transformation",
+        "notes": "Age at study enrollment"
+      },
+      "sex": {
+        "source_file": "ADSL.csv",
+        "source_columns": [
+          "SEX"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['sex'] = df['SEX'].map({'F': 'Female', 'M': 'Male', 'FEMALE': 'Female', 'MALE': 'Male'})",
+        "transformation_description": "Standardize sex codes to full words",
+        "notes": "F/M/FEMALE/MALE \u2192 Female/Male"
+      },
+      "race": {
+        "source_file": "ADSL.csv",
+        "source_columns": [
+          "RACE"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['race'] = df['RACE']",
+        "transformation_description": "Direct mapping, no transformation",
+        "notes": null
+      },
+      "treatment_arm": {
+        "source_file": "ADSL.csv",
+        "source_columns": [
+          "TRT01A"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['treatment_arm'] = df['TRT01A']",
+        "transformation_description": "Direct mapping, actual treatment assigned",
+        "notes": "TRT01A = Actual Treatment for Period 01"
+      },
+      "visit": {
+        "source_file": "ADHIV.csv",
+        "source_columns": [
+          "AVISIT"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['visit'] = df['AVISIT']",
+        "transformation_description": "Direct mapping of analysis visit name",
+        "notes": "ADaM standard visit naming"
+      },
+      "visit_num": {
+        "source_file": "ADHIV.csv",
+        "source_columns": [
+          "AVISITN"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['visit_num'] = pd.to_numeric(df['AVISITN'], errors='coerce')",
+        "transformation_description": "Convert to numeric for sorting",
+        "notes": "ADaM standard visit number"
+      },
+      "visit_date": {
+        "source_file": "ADHIV.csv",
+        "source_columns": [
+          "LBDTN"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['visit_date'] = pd.to_datetime(df['LBDTN'], format='%Y%m%d', errors='coerce')",
+        "transformation_description": "Convert YYYYMMDD integer to datetime",
+        "notes": "Lab date in numeric format"
+      },
+      "viral_load": {
+        "source_file": "ADHIV.csv",
+        "source_columns": [
+          "LBORRESN"
+        ],
+        "units": "copies/mL",
+        "formula": null,
+        "transformation_code": "df['viral_load'] = pd.to_numeric(df['LBORRESN'], errors='coerce')",
+        "transformation_description": "Extract numeric result value",
+        "notes": "HIV-1 RNA viral load, numeric result"
+      },
+      "viral_load_undetectable": {
+        "source_file": "DERIVED",
+        "source_columns": [
+          "viral_load"
+        ],
+        "units": "boolean (0/1)",
+        "formula": "viral_load < 50",
+        "transformation_code": "df['viral_load_undetectable'] = (df['viral_load'] < 50).astype(int)",
+        "transformation_description": "Flag for undetectable viral load using 50 copies/mL threshold",
+        "notes": "Standard undetectable threshold; 1 = undetectable, 0 = detectable"
+      },
+      "log10_viral_load": {
+        "source_file": "DERIVED",
+        "source_columns": [
+          "viral_load"
+        ],
+        "units": "log10(copies/mL)",
+        "formula": "log10(viral_load) where viral_load > 0",
+        "transformation_code": "df['log10_viral_load'] = np.where(df['viral_load'] > 0, np.log10(df['viral_load']), np.nan)",
+        "transformation_description": "Log10 transformation for analysis; NaN for zero/negative values",
+        "notes": "Used for statistical analysis of viral load"
+      },
+      "cd4_count": {
+        "source_file": "ADLB.csv",
+        "source_columns": [
+          "LBORRESN__HEMATOLOGY-CD4CELL"
+        ],
+        "units": "cells/\u00b5L",
+        "formula": null,
+        "transformation_code": "df['cd4_count'] = pd.to_numeric(df['LBORRESN__HEMATOLOGY-CD4CELL'], errors='coerce')",
+        "transformation_description": "Extract CD4 count from wide-format lab results",
+        "notes": "CD4+ T-cell absolute count"
+      },
+      "hemoglobin": {
+        "source_file": "ADLB.csv",
+        "source_columns": [
+          "LBORRESN__HEMATOLOGY-HGB"
+        ],
+        "units": "g/dL",
+        "formula": null,
+        "transformation_code": "df['hemoglobin'] = pd.to_numeric(df['LBORRESN__HEMATOLOGY-HGB'], errors='coerce')",
+        "transformation_description": "Extract hemoglobin from wide-format lab results",
+        "notes": null
+      },
+      "hematocrit": {
+        "source_file": "ADLB.csv",
+        "source_columns": [
+          "LBORRESN__HEMATOLOGY-HCT"
+        ],
+        "units": "%",
+        "formula": null,
+        "transformation_code": "df['hematocrit'] = pd.to_numeric(df['LBORRESN__HEMATOLOGY-HCT'], errors='coerce')",
+        "transformation_description": "Extract hematocrit from wide-format lab results",
+        "notes": null
+      },
+      "wbc": {
+        "source_file": "ADLB.csv",
+        "source_columns": [
+          "LBORRESN__HEMATOLOGY-WBC"
+        ],
+        "units": "10^9/L",
+        "formula": null,
+        "transformation_code": "df['wbc'] = pd.to_numeric(df['LBORRESN__HEMATOLOGY-WBC'], errors='coerce')",
+        "transformation_description": "Extract WBC from wide-format lab results",
+        "notes": "White blood cell count"
+      },
+      "platelets": {
+        "source_file": "ADLB.csv",
+        "source_columns": [
+          "LBORRESN__HEMATOLOGY-PLATELET"
+        ],
+        "units": "10^9/L",
+        "formula": null,
+        "transformation_code": "df['platelets'] = pd.to_numeric(df['LBORRESN__HEMATOLOGY-PLATELET'], errors='coerce')",
+        "transformation_description": "Extract platelet count from wide-format lab results",
+        "notes": null
+      },
+      "ast": {
+        "source_file": "ADLB.csv",
+        "source_columns": [
+          "LBORRESN__CHEMISTRY-AST"
+        ],
+        "units": "U/L",
+        "formula": null,
+        "transformation_code": "df['ast'] = pd.to_numeric(df['LBORRESN__CHEMISTRY-AST'], errors='coerce')",
+        "transformation_description": "Extract AST from wide-format lab results",
+        "notes": "Aspartate aminotransferase (liver enzyme)"
+      },
+      "alt": {
+        "source_file": "ADLB.csv",
+        "source_columns": [
+          "LBORRESN__CHEMISTRY-ALT"
+        ],
+        "units": "U/L",
+        "formula": null,
+        "transformation_code": "df['alt'] = pd.to_numeric(df['LBORRESN__CHEMISTRY-ALT'], errors='coerce')",
+        "transformation_description": "Extract ALT from wide-format lab results",
+        "notes": "Alanine aminotransferase (liver enzyme)"
+      },
+      "creatinine": {
+        "source_file": "ADLB.csv",
+        "source_columns": [
+          "LBORRESN__CHEMISTRY-CREAT"
+        ],
+        "units": "mg/dL",
+        "formula": null,
+        "transformation_code": "df['creatinine'] = pd.to_numeric(df['LBORRESN__CHEMISTRY-CREAT'], errors='coerce')",
+        "transformation_description": "Extract creatinine from wide-format lab results",
+        "notes": "Kidney function marker"
+      },
+      "fasting_glucose": {
+        "source_file": "ADLB.csv",
+        "source_columns": [
+          "LBORRESN__CHEMISTRY-GLUCOSE"
+        ],
+        "units": "mg/dL",
+        "formula": null,
+        "transformation_code": "df['fasting_glucose'] = pd.to_numeric(df['LBORRESN__CHEMISTRY-GLUCOSE'], errors='coerce')",
+        "transformation_description": "Extract glucose from wide-format lab results",
+        "notes": "Fasting blood glucose"
+      },
+      "total_cholesterol": {
+        "source_file": "ADLB.csv",
+        "source_columns": [
+          "LBORRESN__CHEMISTRY-TCHOL"
+        ],
+        "units": "mg/dL",
+        "formula": null,
+        "transformation_code": "df['total_cholesterol'] = pd.to_numeric(df['LBORRESN__CHEMISTRY-TCHOL'], errors='coerce')",
+        "transformation_description": "Extract total cholesterol from wide-format lab results",
+        "notes": null
+      },
+      "hdl_cholesterol": {
+        "source_file": "ADLB.csv",
+        "source_columns": [
+          "LBORRESN__CHEMISTRY-HDL"
+        ],
+        "units": "mg/dL",
+        "formula": null,
+        "transformation_code": "df['hdl_cholesterol'] = pd.to_numeric(df['LBORRESN__CHEMISTRY-HDL'], errors='coerce')",
+        "transformation_description": "Extract HDL cholesterol from wide-format lab results",
+        "notes": "High-density lipoprotein"
+      },
+      "ldl_cholesterol": {
+        "source_file": "ADLB.csv",
+        "source_columns": [
+          "LBORRESN__CHEMISTRY-LDL"
+        ],
+        "units": "mg/dL",
+        "formula": null,
+        "transformation_code": "df['ldl_cholesterol'] = pd.to_numeric(df['LBORRESN__CHEMISTRY-LDL'], errors='coerce')",
+        "transformation_description": "Extract LDL cholesterol from wide-format lab results",
+        "notes": "Low-density lipoprotein"
+      },
+      "triglycerides": {
+        "source_file": "ADLB.csv",
+        "source_columns": [
+          "LBORRESN__CHEMISTRY-TRIGLY"
+        ],
+        "units": "mg/dL",
+        "formula": null,
+        "transformation_code": "df['triglycerides'] = pd.to_numeric(df['LBORRESN__CHEMISTRY-TRIGLY'], errors='coerce')",
+        "transformation_description": "Extract triglycerides from wide-format lab results",
+        "notes": null
+      },
+      "total_bilirubin": {
+        "source_file": "ADLB.csv",
+        "source_columns": [
+          "LBORRESN__CHEMISTRY-TLBILI"
+        ],
+        "units": "mg/dL",
+        "formula": null,
+        "transformation_code": "df['total_bilirubin'] = pd.to_numeric(df['LBORRESN__CHEMISTRY-TLBILI'], errors='coerce')",
+        "transformation_description": "Extract total bilirubin from wide-format lab results",
+        "notes": "Liver function marker"
+      },
+      "albumin": {
+        "source_file": "ADLB.csv",
+        "source_columns": [
+          "LBORRESN__CHEMISTRY-ALBUMIN"
+        ],
+        "units": "g/dL",
+        "formula": null,
+        "transformation_code": "df['albumin'] = pd.to_numeric(df['LBORRESN__CHEMISTRY-ALBUMIN'], errors='coerce')",
+        "transformation_description": "Extract albumin from wide-format lab results",
+        "notes": null
+      },
+      "sodium": {
+        "source_file": "ADLB.csv",
+        "source_columns": [
+          "LBORRESN__CHEMISTRY-SODIUM"
+        ],
+        "units": "mEq/L",
+        "formula": null,
+        "transformation_code": "df['sodium'] = pd.to_numeric(df['LBORRESN__CHEMISTRY-SODIUM'], errors='coerce')",
+        "transformation_description": "Extract sodium from wide-format lab results",
+        "notes": null
+      },
+      "potassium": {
+        "source_file": "ADLB.csv",
+        "source_columns": [
+          "LBORRESN__CHEMISTRY-K"
+        ],
+        "units": "mEq/L",
+        "formula": null,
+        "transformation_code": "df['potassium'] = pd.to_numeric(df['LBORRESN__CHEMISTRY-K'], errors='coerce')",
+        "transformation_description": "Extract potassium from wide-format lab results",
+        "notes": null
+      },
+      "systolic_bp": {
+        "source_file": "ADVS.csv",
+        "source_columns": [
+          "SYSBP"
+        ],
+        "units": "mmHg",
+        "formula": null,
+        "transformation_code": "df['systolic_bp'] = pd.to_numeric(df['SYSBP'], errors='coerce')",
+        "transformation_description": "Extract systolic blood pressure",
+        "notes": null
+      },
+      "diastolic_bp": {
+        "source_file": "ADVS.csv",
+        "source_columns": [
+          "DIABP"
+        ],
+        "units": "mmHg",
+        "formula": null,
+        "transformation_code": "df['diastolic_bp'] = pd.to_numeric(df['DIABP'], errors='coerce')",
+        "transformation_description": "Extract diastolic blood pressure",
+        "notes": null
+      },
+      "heart_rate": {
+        "source_file": "ADVS.csv",
+        "source_columns": [
+          "PULSE"
+        ],
+        "units": "bpm",
+        "formula": null,
+        "transformation_code": "df['heart_rate'] = pd.to_numeric(df['PULSE'], errors='coerce')",
+        "transformation_description": "Extract heart rate/pulse",
+        "notes": null
+      },
+      "height_cm": {
+        "source_file": "ADVS.csv",
+        "source_columns": [
+          "HEIGHT"
+        ],
+        "units": "cm",
+        "formula": null,
+        "transformation_code": "df['height_cm'] = pd.to_numeric(df['HEIGHT'], errors='coerce')",
+        "transformation_description": "Extract height in centimeters",
+        "notes": null
+      },
+      "weight_kg": {
+        "source_file": "ADVS.csv",
+        "source_columns": [
+          "WEIGHT"
+        ],
+        "units": "kg",
+        "formula": null,
+        "transformation_code": "df['weight_kg'] = pd.to_numeric(df['WEIGHT'], errors='coerce')",
+        "transformation_description": "Extract weight in kilograms",
+        "notes": null
+      },
+      "bmi": {
+        "source_file": "DERIVED",
+        "source_columns": [
+          "HEIGHT",
+          "WEIGHT"
+        ],
+        "units": "kg/m\u00b2",
+        "formula": "weight_kg / (height_cm / 100)\u00b2",
+        "transformation_code": "height_m = df['height_cm'] / 100\ndf['bmi'] = df['weight_kg'] / (height_m ** 2)",
+        "transformation_description": "Calculate BMI from height and weight using standard formula",
+        "notes": "BMI = weight(kg) / height(m)\u00b2; height converted from cm to m"
+      },
+      "hiv_status": {
+        "source_file": "STUDY_DESIGN",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['hiv_status'] = 'Positive'",
+        "transformation_description": "All participants HIV-positive by study design (inclusion criteria)",
+        "notes": "Study inclusion criterion: HIV-positive adults"
+      },
+      "hiv_positive": {
+        "source_file": "STUDY_DESIGN",
+        "source_columns": [],
+        "units": "boolean (0/1)",
+        "formula": null,
+        "transformation_code": "df['hiv_positive'] = 1",
+        "transformation_description": "All participants HIV-positive by study design",
+        "notes": "1 = HIV-positive; study inclusion criterion"
+      },
+      "on_art": {
+        "source_file": "STUDY_DESIGN",
+        "source_columns": [],
+        "units": "boolean (0/1)",
+        "formula": null,
+        "transformation_code": "df['on_art'] = 1",
+        "transformation_description": "All participants on ART by study design (ART trial)",
+        "notes": "1 = on ART; this is an antiretroviral therapy trial"
+      }
+    }
+  },
+  "JHB_WRHI_003": {
+    "study_info": {
+      "study_name": "WRHI003 Low-dose Ritonavir-boosted Darunavir HIV Trial",
+      "study_type": "Randomized Controlled Trial",
+      "data_format": "Listings Format (Clinical trial listings)",
+      "site": "Charlotte Maxeke Johannesburg Academic Hospital",
+      "source_path": "/home/cparker/incoming/RP2/JHB_WRHI_003/csv",
+      "population": "HIV-positive adults on ART",
+      "duration": "48 weeks follow-up"
+    },
+    "harmonization_info": {
+      "harmonization_version": "2.0_LONGITUDINAL",
+      "harmonizer_script": "JHB_WRHI_003_LONGITUDINAL_HARMONIZER.py",
+      "harmonization_date": "2025-12-02"
+    },
+    "study_notes": [
+      "All participants are HIV-positive adults on ART",
+      "Randomized to low-dose ritonavir-boosted darunavir regimens",
+      "Data in 'Listings' format - each lab domain in separate file",
+      "Viral load stored as text ('Not detected', '< 50', numeric values)"
+    ],
+    "source_files": {
+      "Listing 03 - Demographics All Randomised Set.csv": {
+        "description": "Baseline demographics for all randomized patients",
+        "records": 300,
+        "key_columns": [
+          "ptd",
+          "randdate",
+          "txgroup",
+          "age",
+          "sex",
+          "race",
+          "height",
+          "weight"
+        ]
+      },
+      "Listing 09 - HIV-1 RNA All Randomised Set.csv": {
+        "description": "HIV viral load measurements (longitudinal)",
+        "records": 1510,
+        "key_columns": [
+          "ptd",
+          "visit",
+          "colldate",
+          "txgroup",
+          "result"
+        ]
+      },
+      "Listing 11 - Haematology All Randomised Set.csv": {
+        "description": "Hematology panel including CD4 (longitudinal)",
+        "records": 1487,
+        "key_columns": [
+          "ptd",
+          "visit",
+          "colldate",
+          "result__*"
+        ]
+      },
+      "Listing 12 - Chemistry All Randomised Set.csv": {
+        "description": "Chemistry panel (longitudinal)",
+        "records": 1517,
+        "key_columns": [
+          "ptd",
+          "visit",
+          "colldate",
+          "result__*"
+        ]
+      },
+      "Listing 14 - Vitals Signs All Randomised Set.csv": {
+        "description": "Vital signs measurements (longitudinal)",
+        "records": 2127,
+        "key_columns": [
+          "ptd",
+          "visit",
+          "visit_date",
+          "systolic_BP",
+          "diastolic_BP",
+          "heart_rate"
+        ]
+      }
+    },
+    "variable_lineage": {
+      "patient_id": {
+        "source_file": "Listing 03 - Demographics All Randomised Set.csv",
+        "source_columns": [
+          "ptd"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['patient_id'] = df['ptd']",
+        "transformation_description": "Direct mapping of participant ID",
+        "notes": "Unique patient identifier"
+      },
+      "randomization_date": {
+        "source_file": "Listing 03 - Demographics All Randomised Set.csv",
+        "source_columns": [
+          "randdate"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['randomization_date'] = pd.to_datetime(df['randdate'])",
+        "transformation_description": "Convert to datetime format",
+        "notes": "Date of randomization to treatment arm"
+      },
+      "treatment_arm": {
+        "source_file": "Listing 03 - Demographics All Randomised Set.csv",
+        "source_columns": [
+          "txgroup"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['treatment_arm'] = df['txgroup']",
+        "transformation_description": "Direct mapping of treatment group",
+        "notes": "Assigned treatment arm"
+      },
+      "age_years": {
+        "source_file": "Listing 03 - Demographics All Randomised Set.csv",
+        "source_columns": [
+          "age"
+        ],
+        "units": "years",
+        "formula": null,
+        "transformation_code": "df['age_years'] = pd.to_numeric(df['age'], errors='coerce')",
+        "transformation_description": "Convert to numeric",
+        "notes": "Age at enrollment"
+      },
+      "sex": {
+        "source_file": "Listing 03 - Demographics All Randomised Set.csv",
+        "source_columns": [
+          "sex"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['sex'] = df['sex'].str.capitalize()",
+        "transformation_description": "Capitalize first letter for consistency",
+        "notes": "Standardized to 'Male'/'Female'"
+      },
+      "race": {
+        "source_file": "Listing 03 - Demographics All Randomised Set.csv",
+        "source_columns": [
+          "race"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['race'] = df['race']",
+        "transformation_description": "Direct mapping",
+        "notes": null
+      },
+      "height_cm": {
+        "source_file": "Listing 03 - Demographics All Randomised Set.csv",
+        "source_columns": [
+          "height"
+        ],
+        "units": "cm",
+        "formula": null,
+        "transformation_code": "df['height_cm'] = pd.to_numeric(df['height'], errors='coerce')",
+        "transformation_description": "Convert to numeric",
+        "notes": "Height at baseline"
+      },
+      "weight_kg": {
+        "source_file": "Listing 03 - Demographics All Randomised Set.csv",
+        "source_columns": [
+          "weight"
+        ],
+        "units": "kg",
+        "formula": null,
+        "transformation_code": "df['weight_kg'] = pd.to_numeric(df['weight'], errors='coerce')",
+        "transformation_description": "Convert to numeric",
+        "notes": "Weight at baseline"
+      },
+      "bmi": {
+        "source_file": "DERIVED",
+        "source_columns": [
+          "height",
+          "weight"
+        ],
+        "units": "kg/m\u00b2",
+        "formula": "weight_kg / (height_cm / 100)\u00b2",
+        "transformation_code": "df['height_m'] = df['height_cm'] / 100\ndf['bmi'] = df['weight_kg'] / (df['height_m'] ** 2)",
+        "transformation_description": "Calculate BMI from height (converted to meters) and weight",
+        "notes": "Standard BMI formula: weight(kg) / height(m)\u00b2"
+      },
+      "visit": {
+        "source_file": "Multiple files",
+        "source_columns": [
+          "visit"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "def standardize_visit(visit):\n    if pd.isna(visit):\n        return None\n    visit = str(visit).lower().strip()\n    if 'screening' in visit:\n        return 'screening'\n    elif 'enrolment' in visit:\n        return 'enrolment'\n    elif 'week 04' in visit or 'week04' in visit:\n        return 'week_04'\n    elif 'week 12' in visit or 'week12' in visit:\n        return 'week_12'\n    elif 'week 24' in visit or 'week24' in visit:\n        return 'week_24'\n    elif 'week 36' in visit or 'week36' in visit:\n        return 'week_36'\n    elif 'week 48' in visit or 'week48' in visit:\n        return 'week_48'\n    elif 'early' in visit or 'term' in visit:\n        return 'early_termination'\n    elif 'unschedule' in visit:\n        return 'unscheduled'\n    else:\n        return 'other'\ndf['visit'] = df['visit'].apply(standardize_visit)",
+        "transformation_description": "Standardize visit names to consistent format",
+        "notes": "Original visit names vary; standardized to: screening, enrolment, week_04, week_12, week_24, week_36, week_48, early_termination, unscheduled"
+      },
+      "visit_date": {
+        "source_file": "Listing 09 - HIV-1 RNA All Randomised Set.csv",
+        "source_columns": [
+          "colldate"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['visit_date'] = pd.to_datetime(df['colldate'], format='%Y%m%d', errors='coerce')",
+        "transformation_description": "Convert YYYYMMDD integer to datetime",
+        "notes": "Collection date in numeric YYYYMMDD format"
+      },
+      "viral_load": {
+        "source_file": "Listing 09 - HIV-1 RNA All Randomised Set.csv",
+        "source_columns": [
+          "result"
+        ],
+        "units": "copies/mL",
+        "formula": null,
+        "transformation_code": "def parse_viral_load(val):\n    if pd.isna(val):\n        return np.nan\n    val_str = str(val).strip().lower()\n    if val_str in ['not detected', 'not detect']:\n        return 0  # Undetectable\n    elif val_str.startswith('< '):\n        try:\n            return float(val_str.replace('< ', ''))\n        except:\n            return np.nan\n    else:\n        try:\n            return float(val_str)\n        except:\n            return np.nan\ndf['viral_load'] = df['result'].apply(parse_viral_load)",
+        "transformation_description": "Parse text viral load values: 'Not detected'\u21920, '< X'\u2192X, numeric\u2192numeric",
+        "notes": "IMPORTANT: This is an ART trial - patients are on treatment. Low/undetectable viral loads are EXPECTED and CORRECT. 0 means undetectable, not missing."
+      },
+      "viral_load_raw": {
+        "source_file": "Listing 09 - HIV-1 RNA All Randomised Set.csv",
+        "source_columns": [
+          "result"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['viral_load_raw'] = df['result']",
+        "transformation_description": "Preserve original text value for audit",
+        "notes": "Original text preserved: 'Not detected', '< 50', numeric values"
+      },
+      "viral_load_undetectable": {
+        "source_file": "DERIVED",
+        "source_columns": [
+          "viral_load"
+        ],
+        "units": "boolean (0/1)",
+        "formula": "viral_load == 0",
+        "transformation_code": "df['viral_load_undetectable'] = (df['viral_load'] == 0).astype(int)",
+        "transformation_description": "Flag for undetectable viral load",
+        "notes": "1 = undetectable (viral_load == 0), 0 = detectable"
+      },
+      "log10_viral_load": {
+        "source_file": "DERIVED",
+        "source_columns": [
+          "viral_load"
+        ],
+        "units": "log10(copies/mL)",
+        "formula": "log10(viral_load) where viral_load > 0",
+        "transformation_code": "df['log10_viral_load'] = np.where(df['viral_load'] > 0, np.log10(df['viral_load']), np.nan)",
+        "transformation_description": "Log10 transformation; NaN for undetectable (0) values",
+        "notes": "Used for statistical analysis; undetectable values become NaN"
+      },
+      "cd4_count": {
+        "source_file": "Listing 11 - Haematology All Randomised Set.csv",
+        "source_columns": [
+          "result__CD4 cell count"
+        ],
+        "units": "cells/\u00b5L",
+        "formula": null,
+        "transformation_code": "df['cd4_count'] = pd.to_numeric(df['result__CD4 cell count'], errors='coerce')",
+        "transformation_description": "Extract CD4 count from pivot-formatted hematology data",
+        "notes": "CD4+ T-lymphocyte absolute count"
+      },
+      "hemoglobin": {
+        "source_file": "Listing 11 - Haematology All Randomised Set.csv",
+        "source_columns": [
+          "result__hemoglobin"
+        ],
+        "units": "g/dL",
+        "formula": null,
+        "transformation_code": "df['hemoglobin'] = pd.to_numeric(df['result__hemoglobin'], errors='coerce')",
+        "transformation_description": "Extract hemoglobin from pivot-formatted hematology data",
+        "notes": null
+      },
+      "wbc": {
+        "source_file": "Listing 11 - Haematology All Randomised Set.csv",
+        "source_columns": [
+          "result__WBC"
+        ],
+        "units": "10^9/L",
+        "formula": null,
+        "transformation_code": "df['wbc'] = pd.to_numeric(df['result__WBC'], errors='coerce')",
+        "transformation_description": "Extract WBC from pivot-formatted hematology data",
+        "notes": "White blood cell count"
+      },
+      "rbc": {
+        "source_file": "Listing 11 - Haematology All Randomised Set.csv",
+        "source_columns": [
+          "result__RBC"
+        ],
+        "units": "10^12/L",
+        "formula": null,
+        "transformation_code": "df['rbc'] = pd.to_numeric(df['result__RBC'], errors='coerce')",
+        "transformation_description": "Extract RBC from pivot-formatted hematology data",
+        "notes": "Red blood cell count"
+      },
+      "platelets": {
+        "source_file": "Listing 11 - Haematology All Randomised Set.csv",
+        "source_columns": [
+          "result__platelets"
+        ],
+        "units": "10^9/L",
+        "formula": null,
+        "transformation_code": "df['platelets'] = pd.to_numeric(df['result__platelets'], errors='coerce')",
+        "transformation_description": "Extract platelets from pivot-formatted hematology data",
+        "notes": null
+      },
+      "neutrophils": {
+        "source_file": "Listing 11 - Haematology All Randomised Set.csv",
+        "source_columns": [
+          "result__neutrophils"
+        ],
+        "units": "10^9/L",
+        "formula": null,
+        "transformation_code": "df['neutrophils'] = pd.to_numeric(df['result__neutrophils'], errors='coerce')",
+        "transformation_description": "Extract neutrophils from pivot-formatted hematology data",
+        "notes": null
+      },
+      "lymphocytes": {
+        "source_file": "Listing 11 - Haematology All Randomised Set.csv",
+        "source_columns": [
+          "result__lymphocytes"
+        ],
+        "units": "10^9/L",
+        "formula": null,
+        "transformation_code": "df['lymphocytes'] = pd.to_numeric(df['result__lymphocytes'], errors='coerce')",
+        "transformation_description": "Extract lymphocytes from pivot-formatted hematology data",
+        "notes": null
+      },
+      "monocytes": {
+        "source_file": "Listing 11 - Haematology All Randomised Set.csv",
+        "source_columns": [
+          "result__monocytes"
+        ],
+        "units": "10^9/L",
+        "formula": null,
+        "transformation_code": "df['monocytes'] = pd.to_numeric(df['result__monocytes'], errors='coerce')",
+        "transformation_description": "Extract monocytes from pivot-formatted hematology data",
+        "notes": null
+      },
+      "eosinophils": {
+        "source_file": "Listing 11 - Haematology All Randomised Set.csv",
+        "source_columns": [
+          "result__eosinophils"
+        ],
+        "units": "10^9/L",
+        "formula": null,
+        "transformation_code": "df['eosinophils'] = pd.to_numeric(df['result__eosinophils'], errors='coerce')",
+        "transformation_description": "Extract eosinophils from pivot-formatted hematology data",
+        "notes": null
+      },
+      "basophils": {
+        "source_file": "Listing 11 - Haematology All Randomised Set.csv",
+        "source_columns": [
+          "result__Basophils"
+        ],
+        "units": "10^9/L",
+        "formula": null,
+        "transformation_code": "df['basophils'] = pd.to_numeric(df['result__Basophils'], errors='coerce')",
+        "transformation_description": "Extract basophils from pivot-formatted hematology data",
+        "notes": "Note: source column uses capital B"
+      },
+      "mcv": {
+        "source_file": "Listing 11 - Haematology All Randomised Set.csv",
+        "source_columns": [
+          "result__MCV"
+        ],
+        "units": "fL",
+        "formula": null,
+        "transformation_code": "df['mcv'] = pd.to_numeric(df['result__MCV'], errors='coerce')",
+        "transformation_description": "Extract MCV from pivot-formatted hematology data",
+        "notes": "Mean corpuscular volume"
+      },
+      "mch": {
+        "source_file": "Listing 11 - Haematology All Randomised Set.csv",
+        "source_columns": [
+          "result__Mean Corpsular Hemoglobin"
+        ],
+        "units": "pg",
+        "formula": null,
+        "transformation_code": "df['mch'] = pd.to_numeric(df['result__Mean Corpsular Hemoglobin'], errors='coerce')",
+        "transformation_description": "Extract MCH from pivot-formatted hematology data",
+        "notes": "Mean corpuscular hemoglobin; note source has typo 'Corpsular'"
+      },
+      "mchc": {
+        "source_file": "Listing 11 - Haematology All Randomised Set.csv",
+        "source_columns": [
+          "result__MCHC"
+        ],
+        "units": "g/dL",
+        "formula": null,
+        "transformation_code": "df['mchc'] = pd.to_numeric(df['result__MCHC'], errors='coerce')",
+        "transformation_description": "Extract MCHC from pivot-formatted hematology data",
+        "notes": "Mean corpuscular hemoglobin concentration"
+      },
+      "rdw": {
+        "source_file": "Listing 11 - Haematology All Randomised Set.csv",
+        "source_columns": [
+          "result__RDW"
+        ],
+        "units": "%",
+        "formula": null,
+        "transformation_code": "df['rdw'] = pd.to_numeric(df['result__RDW'], errors='coerce')",
+        "transformation_description": "Extract RDW from pivot-formatted hematology data",
+        "notes": "Red cell distribution width"
+      },
+      "ast": {
+        "source_file": "Listing 12 - Chemistry All Randomised Set.csv",
+        "source_columns": [
+          "result__AST"
+        ],
+        "units": "U/L",
+        "formula": null,
+        "transformation_code": "df['ast'] = pd.to_numeric(df['result__AST'], errors='coerce')",
+        "transformation_description": "Extract AST from pivot-formatted chemistry data",
+        "notes": "Aspartate aminotransferase (liver enzyme)"
+      },
+      "alt": {
+        "source_file": "Listing 12 - Chemistry All Randomised Set.csv",
+        "source_columns": [
+          "result__ALT"
+        ],
+        "units": "U/L",
+        "formula": null,
+        "transformation_code": "df['alt'] = pd.to_numeric(df['result__ALT'], errors='coerce')",
+        "transformation_description": "Extract ALT from pivot-formatted chemistry data",
+        "notes": "Alanine aminotransferase (liver enzyme)"
+      },
+      "creatinine": {
+        "source_file": "Listing 12 - Chemistry All Randomised Set.csv",
+        "source_columns": [
+          "result__creatinine, serum"
+        ],
+        "units": "\u00b5mol/L",
+        "formula": null,
+        "transformation_code": "df['creatinine'] = pd.to_numeric(df['result__creatinine, serum'], errors='coerce')",
+        "transformation_description": "Extract serum creatinine from pivot-formatted chemistry data",
+        "notes": "Units are \u00b5mol/L (not mg/dL); kidney function marker"
+      },
+      "creatinine_clearance": {
+        "source_file": "Listing 12 - Chemistry All Randomised Set.csv",
+        "source_columns": [
+          "result__creatinine clearance"
+        ],
+        "units": "mL/min",
+        "formula": null,
+        "transformation_code": "df['creatinine_clearance'] = pd.to_numeric(df['result__creatinine clearance'], errors='coerce')",
+        "transformation_description": "Extract creatinine clearance from pivot-formatted chemistry data",
+        "notes": "Estimated kidney function"
+      },
+      "total_cholesterol": {
+        "source_file": "Listing 12 - Chemistry All Randomised Set.csv",
+        "source_columns": [
+          "result__cholesterol"
+        ],
+        "units": "mmol/L",
+        "formula": null,
+        "transformation_code": "df['total_cholesterol'] = pd.to_numeric(df['result__cholesterol'], errors='coerce')",
+        "transformation_description": "Extract total cholesterol from pivot-formatted chemistry data",
+        "notes": "Units are mmol/L (not mg/dL)"
+      },
+      "hdl_cholesterol": {
+        "source_file": "Listing 12 - Chemistry All Randomised Set.csv",
+        "source_columns": [
+          "result__HDL"
+        ],
+        "units": "mmol/L",
+        "formula": null,
+        "transformation_code": "df['hdl_cholesterol'] = pd.to_numeric(df['result__HDL'], errors='coerce')",
+        "transformation_description": "Extract HDL cholesterol from pivot-formatted chemistry data",
+        "notes": "High-density lipoprotein; units are mmol/L"
+      },
+      "ldl_cholesterol": {
+        "source_file": "Listing 12 - Chemistry All Randomised Set.csv",
+        "source_columns": [
+          "result__LDL"
+        ],
+        "units": "mmol/L",
+        "formula": null,
+        "transformation_code": "df['ldl_cholesterol'] = pd.to_numeric(df['result__LDL'], errors='coerce')",
+        "transformation_description": "Extract LDL cholesterol from pivot-formatted chemistry data",
+        "notes": "Low-density lipoprotein; units are mmol/L"
+      },
+      "fasting_glucose": {
+        "source_file": "Listing 12 - Chemistry All Randomised Set.csv",
+        "source_columns": [
+          "result__fasting glucose"
+        ],
+        "units": "mmol/L",
+        "formula": null,
+        "transformation_code": "df['fasting_glucose'] = pd.to_numeric(df['result__fasting glucose'], errors='coerce')",
+        "transformation_description": "Extract fasting glucose from pivot-formatted chemistry data",
+        "notes": "Units are mmol/L (not mg/dL)"
+      },
+      "cholesterol_hdl_ratio": {
+        "source_file": "Listing 12 - Chemistry All Randomised Set.csv",
+        "source_columns": [
+          "result__cholestero/HDL ratio"
+        ],
+        "units": "ratio",
+        "formula": null,
+        "transformation_code": "df['cholesterol_hdl_ratio'] = pd.to_numeric(df['result__cholestero/HDL ratio'], errors='coerce')",
+        "transformation_description": "Extract cholesterol/HDL ratio from pivot-formatted chemistry data",
+        "notes": "Cardiovascular risk ratio; note source has typo 'cholestero'"
+      },
+      "systolic_bp": {
+        "source_file": "Listing 14 - Vitals Signs All Randomised Set.csv",
+        "source_columns": [
+          "systolic_BP"
+        ],
+        "units": "mmHg",
+        "formula": null,
+        "transformation_code": "df['systolic_bp'] = pd.to_numeric(df['systolic_BP'], errors='coerce')",
+        "transformation_description": "Extract systolic blood pressure",
+        "notes": null
+      },
+      "diastolic_bp": {
+        "source_file": "Listing 14 - Vitals Signs All Randomised Set.csv",
+        "source_columns": [
+          "diastolic_BP"
+        ],
+        "units": "mmHg",
+        "formula": null,
+        "transformation_code": "df['diastolic_bp'] = pd.to_numeric(df['diastolic_BP'], errors='coerce')",
+        "transformation_description": "Extract diastolic blood pressure",
+        "notes": null
+      },
+      "heart_rate": {
+        "source_file": "Listing 14 - Vitals Signs All Randomised Set.csv",
+        "source_columns": [
+          "heart_rate"
+        ],
+        "units": "bpm",
+        "formula": null,
+        "transformation_code": "df['heart_rate'] = pd.to_numeric(df['heart_rate'], errors='coerce')",
+        "transformation_description": "Extract heart rate",
+        "notes": null
+      },
+      "respiratory_rate": {
+        "source_file": "Listing 14 - Vitals Signs All Randomised Set.csv",
+        "source_columns": [
+          "respiratory_rate"
+        ],
+        "units": "breaths/min",
+        "formula": null,
+        "transformation_code": "df['respiratory_rate'] = pd.to_numeric(df['respiratory_rate'], errors='coerce')",
+        "transformation_description": "Extract respiratory rate",
+        "notes": null
+      },
+      "temperature_c": {
+        "source_file": "Listing 14 - Vitals Signs All Randomised Set.csv",
+        "source_columns": [
+          "oral_temperature"
+        ],
+        "units": "\u00b0C",
+        "formula": null,
+        "transformation_code": "df['temperature_c'] = pd.to_numeric(df['oral_temperature'], errors='coerce')\ndf.loc[df['temperature_c'] > 45, 'temperature_c'] = np.nan\ndf.loc[df['temperature_c'] < 30, 'temperature_c'] = np.nan",
+        "transformation_description": "Extract oral temperature; remove outliers (>45\u00b0C or <30\u00b0C set to NaN)",
+        "notes": "Outlier removal: physiologically impossible values (>45\u00b0C or <30\u00b0C) set to NaN"
+      },
+      "hiv_status": {
+        "source_file": "STUDY_DESIGN",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['hiv_status'] = 'Positive'",
+        "transformation_description": "All participants HIV-positive by study design",
+        "notes": "Study inclusion criterion"
+      },
+      "hiv_positive": {
+        "source_file": "STUDY_DESIGN",
+        "source_columns": [],
+        "units": "boolean (0/1)",
+        "formula": null,
+        "transformation_code": "df['hiv_positive'] = 1",
+        "transformation_description": "All participants HIV-positive by study design",
+        "notes": "1 = HIV-positive"
+      },
+      "on_art": {
+        "source_file": "STUDY_DESIGN",
+        "source_columns": [],
+        "units": "boolean (0/1)",
+        "formula": null,
+        "transformation_code": "df['on_art'] = 1",
+        "transformation_description": "All participants on ART by study design",
+        "notes": "This is an ART trial"
+      }
+    }
+  },
+  "JHB_ACTG_015": {
+    "study_info": {
+      "study_name": "ACTG 5208 - Nevirapine HIV Trial",
+      "study_type": "Randomized Controlled Trial",
+      "data_format": "ACTG Standard (coded column names requiring metadata lookup)",
+      "site": "Johannesburg, South Africa",
+      "source_path": "/home/cparker/incoming/RP2/JHB_ACTG_015/csv",
+      "population": "HIV-positive African women",
+      "duration": "Multi-year follow-up"
+    },
+    "harmonization_info": {
+      "harmonization_version": "2.0_ENHANCED",
+      "harmonizer_script": "JHB_ACTG_015_ENHANCED_HARMONIZER.py",
+      "harmonization_date": "2025-12-02"
+    },
+    "study_notes": [
+      "All participants are HIV-positive African women",
+      "ACTG data uses coded column names (e.g., tf515, cp110) requiring metadata lookup",
+      "ACTG missing codes: -1 = Missing, -2 = Not applicable, -4 = Other missing",
+      "Dates stored as separate year/month/day components, NOT Modified Julian Date",
+      "Column name format: {code}__{source_file} (e.g., copies__L_RNAFIN)"
+    ],
+    "source_files": {
+      "L_RNAFIN.csv": {
+        "description": "HIV-1 RNA viral load measurements",
+        "records": "~2,300",
+        "key_columns": [
+          "patid__L_RNAFIN",
+          "copies__L_RNAFIN",
+          "drawdy__L_RNAFIN",
+          "drawdm__L_RNAFIN",
+          "drawdd__L_RNAFIN"
+        ]
+      },
+      "LBW0054.csv": {
+        "description": "CD4 counts and immunology panel",
+        "records": "~1,250",
+        "key_columns": [
+          "patid__LBW0054",
+          "tf515__LBW0054 (CD4 count)",
+          "tf513__LBW0054 (CD4 percent)"
+        ]
+      },
+      "LBW0057A.csv": {
+        "description": "Complete Blood Count / Hematology panel",
+        "records": "~340",
+        "key_columns": [
+          "patid__LBW0057A",
+          "cp110__LBW0057A (hemoglobin)",
+          "cp114__LBW0057A (hematocrit)",
+          "cp158__LBW0057A (platelets)"
+        ]
+      },
+      "LBW0057B.csv": {
+        "description": "Chemistry panel",
+        "records": "~340",
+        "key_columns": [
+          "patid__LBW0057B",
+          "cp253__LBW0057B (AST)",
+          "cp258__LBW0057B (ALT)",
+          "cp216__LBW0057B (creatinine)"
+        ]
+      }
+    },
+    "variable_lineage": {
+      "patient_id": {
+        "source_file": "L_RNAFIN.csv",
+        "source_columns": [
+          "patid__L_RNAFIN"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['patient_id'] = df['patid__L_RNAFIN']",
+        "transformation_description": "Direct mapping of ACTG patient ID",
+        "notes": "ACTG column naming: {variable}__{source_file}"
+      },
+      "visit_date": {
+        "source_file": "L_RNAFIN.csv",
+        "source_columns": [
+          "drawdy__L_RNAFIN",
+          "drawdm__L_RNAFIN",
+          "drawdd__L_RNAFIN"
+        ],
+        "units": null,
+        "formula": "date(year=drawdy, month=drawdm, day=drawdd)",
+        "transformation_code": "# Construct date from separate year/month/day columns\ndf['visit_date'] = pd.to_datetime(\n    df['drawdy__L_RNAFIN'].astype(str) + '-' +\n    df['drawdm__L_RNAFIN'].astype(str).str.zfill(2) + '-' +\n    df['drawdd__L_RNAFIN'].astype(str).str.zfill(2),\n    format='%Y-%m-%d',\n    errors='coerce'\n)",
+        "transformation_description": "Construct date from 3 separate columns: drawdy (year), drawdm (month), drawdd (day)",
+        "notes": "ACTG stores dates as separate components, NOT as Modified Julian Date. Earlier attempts using MJD produced incorrect dates (year 8548)."
+      },
+      "viral_load": {
+        "source_file": "L_RNAFIN.csv",
+        "source_columns": [
+          "copies__L_RNAFIN"
+        ],
+        "units": "copies/mL",
+        "formula": null,
+        "transformation_code": "df['viral_load'] = pd.to_numeric(df['copies__L_RNAFIN'], errors='coerce')\n# Handle ACTG missing codes\ndf.loc[df['viral_load'].isin([-1, -2, -4]), 'viral_load'] = np.nan",
+        "transformation_description": "Extract viral load; convert ACTG missing codes (-1, -2, -4) to NaN",
+        "notes": "ACTG uses negative values for missing data: -1=Missing, -2=Not applicable, -4=Other missing"
+      },
+      "cd4_count": {
+        "source_file": "LBW0054.csv",
+        "source_columns": [
+          "tf515__LBW0054"
+        ],
+        "units": "cells/\u00b5L",
+        "formula": null,
+        "transformation_code": "df['cd4_count'] = pd.to_numeric(df['tf515__LBW0054'], errors='coerce')\n# Handle ACTG missing codes\ndf.loc[df['cd4_count'].isin([-1, -2, -4]), 'cd4_count'] = np.nan",
+        "transformation_description": "Extract CD4 absolute count; convert ACTG missing codes to NaN",
+        "notes": "tf515 = CD3+4+ absolute count per ACTG codebook"
+      },
+      "cd4_percent": {
+        "source_file": "LBW0054.csv",
+        "source_columns": [
+          "tf513__LBW0054"
+        ],
+        "units": "%",
+        "formula": null,
+        "transformation_code": "df['cd4_percent'] = pd.to_numeric(df['tf513__LBW0054'], errors='coerce')\ndf.loc[df['cd4_percent'].isin([-1, -2, -4]), 'cd4_percent'] = np.nan",
+        "transformation_description": "Extract CD4 percent; convert ACTG missing codes to NaN",
+        "notes": "tf513 = CD3+4+ percent per ACTG codebook"
+      },
+      "hemoglobin": {
+        "source_file": "LBW0057A.csv",
+        "source_columns": [
+          "cp110__LBW0057A"
+        ],
+        "units": "g/dL",
+        "formula": null,
+        "transformation_code": "df['hemoglobin'] = pd.to_numeric(df['cp110__LBW0057A'], errors='coerce')\ndf.loc[df['hemoglobin'].isin([-1, -2, -4]), 'hemoglobin'] = np.nan",
+        "transformation_description": "Extract hemoglobin; convert ACTG missing codes to NaN",
+        "notes": "cp110 = hemoglobin per ACTG codebook"
+      },
+      "hematocrit": {
+        "source_file": "LBW0057A.csv",
+        "source_columns": [
+          "cp114__LBW0057A"
+        ],
+        "units": "%",
+        "formula": null,
+        "transformation_code": "df['hematocrit'] = pd.to_numeric(df['cp114__LBW0057A'], errors='coerce')\ndf.loc[df['hematocrit'].isin([-1, -2, -4]), 'hematocrit'] = np.nan",
+        "transformation_description": "Extract hematocrit; convert ACTG missing codes to NaN",
+        "notes": "cp114 = hematocrit per ACTG codebook"
+      },
+      "platelets": {
+        "source_file": "LBW0057A.csv",
+        "source_columns": [
+          "cp158__LBW0057A"
+        ],
+        "units": "10^9/L",
+        "formula": null,
+        "transformation_code": "df['platelets'] = pd.to_numeric(df['cp158__LBW0057A'], errors='coerce')\ndf.loc[df['platelets'].isin([-1, -2, -4]), 'platelets'] = np.nan",
+        "transformation_description": "Extract platelet count; convert ACTG missing codes to NaN",
+        "notes": "cp158 = platelets per ACTG codebook"
+      },
+      "ast": {
+        "source_file": "LBW0057B.csv",
+        "source_columns": [
+          "cp253__LBW0057B"
+        ],
+        "units": "U/L",
+        "formula": null,
+        "transformation_code": "df['ast'] = pd.to_numeric(df['cp253__LBW0057B'], errors='coerce')\ndf.loc[df['ast'].isin([-1, -2, -4]), 'ast'] = np.nan",
+        "transformation_description": "Extract AST; convert ACTG missing codes to NaN",
+        "notes": "cp253 = AST per ACTG codebook"
+      },
+      "alt": {
+        "source_file": "LBW0057B.csv",
+        "source_columns": [
+          "cp258__LBW0057B"
+        ],
+        "units": "U/L",
+        "formula": null,
+        "transformation_code": "df['alt'] = pd.to_numeric(df['cp258__LBW0057B'], errors='coerce')\ndf.loc[df['alt'].isin([-1, -2, -4]), 'alt'] = np.nan",
+        "transformation_description": "Extract ALT; convert ACTG missing codes to NaN",
+        "notes": "cp258 = ALT per ACTG codebook"
+      },
+      "creatinine": {
+        "source_file": "LBW0057B.csv",
+        "source_columns": [
+          "cp216__LBW0057B"
+        ],
+        "units": "mg/dL",
+        "formula": null,
+        "transformation_code": "df['creatinine'] = pd.to_numeric(df['cp216__LBW0057B'], errors='coerce')\ndf.loc[df['creatinine'].isin([-1, -2, -4]), 'creatinine'] = np.nan",
+        "transformation_description": "Extract creatinine; convert ACTG missing codes to NaN",
+        "notes": "cp216 = creatinine per ACTG codebook"
+      },
+      "sodium": {
+        "source_file": "LBW0057B.csv",
+        "source_columns": [
+          "cp194__LBW0057B"
+        ],
+        "units": "mEq/L",
+        "formula": null,
+        "transformation_code": "df['sodium'] = pd.to_numeric(df['cp194__LBW0057B'], errors='coerce')\ndf.loc[df['sodium'].isin([-1, -2, -4]), 'sodium'] = np.nan",
+        "transformation_description": "Extract sodium; convert ACTG missing codes to NaN",
+        "notes": "cp194 = sodium per ACTG codebook"
+      },
+      "albumin": {
+        "source_file": "LBW0057B.csv",
+        "source_columns": [
+          "cp225__LBW0057B"
+        ],
+        "units": "g/dL",
+        "formula": null,
+        "transformation_code": "df['albumin'] = pd.to_numeric(df['cp225__LBW0057B'], errors='coerce')\ndf.loc[df['albumin'].isin([-1, -2, -4]), 'albumin'] = np.nan",
+        "transformation_description": "Extract albumin; convert ACTG missing codes to NaN",
+        "notes": "cp225 = albumin per ACTG codebook"
+      },
+      "total_bilirubin": {
+        "source_file": "LBW0057B.csv",
+        "source_columns": [
+          "cp268__LBW0057B"
+        ],
+        "units": "mg/dL",
+        "formula": null,
+        "transformation_code": "df['total_bilirubin'] = pd.to_numeric(df['cp268__LBW0057B'], errors='coerce')\ndf.loc[df['total_bilirubin'].isin([-1, -2, -4]), 'total_bilirubin'] = np.nan",
+        "transformation_description": "Extract total bilirubin; convert ACTG missing codes to NaN",
+        "notes": "cp268 = total bilirubin per ACTG codebook"
+      }
+    }
+  },
+  "JHB_ACTG_016": {
+    "study_info": {
+      "study_name": "ACTG 5221 - HIV-TB Co-infection Trial",
+      "study_type": "Randomized Controlled Trial",
+      "data_format": "ACTG Standard (coded column names requiring ACTG Codebook lookup)",
+      "site": "Johannesburg, South Africa",
+      "source_path": "/home/cparker/incoming/RP2/JHB_ACTG_016/csv",
+      "population": "HIV-TB co-infected adults",
+      "duration": "Multi-year follow-up (2007-2012)"
+    },
+    "harmonization_info": {
+      "harmonization_version": "2.0_ENHANCED",
+      "harmonizer_script": "JHB_ACTG_016_ENHANCED_HARMONIZER.py",
+      "harmonization_date": "2025-12-02"
+    },
+    "study_notes": [
+      "HIV-TB co-infection trial (ACTG A5221)",
+      "ACTG coded column format: columns named cp110, tf515, etc. require ACTG Codebook for interpretation",
+      "ACTG missing codes: -1 (not done), -2 (not applicable), -4 (not available) \u2192 converted to NaN",
+      "Demographics (age, sex, race) not included in ACTG export files",
+      "All participants HIV-positive by study design"
+    ],
+    "source_files": {
+      "JHB_ACTG_016_ADM0010.csv": {
+        "description": "Administrative visit records",
+        "records": "varies",
+        "key_columns": [
+          "patid__ADM0010",
+          "visitm__ADM0010",
+          "visitd__ADM0010",
+          "visity__ADM0010",
+          "week__ADM0010"
+        ]
+      },
+      "JHB_ACTG_016_LBW0057A.csv": {
+        "description": "CBC/Hematology panel (ACTG Form LBW0057A)",
+        "records": "~76",
+        "key_columns": [
+          "patid__LBW0057A",
+          "cp110__LBW0057A (hemoglobin)",
+          "cp114__LBW0057A (hematocrit)",
+          "cp128__LBW0057A (WBC)"
+        ]
+      },
+      "JHB_ACTG_016_LBW0054.csv": {
+        "description": "CD4/Immunology panel (ACTG Form LBW0054)",
+        "records": "~510",
+        "key_columns": [
+          "patid__LBW0054",
+          "tf509__LBW0054 (WBC)",
+          "tf515__LBW0054 (CD4%)"
+        ]
+      }
+    },
+    "variable_lineage": {
+      "patient_id": {
+        "source_file": "JHB_ACTG_016_LBW0057A.csv",
+        "source_columns": [
+          "patid__LBW0057A"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['patient_id'] = df['patid__LBW0057A']",
+        "transformation_description": "Direct mapping of ACTG patient ID",
+        "notes": "7-digit ACTG participant identifier"
+      },
+      "visit_month": {
+        "source_file": "JHB_ACTG_016_LBW0057A.csv",
+        "source_columns": [
+          "visitm__LBW0057A"
+        ],
+        "units": "month (1-12)",
+        "formula": null,
+        "transformation_code": "df['visit_month'] = pd.to_numeric(df['visitm__LBW0057A'], errors='coerce')",
+        "transformation_description": "Month component of visit date",
+        "notes": "Part of ACTG date construction"
+      },
+      "visit_day": {
+        "source_file": "JHB_ACTG_016_LBW0057A.csv",
+        "source_columns": [
+          "visitd__LBW0057A"
+        ],
+        "units": "day (1-31)",
+        "formula": null,
+        "transformation_code": "df['visit_day'] = pd.to_numeric(df['visitd__LBW0057A'], errors='coerce')",
+        "transformation_description": "Day component of visit date",
+        "notes": "Part of ACTG date construction"
+      },
+      "visit_year": {
+        "source_file": "JHB_ACTG_016_LBW0057A.csv",
+        "source_columns": [
+          "visity__LBW0057A"
+        ],
+        "units": "year (YYYY)",
+        "formula": null,
+        "transformation_code": "df['visit_year'] = pd.to_numeric(df['visity__LBW0057A'], errors='coerce')",
+        "transformation_description": "Year component of visit date",
+        "notes": "Part of ACTG date construction"
+      },
+      "study_week": {
+        "source_file": "JHB_ACTG_016_LBW0057A.csv",
+        "source_columns": [
+          "week__LBW0057A"
+        ],
+        "units": "weeks from enrollment",
+        "formula": null,
+        "transformation_code": "df['study_week'] = pd.to_numeric(df['week__LBW0057A'], errors='coerce')",
+        "transformation_description": "Protocol-defined study week",
+        "notes": "Week 0 = enrollment/screening"
+      },
+      "visit_date": {
+        "source_file": "DERIVED",
+        "source_columns": [
+          "visity__LBW0057A",
+          "visitm__LBW0057A",
+          "visitd__LBW0057A"
+        ],
+        "units": "date",
+        "formula": "pd.to_datetime(year-month-day)",
+        "transformation_code": "df['visit_date'] = pd.to_datetime(\n    df['visit_year'].astype(str) + '-' + \n    df['visit_month'].astype(str).str.zfill(2) + '-' + \n    df['visit_day'].astype(str).str.zfill(2), \n    errors='coerce'\n)",
+        "transformation_description": "Construct full date from year/month/day components",
+        "notes": "ACTG stores dates as separate components"
+      },
+      "HGB": {
+        "source_file": "JHB_ACTG_016_LBW0057A.csv",
+        "source_columns": [
+          "cp110__LBW0057A"
+        ],
+        "units": "g/dL",
+        "formula": null,
+        "transformation_code": "df['HGB'] = pd.to_numeric(df['cp110__LBW0057A'], errors='coerce')\ndf.loc[df['HGB'] < 0, 'HGB'] = np.nan  # ACTG missing codes",
+        "transformation_description": "Hemoglobin from ACTG hematology form",
+        "notes": "cp110 = hemoglobin per ACTG Codebook; negative values are ACTG missing codes"
+      },
+      "HCT": {
+        "source_file": "JHB_ACTG_016_LBW0057A.csv",
+        "source_columns": [
+          "cp114__LBW0057A"
+        ],
+        "units": "%",
+        "formula": null,
+        "transformation_code": "df['HCT'] = pd.to_numeric(df['cp114__LBW0057A'], errors='coerce')\ndf.loc[df['HCT'] < 0, 'HCT'] = np.nan  # ACTG missing codes",
+        "transformation_description": "Hematocrit from ACTG hematology form",
+        "notes": "cp114 = hematocrit per ACTG Codebook; negative values are ACTG missing codes"
+      },
+      "WBC": {
+        "source_file": "JHB_ACTG_016_LBW0057A.csv",
+        "source_columns": [
+          "cp128__LBW0057A"
+        ],
+        "units": "10^9/L",
+        "formula": null,
+        "transformation_code": "df['WBC'] = pd.to_numeric(df['cp128__LBW0057A'], errors='coerce')\ndf.loc[df['WBC'] < 0, 'WBC'] = np.nan  # ACTG missing codes",
+        "transformation_description": "White blood cell count from ACTG hematology form",
+        "notes": "cp128 = WBC per ACTG Codebook; negative values are ACTG missing codes"
+      },
+      "study_id": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['study_id'] = 'JHB_ACTG_016'",
+        "transformation_description": "Study identifier constant",
+        "notes": "Harmonization metadata"
+      },
+      "study_name": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['study_name'] = 'A5221'",
+        "transformation_description": "ACTG protocol number",
+        "notes": "A5221 = ACTG 5221 HIV-TB co-infection trial"
+      },
+      "study_type": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['study_type'] = 'HIV_treatment_trial'",
+        "transformation_description": "Study design type",
+        "notes": "Harmonization metadata"
+      },
+      "site": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['site'] = 'Johannesburg'",
+        "transformation_description": "Study site location",
+        "notes": "ACTG site in Johannesburg, South Africa"
+      },
+      "country": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['country'] = 'South Africa'",
+        "transformation_description": "Country constant",
+        "notes": "Harmonization metadata"
+      },
+      "latitude": {
+        "source_file": "GEOCODED",
+        "source_columns": [],
+        "units": "degrees",
+        "formula": null,
+        "transformation_code": "df['latitude'] = -26.2041  # Johannesburg ACTG site",
+        "transformation_description": "Fixed coordinates for ACTG Johannesburg site",
+        "notes": "Clinical Trials Unit, Johannesburg"
+      },
+      "longitude": {
+        "source_file": "GEOCODED",
+        "source_columns": [],
+        "units": "degrees",
+        "formula": null,
+        "transformation_code": "df['longitude'] = 28.0473  # Johannesburg ACTG site",
+        "transformation_description": "Fixed coordinates for ACTG Johannesburg site",
+        "notes": "All participants enrolled at single site"
+      },
+      "demographics_note": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['demographics_note'] = 'Age/race/sex not available in ACTG export files'",
+        "transformation_description": "Note about missing demographics",
+        "notes": "ACTG data sharing agreement excludes detailed demographics"
+      }
+    }
+  },
+  "JHB_ACTG_019": {
+    "study_info": {
+      "study_name": "ACTG 5175 - Global ART Comparison Trial",
+      "study_type": "Randomized Controlled Trial",
+      "data_format": "ACTG Standard (coded column names requiring ACTG Codebook lookup)",
+      "site": "Johannesburg, South Africa",
+      "source_path": "/home/cparker/incoming/RP2/JHB_ACTG_019/csv",
+      "population": "HIV-positive adults in resource-limited settings",
+      "duration": "Multi-year follow-up (2005-2010)"
+    },
+    "harmonization_info": {
+      "harmonization_version": "2.0_ENHANCED",
+      "harmonizer_script": "JHB_ACTG_019_ENHANCED_HARMONIZER.py",
+      "harmonization_date": "2025-12-02"
+    },
+    "study_notes": [
+      "Global comparison of antiretroviral regimens (ACTG A5175)",
+      "ACTG coded column format: columns named cp110, tf515, etc. require ACTG Codebook for interpretation",
+      "ACTG missing codes: -1 (not done), -2 (not applicable), -4 (not available) \u2192 converted to NaN",
+      "Demographics (age, sex, race) not included in ACTG export files",
+      "All participants HIV-positive by study design",
+      "Rich longitudinal viral load and CD4 data"
+    ],
+    "source_files": {
+      "JHB_ACTG_019_ADM0010.csv": {
+        "description": "Administrative visit records",
+        "records": "varies",
+        "key_columns": [
+          "patid__ADM0010",
+          "visitm__ADM0010",
+          "visitd__ADM0010",
+          "visity__ADM0010",
+          "week__ADM0010"
+        ]
+      },
+      "JHB_ACTG_019_LBW0057A.csv": {
+        "description": "CBC/Hematology panel (ACTG Form LBW0057A)",
+        "records": "~167",
+        "key_columns": [
+          "patid__LBW0057A",
+          "cp110__LBW0057A (hemoglobin)",
+          "cp114__LBW0057A (hematocrit)",
+          "cp128__LBW0057A (WBC)"
+        ]
+      },
+      "JHB_ACTG_019_LBW0054.csv": {
+        "description": "CD4/Immunology panel (ACTG Form LBW0054)",
+        "records": "~2,564",
+        "key_columns": [
+          "patid__LBW0054",
+          "tf509__LBW0054 (WBC)",
+          "tf515__LBW0054 (CD4%)"
+        ]
+      },
+      "JHB_ACTG_019_L_RNAFIN.csv": {
+        "description": "HIV-1 RNA viral load (final dataset)",
+        "records": "~2,584",
+        "key_columns": [
+          "patid__L_RNAFIN",
+          "copies__L_RNAFIN"
+        ]
+      }
+    },
+    "variable_lineage": {
+      "patient_id": {
+        "source_file": "JHB_ACTG_019_LBW0057A.csv",
+        "source_columns": [
+          "patid__LBW0057A"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['patient_id'] = df['patid__LBW0057A']",
+        "transformation_description": "Direct mapping of ACTG patient ID",
+        "notes": "7-digit ACTG participant identifier"
+      },
+      "visit_month": {
+        "source_file": "JHB_ACTG_019_LBW0057A.csv",
+        "source_columns": [
+          "visitm__LBW0057A"
+        ],
+        "units": "month (1-12)",
+        "formula": null,
+        "transformation_code": "df['visit_month'] = pd.to_numeric(df['visitm__LBW0057A'], errors='coerce')",
+        "transformation_description": "Month component of visit date",
+        "notes": "Part of ACTG date construction"
+      },
+      "visit_day": {
+        "source_file": "JHB_ACTG_019_LBW0057A.csv",
+        "source_columns": [
+          "visitd__LBW0057A"
+        ],
+        "units": "day (1-31)",
+        "formula": null,
+        "transformation_code": "df['visit_day'] = pd.to_numeric(df['visitd__LBW0057A'], errors='coerce')",
+        "transformation_description": "Day component of visit date",
+        "notes": "Part of ACTG date construction"
+      },
+      "visit_year": {
+        "source_file": "JHB_ACTG_019_LBW0057A.csv",
+        "source_columns": [
+          "visity__LBW0057A"
+        ],
+        "units": "year (YYYY)",
+        "formula": null,
+        "transformation_code": "df['visit_year'] = pd.to_numeric(df['visity__LBW0057A'], errors='coerce')",
+        "transformation_description": "Year component of visit date",
+        "notes": "Part of ACTG date construction"
+      },
+      "study_week": {
+        "source_file": "JHB_ACTG_019_LBW0057A.csv",
+        "source_columns": [
+          "week__LBW0057A"
+        ],
+        "units": "weeks from enrollment",
+        "formula": null,
+        "transformation_code": "df['study_week'] = pd.to_numeric(df['week__LBW0057A'], errors='coerce')",
+        "transformation_description": "Protocol-defined study week",
+        "notes": "Week 0 = enrollment/screening"
+      },
+      "visit_date": {
+        "source_file": "DERIVED",
+        "source_columns": [
+          "visity__LBW0057A",
+          "visitm__LBW0057A",
+          "visitd__LBW0057A"
+        ],
+        "units": "date",
+        "formula": "pd.to_datetime(year-month-day)",
+        "transformation_code": "df['visit_date'] = pd.to_datetime(\n    df['visit_year'].astype(str) + '-' + \n    df['visit_month'].astype(str).str.zfill(2) + '-' + \n    df['visit_day'].astype(str).str.zfill(2), \n    errors='coerce'\n)",
+        "transformation_description": "Construct full date from year/month/day components",
+        "notes": "ACTG stores dates as separate components"
+      },
+      "HGB": {
+        "source_file": "JHB_ACTG_019_LBW0057A.csv",
+        "source_columns": [
+          "cp110__LBW0057A"
+        ],
+        "units": "g/dL",
+        "formula": null,
+        "transformation_code": "df['HGB'] = pd.to_numeric(df['cp110__LBW0057A'], errors='coerce')\ndf.loc[df['HGB'] < 0, 'HGB'] = np.nan  # ACTG missing codes",
+        "transformation_description": "Hemoglobin from ACTG hematology form",
+        "notes": "cp110 = hemoglobin per ACTG Codebook; negative values are ACTG missing codes"
+      },
+      "HCT": {
+        "source_file": "JHB_ACTG_019_LBW0057A.csv",
+        "source_columns": [
+          "cp114__LBW0057A"
+        ],
+        "units": "%",
+        "formula": null,
+        "transformation_code": "df['HCT'] = pd.to_numeric(df['cp114__LBW0057A'], errors='coerce')\ndf.loc[df['HCT'] < 0, 'HCT'] = np.nan  # ACTG missing codes",
+        "transformation_description": "Hematocrit from ACTG hematology form",
+        "notes": "cp114 = hematocrit per ACTG Codebook; negative values are ACTG missing codes"
+      },
+      "WBC": {
+        "source_file": "JHB_ACTG_019_LBW0057A.csv",
+        "source_columns": [
+          "cp128__LBW0057A"
+        ],
+        "units": "10^9/L",
+        "formula": null,
+        "transformation_code": "df['WBC'] = pd.to_numeric(df['cp128__LBW0057A'], errors='coerce')\ndf.loc[df['WBC'] < 0, 'WBC'] = np.nan  # ACTG missing codes",
+        "transformation_description": "White blood cell count from ACTG hematology form",
+        "notes": "cp128 = WBC per ACTG Codebook; negative values are ACTG missing codes"
+      },
+      "study_id": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['study_id'] = 'JHB_ACTG_019'",
+        "transformation_description": "Study identifier constant",
+        "notes": "Harmonization metadata"
+      },
+      "study_name": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['study_name'] = 'A5175'",
+        "transformation_description": "ACTG protocol number",
+        "notes": "A5175 = ACTG 5175 global ART comparison trial"
+      },
+      "study_type": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['study_type'] = 'HIV_treatment_trial'",
+        "transformation_description": "Study design type",
+        "notes": "Harmonization metadata"
+      },
+      "site": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['site'] = 'Johannesburg'",
+        "transformation_description": "Study site location",
+        "notes": "ACTG site in Johannesburg, South Africa"
+      },
+      "country": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['country'] = 'South Africa'",
+        "transformation_description": "Country constant",
+        "notes": "Harmonization metadata"
+      },
+      "latitude": {
+        "source_file": "GEOCODED",
+        "source_columns": [],
+        "units": "degrees",
+        "formula": null,
+        "transformation_code": "df['latitude'] = -26.2041  # Johannesburg ACTG site",
+        "transformation_description": "Fixed coordinates for ACTG Johannesburg site",
+        "notes": "Clinical Trials Unit, Johannesburg"
+      },
+      "longitude": {
+        "source_file": "GEOCODED",
+        "source_columns": [],
+        "units": "degrees",
+        "formula": null,
+        "transformation_code": "df['longitude'] = 28.0473  # Johannesburg ACTG site",
+        "transformation_description": "Fixed coordinates for ACTG Johannesburg site",
+        "notes": "All participants enrolled at single site"
+      },
+      "demographics_note": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['demographics_note'] = 'Age/race/sex not available in ACTG export files'",
+        "transformation_description": "Note about missing demographics",
+        "notes": "ACTG data sharing agreement excludes detailed demographics"
+      }
+    }
+  },
+  "JHB_Aurum_009": {
+    "study_info": {
+      "study_name": "Aurum 009 - HIV Linkage to Care Cohort",
+      "study_type": "Longitudinal Cohort Study",
+      "data_format": "Database Export (Multiple Domain Tables)",
+      "site": "Greater Johannesburg Area",
+      "source_path": "/home/cparker/incoming/RP2/JHB_Aurum_009/csv",
+      "population": "HIV-positive adults newly diagnosed",
+      "duration": "18-month follow-up with 7 visit timepoints"
+    },
+    "harmonization_info": {
+      "harmonization_version": "2.0_LONGITUDINAL",
+      "harmonizer_script": "JHB_Aurum_009_LONGITUDINAL_HARMONIZER.py",
+      "harmonization_date": "2025-12-02"
+    },
+    "study_notes": [
+      "All participants are HIV-positive adults newly diagnosed",
+      "Randomized to linkage facilitation interventions",
+      "Database export format with multiple domain tables (AD001, EL001, LT001, FV001, SS005)",
+      "CD4 merged from LT001 (primary) and SS005 (secondary)",
+      "Viral load from chart abstraction (FV001) - may be string values like 'LDL', '<50'"
+    ],
+    "source_files": {
+      "JHB_Aurum_009_EL001.csv": {
+        "description": "Enrollment/Screening demographics",
+        "records": "~2,560",
+        "key_columns": [
+          "studyid",
+          "screenid",
+          "denrol",
+          "scrndt",
+          "dbirth",
+          "sex",
+          "armrand"
+        ]
+      },
+      "JHB_Aurum_009_AD001.csv": {
+        "description": "Main visit records (longitudinal backbone)",
+        "records": "12,575",
+        "key_columns": [
+          "studyid",
+          "dtvisit",
+          "vcode",
+          "vtyp",
+          "vcon"
+        ]
+      },
+      "JHB_Aurum_009_LT001.csv": {
+        "description": "Laboratory tests (CD4)",
+        "records": "~2,500",
+        "key_columns": [
+          "studyid",
+          "dvisit",
+          "vcode",
+          "cd4res",
+          "bldcd4"
+        ]
+      },
+      "JHB_Aurum_009_FV001.csv": {
+        "description": "Follow-up abstraction (CD4, viral load from charts)",
+        "records": "~2,500",
+        "key_columns": [
+          "studyid",
+          "enrcd4res",
+          "vloadresult",
+          "lastvlres",
+          "dstartart"
+        ]
+      },
+      "JHB_Aurum_009_SS005.csv": {
+        "description": "Study status with additional CD4",
+        "records": "~2,500",
+        "key_columns": [
+          "studyid",
+          "dvisit",
+          "vcode",
+          "cd4result",
+          "cartstart"
+        ]
+      }
+    },
+    "variable_lineage": {
+      "patient_id": {
+        "source_file": "EL001.csv",
+        "source_columns": [
+          "studyid"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['patient_id'] = df['studyid']",
+        "transformation_description": "Direct mapping of study ID",
+        "notes": "Unique patient identifier across all domain tables"
+      },
+      "age_years": {
+        "source_file": "EL001.csv",
+        "source_columns": [
+          "denrol",
+          "dbirth"
+        ],
+        "units": "years",
+        "formula": "(enrollment_date - date_of_birth) / 365.25",
+        "transformation_code": "df['age_years'] = ((pd.to_datetime(df['denrol']) - pd.to_datetime(df['dbirth'])).dt.days / 365.25).round(0)",
+        "transformation_description": "Calculate age at enrollment from enrollment date minus date of birth",
+        "notes": "Age calculated at enrollment, not at each visit"
+      },
+      "sex": {
+        "source_file": "EL001.csv",
+        "source_columns": [
+          "sex"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['sex'] = df['sex'].map({1.0: 'Male', 2.0: 'Female'})",
+        "transformation_description": "Map numeric sex codes to text labels",
+        "notes": "1=Male, 2=Female"
+      },
+      "treatment_arm": {
+        "source_file": "EL001.csv",
+        "source_columns": [
+          "armrand"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['treatment_arm'] = df['armrand'].map({1.0: 'Linkage Facilitation', 2.0: 'Active Follow-up', 3.0: 'Standard of Care', 4.0: 'Active Follow-up + ART Facilitation'})",
+        "transformation_description": "Map randomization arm codes to descriptive names",
+        "notes": "4-arm randomized trial"
+      },
+      "visit": {
+        "source_file": "AD001.csv",
+        "source_columns": [
+          "vcode"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "VISIT_CODE_MAP = {1.0: 'Screening', 2.0: 'Month 3', 3.0: 'Month 6', 4.0: 'Month 9', 5.0: 'Month 12', 6.0: 'Month 18', 12.0: 'Study Completion', 99.0: 'Off-Study'}\ndf['visit'] = df['vcode'].map(VISIT_CODE_MAP).fillna('Unknown')",
+        "transformation_description": "Map numeric visit codes to visit names",
+        "notes": "VISIT_CODE_MAP: 1=Screening, 2=Month3, 3=Month6, 4=Month9, 5=Month12, 6=Month18, 12=Completion, 99=Off-Study"
+      },
+      "visit_date": {
+        "source_file": "AD001.csv",
+        "source_columns": [
+          "dtvisit"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['visit_date'] = pd.to_datetime(df['dtvisit'], errors='coerce')",
+        "transformation_description": "Convert visit date to datetime",
+        "notes": null
+      },
+      "cd4_count": {
+        "source_file": "LT001.csv + SS005.csv",
+        "source_columns": [
+          "cd4res (LT001)",
+          "cd4result (SS005)"
+        ],
+        "units": "cells/\u00b5L",
+        "formula": "cd4_count = cd4res WHERE NOT NULL ELSE cd4result",
+        "transformation_code": "# Merge CD4 from LT001 (primary)\ndf['cd4_count'] = pd.to_numeric(df['cd4res'], errors='coerce')\n# Fill from SS005 where LT001 is missing\ndf['cd4_count'] = df['cd4_count'].fillna(df['cd4result'])",
+        "transformation_description": "CD4 from lab tests (LT001) as primary, filled from study status (SS005) where missing",
+        "notes": "Two-source CD4: LT001 (lab) takes precedence over SS005 (chart abstraction)"
+      },
+      "viral_load": {
+        "source_file": "FV001.csv",
+        "source_columns": [
+          "vloadresult"
+        ],
+        "units": "copies/mL",
+        "formula": "parse_viral_load(value)",
+        "transformation_code": "def parse_viral_load(value):\n    if pd.isna(value): return np.nan\n    if isinstance(value, (int, float)): return float(value) if value > 0 else np.nan\n    cleaned = str(value).replace(',', '').strip()\n    if cleaned.upper() in ['LDL', 'UNDETECTABLE', '<40', '<50']:\n        return 39.0  # Below detection limit\n    return float(cleaned)\ndf['viral_load'] = df['vloadresult'].apply(parse_viral_load)",
+        "transformation_description": "Parse viral load from string/numeric; 'LDL'/'UNDETECTABLE'/'<40'/'<50' \u2192 39.0",
+        "notes": "Chart abstraction data may have text values; 39.0 used for undetectable (below LOD)"
+      },
+      "viral_load_undetectable": {
+        "source_file": "DERIVED",
+        "source_columns": [
+          "viral_load"
+        ],
+        "units": "boolean (0/1)",
+        "formula": "viral_load <= 50",
+        "transformation_code": "df['viral_load_undetectable'] = (df['viral_load'] <= 50).astype(float)\ndf['viral_load_undetectable'] = df['viral_load_undetectable'].where(df['viral_load'].notna())",
+        "transformation_description": "Flag for undetectable viral load (\u226450 copies/mL)",
+        "notes": "NaN where viral_load is missing"
+      },
+      "log10_viral_load": {
+        "source_file": "DERIVED",
+        "source_columns": [
+          "viral_load"
+        ],
+        "units": "log10(copies/mL)",
+        "formula": "log10(viral_load) where viral_load > 0",
+        "transformation_code": "df['log10_viral_load'] = np.log10(df['viral_load'].replace(0, np.nan))",
+        "transformation_description": "Log10 transformation; zero/negative \u2192 NaN",
+        "notes": "Standard transformation for viral load analysis"
+      },
+      "on_art": {
+        "source_file": "SS005.csv + FV001.csv",
+        "source_columns": [
+          "cartstart (SS005)",
+          "has_art_started (FV001)"
+        ],
+        "units": "boolean (0/1)",
+        "formula": null,
+        "transformation_code": "df['on_art'] = df['cartstart'].fillna(df['has_art_started']).fillna(0)",
+        "transformation_description": "ART status from SS005, filled from FV001",
+        "notes": "cartstart = current ART start indicator"
+      },
+      "hiv_status": {
+        "source_file": "STUDY_DESIGN",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['hiv_status'] = 'Positive'",
+        "transformation_description": "All participants HIV-positive by study design",
+        "notes": "Study inclusion criterion: newly diagnosed HIV-positive"
+      },
+      "date_of_birth": {
+        "source_file": "JHB_Aurum_009_EL001.csv",
+        "source_columns": [
+          "dbirth"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['date_of_birth'] = pd.to_datetime(df['dbirth'], errors='coerce')",
+        "transformation_description": "Direct mapping of date of birth",
+        "notes": "Used to calculate age at enrollment"
+      },
+      "site_name": {
+        "source_file": "JHB_Aurum_009_EL001.csv",
+        "source_columns": [
+          "sitedesc"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['site_name'] = df['sitedesc']",
+        "transformation_description": "Direct mapping of site description",
+        "notes": "Name of enrollment site/facility"
+      },
+      "facility_name": {
+        "source_file": "JHB_Aurum_009_FV001.csv",
+        "source_columns": [
+          "abstfac"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['facility_name'] = df['abstfac']",
+        "transformation_description": "Facility name from chart abstraction",
+        "notes": "Healthcare facility where patient receives care"
+      },
+      "town": {
+        "source_file": "JHB_Aurum_009_SS005.csv",
+        "source_columns": [
+          "carttown",
+          "bldtktown"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['town'] = df['carttown'].fillna(df['bldtktown'])",
+        "transformation_description": "Town from ART facility or blood draw facility",
+        "notes": "Geographic location of healthcare"
+      },
+      "province": {
+        "source_file": "JHB_Aurum_009_SS005.csv",
+        "source_columns": [
+          "cartprov",
+          "bldtkprov"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['province'] = df['cartprov'].fillna(df['bldtkprov'])",
+        "transformation_description": "Province from ART facility or blood draw facility",
+        "notes": "South African province"
+      },
+      "cd4_enrollment": {
+        "source_file": "JHB_Aurum_009_FV001.csv",
+        "source_columns": [
+          "enrcd4res"
+        ],
+        "units": "cells/\u00b5L",
+        "formula": null,
+        "transformation_code": "df['cd4_enrollment'] = pd.to_numeric(df['enrcd4res'], errors='coerce')",
+        "transformation_description": "CD4 count at enrollment",
+        "notes": "enrcd4res = enrollment CD4 result"
+      },
+      "cd4_latest": {
+        "source_file": "JHB_Aurum_009_FV001.csv",
+        "source_columns": [
+          "ltcd4res"
+        ],
+        "units": "cells/\u00b5L",
+        "formula": null,
+        "transformation_code": "df['cd4_latest'] = pd.to_numeric(df['ltcd4res'], errors='coerce')",
+        "transformation_description": "Most recent CD4 count from chart",
+        "notes": "ltcd4res = latest CD4 result"
+      },
+      "cd4_lowest": {
+        "source_file": "JHB_Aurum_009_FV001.csv",
+        "source_columns": [
+          "lowcd4count"
+        ],
+        "units": "cells/\u00b5L",
+        "formula": null,
+        "transformation_code": "df['cd4_lowest'] = pd.to_numeric(df['lowcd4count'], errors='coerce')",
+        "transformation_description": "Lowest CD4 count recorded",
+        "notes": "Nadir CD4 - important for disease staging"
+      },
+      "cd4_at_art_start": {
+        "source_file": "JHB_Aurum_009_FV001.csv",
+        "source_columns": [
+          "artcd4result"
+        ],
+        "units": "cells/\u00b5L",
+        "formula": null,
+        "transformation_code": "df['cd4_at_art_start'] = pd.to_numeric(df['artcd4result'], errors='coerce')",
+        "transformation_description": "CD4 count when ART was started",
+        "notes": "artcd4result = CD4 at ART initiation"
+      },
+      "viral_load_latest": {
+        "source_file": "JHB_Aurum_009_FV001.csv",
+        "source_columns": [
+          "lastvlres"
+        ],
+        "units": "copies/mL",
+        "formula": "parse_viral_load(value)",
+        "transformation_code": "df['viral_load_latest'] = df['lastvlres'].apply(parse_viral_load)",
+        "transformation_description": "Most recent viral load from chart",
+        "notes": "lastvlres = last viral load result; same parsing as viral_load"
+      },
+      "date_care_entry": {
+        "source_file": "JHB_Aurum_009_FV001.csv",
+        "source_columns": [
+          "dentercare"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['date_care_entry'] = pd.to_datetime(df['dentercare'], errors='coerce')",
+        "transformation_description": "Date patient entered HIV care",
+        "notes": "dentercare = date entered care"
+      },
+      "date_art_start": {
+        "source_file": "JHB_Aurum_009_FV001.csv",
+        "source_columns": [
+          "dstartart"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['date_art_start'] = pd.to_datetime(df['dstartart'], errors='coerce')",
+        "transformation_description": "Date ART was initiated",
+        "notes": "dstartart = date started ART"
+      },
+      "education_level": {
+        "source_file": "JHB_Aurum_009_DM002.csv",
+        "source_columns": [
+          "edu"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "EDU_MAP = {1: 'No formal education', 2: 'Primary school', 3: 'Some secondary', 4: 'Completed secondary', 5: 'Some tertiary', 6: 'Completed tertiary', 7: 'Post-graduate'}\ndf['education_level'] = df['edu'].map(EDU_MAP)",
+        "transformation_description": "Map education codes to descriptive labels",
+        "notes": "edu = education level code"
+      },
+      "employment_status": {
+        "source_file": "JHB_Aurum_009_DM002.csv",
+        "source_columns": [
+          "emplst1"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "EMPL_MAP = {1: 'Employed full-time', 2: 'Employed part-time', 3: 'Self-employed', 4: 'Unemployed looking', 5: 'Unemployed not looking', 6: 'Student', 7: 'Retired', 8: 'Disabled'}\ndf['employment_status'] = df['emplst1'].map(EMPL_MAP)",
+        "transformation_description": "Map employment status codes",
+        "notes": "emplst1 = employment status primary"
+      },
+      "marital_status": {
+        "source_file": "JHB_Aurum_009_DM002.csv",
+        "source_columns": [
+          "marit"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "MARIT_MAP = {1: 'Single', 2: 'Married', 3: 'Separated', 4: 'Divorced', 5: 'Widowed', 6: 'Cohabiting'}\ndf['marital_status'] = df['marit'].map(MARIT_MAP)",
+        "transformation_description": "Map marital status codes",
+        "notes": "marit = marital status"
+      },
+      "monthly_income": {
+        "source_file": "JHB_Aurum_009_DM002.csv",
+        "source_columns": [
+          "incom"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "INCOME_MAP = {1: 'R0', 2: 'R1-R500', 3: 'R501-R1000', 4: 'R1001-R2000', 5: 'R2001-R3000', 6: 'R3001-R5000', 7: 'R5001-R10000', 8: 'R10001-R20000', 9: 'R20001+', 10: 'Refused', 11: 'Don\\'t know'}\ndf['monthly_income'] = df['incom'].map(INCOME_MAP)",
+        "transformation_description": "Map income bracket codes to ranges (South African Rand)",
+        "notes": "incom = income category"
+      },
+      "housing_type": {
+        "source_file": "JHB_Aurum_009_DM002.csv",
+        "source_columns": [
+          "dwell"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "DWELL_MAP = {1: 'Formal house', 2: 'Flat/apartment', 3: 'Townhouse', 4: 'Room in backyard', 5: 'Informal shack', 6: 'Hostel', 7: 'Other'}\ndf['housing_type'] = df['dwell'].map(DWELL_MAP)",
+        "transformation_description": "Map dwelling type codes",
+        "notes": "dwell = dwelling type"
+      },
+      "medical_insurance": {
+        "source_file": "JHB_Aurum_009_DM002.csv",
+        "source_columns": [
+          "medaid"
+        ],
+        "units": "boolean (0/1)",
+        "formula": null,
+        "transformation_code": "df['medical_insurance'] = df['medaid'].map({0: 0, 1: 1})",
+        "transformation_description": "Medical aid/insurance status",
+        "notes": "medaid = medical aid (0=No, 1=Yes)"
+      },
+      "latitude": {
+        "source_file": "GEOCODED",
+        "source_columns": [],
+        "units": "degrees",
+        "formula": null,
+        "transformation_code": "df['latitude'] = -26.2041  # Default Johannesburg coordinates",
+        "transformation_description": "Geocoded from facility/town; default to Johannesburg center",
+        "notes": "Geocoding based on facility location or default coordinates"
+      },
+      "longitude": {
+        "source_file": "GEOCODED",
+        "source_columns": [],
+        "units": "degrees",
+        "formula": null,
+        "transformation_code": "df['longitude'] = 28.0473  # Default Johannesburg coordinates",
+        "transformation_description": "Geocoded from facility/town; default to Johannesburg center",
+        "notes": "Geocoding based on facility location or default coordinates"
+      },
+      "study_id": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['study_id'] = 'JHB_Aurum_009'",
+        "transformation_description": "Study identifier constant",
+        "notes": "Harmonization metadata"
+      },
+      "study_name": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['study_name'] = 'Aurum 009 - HIV Linkage to Care Cohort'",
+        "transformation_description": "Full study name constant",
+        "notes": "Harmonization metadata"
+      },
+      "study_type": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['study_type'] = 'Longitudinal Cohort Study'",
+        "transformation_description": "Study design type",
+        "notes": "Harmonization metadata"
+      },
+      "country": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['country'] = 'South Africa'",
+        "transformation_description": "Country constant",
+        "notes": "All Aurum 009 sites in South Africa"
+      }
+    }
+  },
+  "JHB_VIDA_007": {
+    "study_info": {
+      "study_name": "VIDA 007 - ChAdOx1 COVID-19 Vaccine Trial",
+      "study_type": "Vaccine Trial (Randomized)",
+      "data_format": "Visit-Specific CSV Files",
+      "site": "VIDA Vaccines and Infectious Diseases Analytics",
+      "source_path": "/home/cparker/incoming/RP2/JHB_VIDA_007/csv",
+      "population": "Adults eligible for COVID-19 vaccination",
+      "duration": "364 days follow-up with 10 visit timepoints"
+    },
+    "harmonization_info": {
+      "harmonization_version": "2.0_LONGITUDINAL",
+      "harmonizer_script": "JHB_VIDA_007_LONGITUDINAL_HARMONIZER.py",
+      "harmonization_date": "2025-12-02"
+    },
+    "study_notes": [
+      "ChAdOx1 (Oxford/AstraZeneca) COVID-19 vaccine trial",
+      "10 visit timepoints: Screening, Day 0, 3, 7, 14, 28, 42, 56, 182, 364",
+      "Each visit stored in separate CSV with visit-specific column naming",
+      "Rich vital signs data at each visit (BP, pulse, temp, resp, SpO2)",
+      "HIV status mostly negative/unknown for this COVID vaccine population"
+    ],
+    "source_files": {
+      "ChAdOx_data_demographic_and_contact_information_v2_3.csv": {
+        "description": "Demographics",
+        "records": "2,130",
+        "key_columns": [
+          "record_id",
+          "sc_age_v2_3",
+          "sc_gender_v2_3",
+          "sc_race_v2_3"
+        ]
+      },
+      "ChAdOx_data_vital_signs_screening_visit_v2_3.csv": {
+        "description": "Screening vital signs",
+        "records": "~2,100",
+        "key_columns": [
+          "record_id",
+          "vs_scr_dat_v2_3",
+          "sc_bp_sys_v2_3",
+          "sc_bp_dia_v2_3",
+          "sc_weight_v2_3",
+          "sc_height_v2_3"
+        ]
+      },
+      "ChAdOx_data_day_0_vaccination.csv": {
+        "description": "Day 0 (vaccination) vitals",
+        "records": "~2,100",
+        "key_columns": [
+          "record_id",
+          "vacc_dat",
+          "pv60_sys",
+          "pv60_dia",
+          "pv60_temp"
+        ]
+      },
+      "ChAdOx_data_day_*_post_vaccination*.csv": {
+        "description": "Follow-up visits (Day 3, 7, 14, 28, 42, 56, 182, 364)",
+        "records": "varies by visit",
+        "key_columns": [
+          "record_id",
+          "d{N}_dat",
+          "d{N}_sys",
+          "d{N}_dia",
+          "d{N}_temp"
+        ]
+      }
+    },
+    "variable_lineage": {
+      "patient_id": {
+        "source_file": "Demographics CSV",
+        "source_columns": [
+          "record_id"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['patient_id'] = df['record_id']",
+        "transformation_description": "Direct mapping",
+        "notes": "REDCap record ID"
+      },
+      "age_years": {
+        "source_file": "Demographics CSV",
+        "source_columns": [
+          "sc_age_v2_3"
+        ],
+        "units": "years",
+        "formula": null,
+        "transformation_code": "df['age_years'] = pd.to_numeric(df['sc_age_v2_3'], errors='coerce')",
+        "transformation_description": "Direct mapping from screening age",
+        "notes": "Age at screening"
+      },
+      "sex": {
+        "source_file": "Demographics CSV",
+        "source_columns": [
+          "sc_gender_v2_3"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['sex'] = df['sc_gender_v2_3'].map({1.0: 'Male', 2.0: 'Female'})",
+        "transformation_description": "Map gender codes to labels",
+        "notes": "1=Male, 2=Female"
+      },
+      "race": {
+        "source_file": "Demographics CSV",
+        "source_columns": [
+          "sc_race_v2_3"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['race'] = df['sc_race_v2_3'].map({1.0: 'African Heritage', 2.0: 'Caucasian', 3.0: 'Asian', 4.0: 'Coloured', 5.0: 'Other'})",
+        "transformation_description": "Map race codes to South African categories",
+        "notes": "SA standard race categories"
+      },
+      "visit": {
+        "source_file": "DERIVED",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "# Set during visit extraction\ndf['visit'] = visit_name  # e.g., 'Screening', 'Day 0', 'Day 3', etc.",
+        "transformation_description": "Assigned based on source file",
+        "notes": "Visit name from VISIT_CONFIG: Screening, Day 0, 3, 7, 14, 28, 42, 56, 182, 364"
+      },
+      "visit_num": {
+        "source_file": "DERIVED",
+        "source_columns": [
+          "visit"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "visit_num_map = {'Screening': 0, 'Day 0': 1, 'Day 3': 2, 'Day 7': 3, 'Day 14': 4, 'Day 28': 5, 'Day 42': 6, 'Day 56': 7, 'Day 182': 8, 'Day 364': 9}\ndf['visit_num'] = df['visit'].map(visit_num_map)",
+        "transformation_description": "Numeric visit order for sorting",
+        "notes": "0-9 for 10 visits"
+      },
+      "systolic_bp": {
+        "source_file": "Visit-specific CSV",
+        "source_columns": [
+          "sc_bp_sys_v2_3 (Screening)",
+          "pv60_sys (Day 0)",
+          "d{N}_sys (Day N)"
+        ],
+        "units": "mmHg",
+        "formula": null,
+        "transformation_code": "# Column name varies by visit\ndf['systolic_bp'] = pd.to_numeric(df[config['systolic']], errors='coerce')",
+        "transformation_description": "Extract systolic BP using visit-specific column name from VISIT_CONFIG",
+        "notes": "Column names: sc_bp_sys_v2_3, pv60_sys, d3_sys, d7_sys, d14_sys, d28_sys, d42_sys_v3_2, etc."
+      },
+      "diastolic_bp": {
+        "source_file": "Visit-specific CSV",
+        "source_columns": [
+          "sc_bp_dia_v2_3 (Screening)",
+          "pv60_dia (Day 0)",
+          "d{N}_dia (Day N)"
+        ],
+        "units": "mmHg",
+        "formula": null,
+        "transformation_code": "df['diastolic_bp'] = pd.to_numeric(df[config['diastolic']], errors='coerce')",
+        "transformation_description": "Extract diastolic BP using visit-specific column name",
+        "notes": "Same naming pattern as systolic"
+      },
+      "heart_rate": {
+        "source_file": "Visit-specific CSV",
+        "source_columns": [
+          "sc_pulse_v2_3",
+          "pv60_pulse",
+          "d{N}_pulse"
+        ],
+        "units": "bpm",
+        "formula": null,
+        "transformation_code": "df['heart_rate'] = pd.to_numeric(df[config['pulse']], errors='coerce')",
+        "transformation_description": "Extract pulse rate using visit-specific column",
+        "notes": "Originally 'pulse', renamed to 'heart_rate' in standardization"
+      },
+      "temperature_c": {
+        "source_file": "Visit-specific CSV",
+        "source_columns": [
+          "sc_temp_v2_3",
+          "pv60_temp",
+          "d{N}_temp"
+        ],
+        "units": "\u00b0C",
+        "formula": null,
+        "transformation_code": "df['temperature_c'] = pd.to_numeric(df[config['temp']], errors='coerce')",
+        "transformation_description": "Extract temperature using visit-specific column",
+        "notes": "Originally 'temp', renamed to 'temperature_c'"
+      },
+      "respiratory_rate": {
+        "source_file": "Visit-specific CSV",
+        "source_columns": [
+          "sc_resp_v2_3",
+          "pv60_resp",
+          "d{N}_resp"
+        ],
+        "units": "breaths/min",
+        "formula": null,
+        "transformation_code": "df['respiratory_rate'] = pd.to_numeric(df[config['resp']], errors='coerce')",
+        "transformation_description": "Extract respiratory rate using visit-specific column",
+        "notes": null
+      },
+      "oxygen_saturation": {
+        "source_file": "Visit-specific CSV",
+        "source_columns": [
+          "sc_oxy_v2_3",
+          "pv60_oxy",
+          "d{N}_oxy"
+        ],
+        "units": "%",
+        "formula": null,
+        "transformation_code": "df['oxygen_saturation'] = pd.to_numeric(df[config['oxygen']], errors='coerce')",
+        "transformation_description": "Extract SpO2 using visit-specific column",
+        "notes": null
+      },
+      "weight_kg": {
+        "source_file": "Screening CSV only",
+        "source_columns": [
+          "sc_weight_v2_3"
+        ],
+        "units": "kg",
+        "formula": null,
+        "transformation_code": "df['weight_kg'] = pd.to_numeric(df['sc_weight_v2_3'], errors='coerce')",
+        "transformation_description": "Extract weight from screening visit only",
+        "notes": "Only measured at screening"
+      },
+      "height_cm": {
+        "source_file": "Screening CSV only",
+        "source_columns": [
+          "sc_height_v2_3"
+        ],
+        "units": "cm",
+        "formula": null,
+        "transformation_code": "df['height_cm'] = pd.to_numeric(df['sc_height_v2_3'], errors='coerce')",
+        "transformation_description": "Extract height from screening visit only",
+        "notes": "Only measured at screening"
+      },
+      "bmi": {
+        "source_file": "ChAdOx_data_vital_signs_screening_visit_v2_3.csv",
+        "source_columns": [
+          "sc_bmi_v2_3"
+        ],
+        "units": "kg/m\u00b2",
+        "formula": null,
+        "transformation_code": "df['bmi'] = pd.to_numeric(df['sc_bmi_v2_3'], errors='coerce')",
+        "transformation_description": "Direct from source (pre-calculated at screening)",
+        "notes": "Pre-calculated in source; only available at screening"
+      },
+      "visit_date": {
+        "source_file": "Visit-specific CSV",
+        "source_columns": [
+          "vs_scr_dat_v2_3 (Screening)",
+          "vacc_dat (Day 0)",
+          "d{N}_dat (Day N)"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['visit_date'] = pd.to_datetime(df[config['date']], errors='coerce')",
+        "transformation_description": "Extract visit date using visit-specific column name",
+        "notes": "Column names: vs_scr_dat_v2_3, vacc_dat, d3_dat, d7_dat, d14_dat, d28_dat, etc."
+      },
+      "vaccination_date": {
+        "source_file": "ChAdOx_data_day_0_vaccination.csv",
+        "source_columns": [
+          "vacc_dat"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['vaccination_date'] = pd.to_datetime(df['vacc_dat'], errors='coerce')",
+        "transformation_description": "Date of COVID-19 vaccination (Day 0)",
+        "notes": "Primary vaccination date"
+      },
+      "urine_protein": {
+        "source_file": "ChAdOx_data_vital_signs_screening_visit_v2_3.csv",
+        "source_columns": [
+          "ur_protein_v2_3"
+        ],
+        "units": "categorical",
+        "formula": null,
+        "transformation_code": "df['urine_protein'] = df['ur_protein_v2_3']",
+        "transformation_description": "Urine protein dipstick result",
+        "notes": "Screening urinalysis"
+      },
+      "urine_blood": {
+        "source_file": "ChAdOx_data_vital_signs_screening_visit_v2_3.csv",
+        "source_columns": [
+          "ur_blood_v2_3"
+        ],
+        "units": "categorical",
+        "formula": null,
+        "transformation_code": "df['urine_blood'] = df['ur_blood_v2_3']",
+        "transformation_description": "Urine blood dipstick result",
+        "notes": "Screening urinalysis"
+      },
+      "urine_glucose": {
+        "source_file": "ChAdOx_data_vital_signs_screening_visit_v2_3.csv",
+        "source_columns": [
+          "ur_glucose_v2_3"
+        ],
+        "units": "categorical",
+        "formula": null,
+        "transformation_code": "df['urine_glucose'] = df['ur_glucose_v2_3']",
+        "transformation_description": "Urine glucose dipstick result",
+        "notes": "Screening urinalysis"
+      },
+      "pregnancy_test": {
+        "source_file": "ChAdOx_data_vital_signs_screening_visit_v2_3.csv",
+        "source_columns": [
+          "sc_preg_test_v2_3",
+          "ur_pregnancy_result_v2_3"
+        ],
+        "units": "categorical",
+        "formula": null,
+        "transformation_code": "df['pregnancy_test'] = df['ur_pregnancy_result_v2_3']",
+        "transformation_description": "Urine pregnancy test result",
+        "notes": "Required for women of childbearing potential"
+      },
+      "childbearing_potential": {
+        "source_file": "ChAdOx_data_demographic_and_contact_information_v2_3.csv",
+        "source_columns": [
+          "sc_childbear_v2_3"
+        ],
+        "units": "boolean",
+        "formula": null,
+        "transformation_code": "df['childbearing_potential'] = df['sc_childbear_v2_3']",
+        "transformation_description": "Woman of childbearing potential flag",
+        "notes": "Screening criterion for contraception requirements"
+      },
+      "latitude": {
+        "source_file": "GEOCODED",
+        "source_columns": [],
+        "units": "degrees",
+        "formula": null,
+        "transformation_code": "df['latitude'] = -26.1929  # VIDA research site, Soweto",
+        "transformation_description": "Fixed coordinates for VIDA research site",
+        "notes": "VIDA Vaccines and Infectious Diseases Analytics, Soweto"
+      },
+      "longitude": {
+        "source_file": "GEOCODED",
+        "source_columns": [],
+        "units": "degrees",
+        "formula": null,
+        "transformation_code": "df['longitude'] = 27.9082  # VIDA research site, Soweto",
+        "transformation_description": "Fixed coordinates for VIDA research site",
+        "notes": "All participants enrolled at single site"
+      },
+      "study_id": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['study_id'] = 'JHB_VIDA_007'",
+        "transformation_description": "Study identifier constant",
+        "notes": "Harmonization metadata"
+      },
+      "study_name": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['study_name'] = 'VIDA 007 - ChAdOx1 COVID-19 Vaccine Trial'",
+        "transformation_description": "Full study name constant",
+        "notes": "Harmonization metadata"
+      },
+      "study_type": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['study_type'] = 'Vaccine Trial (Randomized)'",
+        "transformation_description": "Study design type",
+        "notes": "Harmonization metadata"
+      },
+      "country": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['country'] = 'South Africa'",
+        "transformation_description": "Country constant",
+        "notes": "VIDA site in Soweto, South Africa"
+      }
+    }
+  },
+  "JHB_Ezin_002": {
+    "study_info": {
+      "study_name": "Ezintsha 002 - HIV Treatment Trial",
+      "study_type": "HIV Treatment Trial (Randomized)",
+      "data_format": "Domain-Specific CSVs",
+      "site": "Ezintsha",
+      "source_path": "/home/cparker/incoming/RP2/JHB_Ezin_002/csv",
+      "population": "HIV-positive adults initiating treatment",
+      "duration": "84 weeks follow-up with 13 visit timepoints"
+    },
+    "harmonization_info": {
+      "harmonization_version": "2.0_LONGITUDINAL",
+      "harmonizer_script": "JHB_Ezin_002_LONGITUDINAL_HARMONIZER.py",
+      "harmonization_date": "2025-12-02"
+    },
+    "study_notes": [
+      "HIV treatment trial comparing DTG+TAF+FTC vs comparator",
+      "All participants HIV-positive and on ART",
+      "13 visits: Screening, Enrolment, W04, W12, W24, W36, W48, W60, W72, W84, EOS",
+      "Viral load stored as text ('Not detected') requiring parsing",
+      "Rich hematology panel including full CBC differential"
+    ],
+    "source_files": {
+      "JHB_Ezin_002_200327_adv Weight&Vitals.csv": {
+        "description": "Vital signs (longitudinal backbone)",
+        "records": "~11,000",
+        "key_columns": [
+          "ranid",
+          "visit",
+          "visit_date",
+          "height",
+          "weight",
+          "systolic",
+          "diastolic",
+          "heartrate",
+          "bodytemperature"
+        ]
+      },
+      "JHB_Ezin_002_200326_adv hiv rna.csv": {
+        "description": "Viral load measurements",
+        "records": "~10,000",
+        "key_columns": [
+          "ranid",
+          "visit",
+          "colldate",
+          "result"
+        ]
+      },
+      "JHB_Ezin_002_200408_adv haematology.csv": {
+        "description": "Hematology panel including CD4",
+        "records": "~10,000",
+        "key_columns": [
+          "ranid",
+          "visit",
+          "age",
+          "sex",
+          "result__CD4 CELL COUNT",
+          "result__HAEMOGLOBIN",
+          "result__*"
+        ]
+      }
+    },
+    "variable_lineage": {
+      "patient_id": {
+        "source_file": "Vitals CSV",
+        "source_columns": [
+          "ranid"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['patient_id'] = df['ranid']",
+        "transformation_description": "Direct mapping of randomization ID",
+        "notes": "ranid = randomization ID"
+      },
+      "visit": {
+        "source_file": "Vitals CSV",
+        "source_columns": [
+          "visit"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['visit'] = df['visit'].replace({'screening': 'Screening'})",
+        "transformation_description": "Standardize visit names (capitalize screening)",
+        "notes": "Visits: Screening, Enrolment, Visit 1 W04, Visit 2 W12, etc."
+      },
+      "visit_num": {
+        "source_file": "DERIVED",
+        "source_columns": [
+          "visit"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "VISIT_NUM_MAP = {'Screening': 0, 'Enrolment': 1, 'Visit 1 W04': 2, 'Visit 2 W12': 3, 'Visit 3 W24': 4, 'Visit 4 W36': 5, 'Visit 5 W48': 6, 'Visit 6 W60': 7, 'Visit 7 W72': 8, 'Visit 8 W84': 9, 'Visit 9 EOS': 10}\ndf['visit_num'] = df['visit'].map(VISIT_NUM_MAP).fillna(99)",
+        "transformation_description": "Map visit names to numeric order",
+        "notes": "99 for Unscheduled/Early Termination"
+      },
+      "visit_date": {
+        "source_file": "Vitals CSV",
+        "source_columns": [
+          "visit_date"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['visit_date'] = pd.to_datetime(df['visit_date'], errors='coerce')",
+        "transformation_description": "Convert to datetime",
+        "notes": null
+      },
+      "age_years": {
+        "source_file": "Hematology CSV",
+        "source_columns": [
+          "age"
+        ],
+        "units": "years",
+        "formula": null,
+        "transformation_code": "df['age_years'] = pd.to_numeric(df['age'], errors='coerce')",
+        "transformation_description": "Direct mapping from hematology file",
+        "notes": null
+      },
+      "sex": {
+        "source_file": "Hematology CSV",
+        "source_columns": [
+          "sex"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['sex'] = df['sex'].map({'M': 'Male', 'F': 'Female'})",
+        "transformation_description": "Map M/F to Male/Female",
+        "notes": "M=Male, F=Female"
+      },
+      "treatment_arm": {
+        "source_file": "Vitals CSV",
+        "source_columns": [
+          "group"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['treatment_arm'] = df['group']",
+        "transformation_description": "Direct mapping of treatment group",
+        "notes": "DTG+TAF+FTC vs comparator"
+      },
+      "height_cm": {
+        "source_file": "Vitals CSV",
+        "source_columns": [
+          "height"
+        ],
+        "units": "cm",
+        "formula": null,
+        "transformation_code": "df['height_cm'] = pd.to_numeric(df['height'], errors='coerce')",
+        "transformation_description": "Direct mapping",
+        "notes": null
+      },
+      "weight_kg": {
+        "source_file": "Vitals CSV",
+        "source_columns": [
+          "weight"
+        ],
+        "units": "kg",
+        "formula": null,
+        "transformation_code": "df['weight_kg'] = pd.to_numeric(df['weight'], errors='coerce')",
+        "transformation_description": "Direct mapping",
+        "notes": null
+      },
+      "bmi": {
+        "source_file": "DERIVED",
+        "source_columns": [
+          "height",
+          "weight"
+        ],
+        "units": "kg/m\u00b2",
+        "formula": "weight_kg / (height_cm / 100)\u00b2",
+        "transformation_code": "df['bmi'] = df['weight_kg'] / ((df['height_cm'] / 100) ** 2)",
+        "transformation_description": "Calculate BMI from height and weight",
+        "notes": "Standard BMI formula"
+      },
+      "systolic_bp": {
+        "source_file": "Vitals CSV",
+        "source_columns": [
+          "systolic"
+        ],
+        "units": "mmHg",
+        "formula": null,
+        "transformation_code": "df['systolic_bp'] = pd.to_numeric(df['systolic'], errors='coerce')",
+        "transformation_description": "Direct mapping",
+        "notes": null
+      },
+      "diastolic_bp": {
+        "source_file": "Vitals CSV",
+        "source_columns": [
+          "diastolic"
+        ],
+        "units": "mmHg",
+        "formula": null,
+        "transformation_code": "df['diastolic_bp'] = pd.to_numeric(df['diastolic'], errors='coerce')",
+        "transformation_description": "Direct mapping",
+        "notes": null
+      },
+      "heart_rate": {
+        "source_file": "Vitals CSV",
+        "source_columns": [
+          "heartrate"
+        ],
+        "units": "bpm",
+        "formula": null,
+        "transformation_code": "df['heart_rate'] = pd.to_numeric(df['heartrate'], errors='coerce')",
+        "transformation_description": "Direct mapping",
+        "notes": null
+      },
+      "temperature_c": {
+        "source_file": "Vitals CSV",
+        "source_columns": [
+          "bodytemperature"
+        ],
+        "units": "\u00b0C",
+        "formula": null,
+        "transformation_code": "df['temperature_c'] = pd.to_numeric(df['bodytemperature'], errors='coerce')",
+        "transformation_description": "Direct mapping",
+        "notes": null
+      },
+      "viral_load": {
+        "source_file": "Viral load CSV",
+        "source_columns": [
+          "result"
+        ],
+        "units": "copies/mL",
+        "formula": "parse_vl(value)",
+        "transformation_code": "def parse_vl(value):\n    if pd.isna(value): return np.nan\n    if value == 'Not detected': return 39.0  # Below detection limit\n    try: return float(value)\n    except: return np.nan\ndf['viral_load'] = df['result'].apply(parse_vl)",
+        "transformation_description": "Parse viral load; 'Not detected' \u2192 39.0 (below LOD)",
+        "notes": "'Not detected' indicates undetectable viral load, coded as 39 (below 40 copies/mL)"
+      },
+      "viral_load_undetectable": {
+        "source_file": "DERIVED",
+        "source_columns": [
+          "result"
+        ],
+        "units": "boolean (0/1)",
+        "formula": "result == 'Not detected'",
+        "transformation_code": "df['viral_load_undetectable'] = (df['result'] == 'Not detected').astype(float)",
+        "transformation_description": "Flag directly from text result",
+        "notes": "1 if 'Not detected', 0 otherwise"
+      },
+      "log10_viral_load": {
+        "source_file": "DERIVED",
+        "source_columns": [
+          "viral_load"
+        ],
+        "units": "log10(copies/mL)",
+        "formula": "log10(viral_load)",
+        "transformation_code": "df['log10_viral_load'] = np.log10(df['viral_load'].replace(0, np.nan))",
+        "transformation_description": "Log10 transformation",
+        "notes": null
+      },
+      "cd4_count": {
+        "source_file": "Hematology CSV",
+        "source_columns": [
+          "result__CD4 CELL COUNT"
+        ],
+        "units": "cells/\u00b5L",
+        "formula": null,
+        "transformation_code": "df['cd4_count'] = pd.to_numeric(df['result__CD4 CELL COUNT'], errors='coerce')",
+        "transformation_description": "Extract from wide-format hematology results",
+        "notes": "Column name includes prefix 'result__'"
+      },
+      "cd4_percent": {
+        "source_file": "Hematology CSV",
+        "source_columns": [
+          "result__CD4 CELL %"
+        ],
+        "units": "%",
+        "formula": null,
+        "transformation_code": "df['cd4_percent'] = pd.to_numeric(df['result__CD4 CELL %'], errors='coerce')",
+        "transformation_description": "Extract from wide-format hematology results",
+        "notes": null
+      },
+      "hemoglobin": {
+        "source_file": "Hematology CSV",
+        "source_columns": [
+          "result__HAEMOGLOBIN"
+        ],
+        "units": "g/dL",
+        "formula": null,
+        "transformation_code": "df['hemoglobin'] = pd.to_numeric(df['result__HAEMOGLOBIN'], errors='coerce')",
+        "transformation_description": "Extract from wide-format hematology results",
+        "notes": "British spelling 'HAEMOGLOBIN' in source"
+      },
+      "hematocrit": {
+        "source_file": "Hematology CSV",
+        "source_columns": [
+          "result__Hct"
+        ],
+        "units": "%",
+        "formula": null,
+        "transformation_code": "df['hematocrit'] = pd.to_numeric(df['result__Hct'], errors='coerce')",
+        "transformation_description": "Extract from wide-format hematology results",
+        "notes": null
+      },
+      "wbc": {
+        "source_file": "Hematology CSV",
+        "source_columns": [
+          "result__WBC ONLY (NO DIFF.COUNT)"
+        ],
+        "units": "10^9/L",
+        "formula": null,
+        "transformation_code": "df['wbc'] = pd.to_numeric(df['result__WBC ONLY (NO DIFF.COUNT)'], errors='coerce')",
+        "transformation_description": "Extract from wide-format hematology results",
+        "notes": "WBC without differential"
+      },
+      "platelets": {
+        "source_file": "Hematology CSV",
+        "source_columns": [
+          "result__PLATELET COUNT (AUTO)"
+        ],
+        "units": "10^9/L",
+        "formula": null,
+        "transformation_code": "df['platelets'] = pd.to_numeric(df['result__PLATELET COUNT (AUTO)'], errors='coerce')",
+        "transformation_description": "Extract automated platelet count",
+        "notes": null
+      },
+      "neutrophils": {
+        "source_file": "Hematology CSV",
+        "source_columns": [
+          "result__NEUTROPHILS PRT"
+        ],
+        "units": "%",
+        "formula": null,
+        "transformation_code": "df['neutrophils'] = pd.to_numeric(df['result__NEUTROPHILS PRT'], errors='coerce')",
+        "transformation_description": "Extract neutrophil percentage",
+        "notes": "PRT = percent"
+      },
+      "lymphocytes": {
+        "source_file": "Hematology CSV",
+        "source_columns": [
+          "result__LYMPHOCYTES PRT"
+        ],
+        "units": "%",
+        "formula": null,
+        "transformation_code": "df['lymphocytes'] = pd.to_numeric(df['result__LYMPHOCYTES PRT'], errors='coerce')",
+        "transformation_description": "Extract lymphocyte percentage",
+        "notes": null
+      },
+      "mcv": {
+        "source_file": "JHB_Ezin_002_200408_adv haematology.csv",
+        "source_columns": [
+          "result__MCV (MEAN CELL VOLUME)"
+        ],
+        "units": "fL",
+        "formula": null,
+        "transformation_code": "df['mcv'] = pd.to_numeric(df['result__MCV (MEAN CELL VOLUME)'], errors='coerce')",
+        "transformation_description": "Extract mean cell volume",
+        "notes": null
+      },
+      "mch": {
+        "source_file": "JHB_Ezin_002_200408_adv haematology.csv",
+        "source_columns": [
+          "result__MCH"
+        ],
+        "units": "pg",
+        "formula": null,
+        "transformation_code": "df['mch'] = pd.to_numeric(df['result__MCH'], errors='coerce')",
+        "transformation_description": "Mean corpuscular hemoglobin",
+        "notes": "MCH = mean corpuscular hemoglobin"
+      },
+      "mchc": {
+        "source_file": "JHB_Ezin_002_200408_adv haematology.csv",
+        "source_columns": [
+          "result__MCHC"
+        ],
+        "units": "g/dL",
+        "formula": null,
+        "transformation_code": "df['mchc'] = pd.to_numeric(df['result__MCHC'], errors='coerce')",
+        "transformation_description": "Mean corpuscular hemoglobin concentration",
+        "notes": "MCHC = mean corpuscular hemoglobin concentration"
+      },
+      "rbc": {
+        "source_file": "JHB_Ezin_002_200408_adv haematology.csv",
+        "source_columns": [
+          "result__RBC"
+        ],
+        "units": "10^12/L",
+        "formula": null,
+        "transformation_code": "df['rbc'] = pd.to_numeric(df['result__RBC'], errors='coerce')",
+        "transformation_description": "Red blood cell count",
+        "notes": null
+      },
+      "rdw": {
+        "source_file": "JHB_Ezin_002_200408_adv haematology.csv",
+        "source_columns": [
+          "result__RDW"
+        ],
+        "units": "%",
+        "formula": null,
+        "transformation_code": "df['rdw'] = pd.to_numeric(df['result__RDW'], errors='coerce')",
+        "transformation_description": "Red cell distribution width",
+        "notes": "RDW = red cell distribution width"
+      },
+      "monocytes": {
+        "source_file": "JHB_Ezin_002_200408_adv haematology.csv",
+        "source_columns": [
+          "result__MONOCYTES PRT"
+        ],
+        "units": "%",
+        "formula": null,
+        "transformation_code": "df['monocytes'] = pd.to_numeric(df['result__MONOCYTES PRT'], errors='coerce')",
+        "transformation_description": "Monocyte percentage",
+        "notes": "PRT = percent"
+      },
+      "eosinophils": {
+        "source_file": "JHB_Ezin_002_200408_adv haematology.csv",
+        "source_columns": [
+          "result__EOSINOPHILS PRT"
+        ],
+        "units": "%",
+        "formula": null,
+        "transformation_code": "df['eosinophils'] = pd.to_numeric(df['result__EOSINOPHILS PRT'], errors='coerce')",
+        "transformation_description": "Eosinophil percentage",
+        "notes": null
+      },
+      "basophils": {
+        "source_file": "JHB_Ezin_002_200408_adv haematology.csv",
+        "source_columns": [
+          "result__BASOPHILS PRT"
+        ],
+        "units": "%",
+        "formula": null,
+        "transformation_code": "df['basophils'] = pd.to_numeric(df['result__BASOPHILS PRT'], errors='coerce')",
+        "transformation_description": "Basophil percentage",
+        "notes": null
+      },
+      "hiv_status": {
+        "source_file": "STUDY_DESIGN",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['hiv_status'] = 'Positive'",
+        "transformation_description": "All participants HIV-positive by study design",
+        "notes": "HIV treatment trial - all participants HIV-positive"
+      },
+      "on_art": {
+        "source_file": "STUDY_DESIGN",
+        "source_columns": [],
+        "units": "boolean (0/1)",
+        "formula": null,
+        "transformation_code": "df['on_art'] = 1",
+        "transformation_description": "All participants on ART by study design",
+        "notes": "Treatment trial - all on DTG+TAF+FTC or comparator"
+      },
+      "latitude": {
+        "source_file": "GEOCODED",
+        "source_columns": [],
+        "units": "degrees",
+        "formula": null,
+        "transformation_code": "df['latitude'] = -26.2041  # Ezintsha, Johannesburg",
+        "transformation_description": "Fixed coordinates for Ezintsha research site",
+        "notes": "Ezintsha research facility coordinates"
+      },
+      "longitude": {
+        "source_file": "GEOCODED",
+        "source_columns": [],
+        "units": "degrees",
+        "formula": null,
+        "transformation_code": "df['longitude'] = 28.0473  # Ezintsha, Johannesburg",
+        "transformation_description": "Fixed coordinates for Ezintsha research site",
+        "notes": "All participants enrolled at single site"
+      },
+      "study_id": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['study_id'] = 'JHB_Ezin_002'",
+        "transformation_description": "Study identifier constant",
+        "notes": "Harmonization metadata"
+      },
+      "study_name": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['study_name'] = 'Ezintsha 002 - HIV Treatment Trial'",
+        "transformation_description": "Full study name constant",
+        "notes": "Harmonization metadata"
+      },
+      "study_type": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['study_type'] = 'HIV Treatment Trial (Randomized)'",
+        "transformation_description": "Study design type",
+        "notes": "Harmonization metadata"
+      },
+      "country": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['country'] = 'South Africa'",
+        "transformation_description": "Country constant",
+        "notes": "Ezintsha site in Johannesburg, South Africa"
+      }
+    }
+  },
+  "JHB_DPHRU_053": {
+    "study_info": {
+      "study_name": "MASC - Menopausal and Ageing Study Cohort",
+      "study_type": "Cross-Sectional",
+      "data_format": "Single CSV with 249 columns",
+      "site": "DPHRU",
+      "source_path": "/home/cparker/incoming/RP2/JHB_DPHRU_053/csv",
+      "population": "Middle-aged women (41-71 years)",
+      "duration": "Cross-sectional (single visit)"
+    },
+    "harmonization_info": {
+      "harmonization_version": "2.0_ENHANCED",
+      "harmonizer_script": "JHB_DPHRU_053_ENHANCED_HARMONIZER.py",
+      "harmonization_date": "2025-12-02"
+    },
+    "study_notes": [
+      "Cross-sectional study - NO longitudinal data to extract",
+      "Rich metabolic and body composition data (DXA scans)",
+      "MASC focuses on menopausal women - predominantly female cohort",
+      "Includes fasting insulin, HbA1c, hs-CRP (inflammatory marker)",
+      "DXA body composition: fat mass, lean mass, android fat, ASMI",
+      "Functional measures: grip strength, Epworth sleepiness score"
+    ],
+    "source_files": {
+      "JHB_DPHRU_053_MASC_DATA_2023-12-06 TO SHARE.csv": {
+        "description": "Complete MASC dataset",
+        "records": "1,013",
+        "key_columns": [
+          "gsk_id",
+          "gsk_date",
+          "age",
+          "gender",
+          "test_result_hiv",
+          "on_arvs",
+          "systolic_bp_average",
+          "glucose_0",
+          "lab_hba1c",
+          "total_cholesterol",
+          "hs_c_reactive_protein",
+          "total_fm",
+          "grip_strength_max"
+        ]
+      }
+    },
+    "variable_lineage": {
+      "patient_id": {
+        "source_file": "MASC_DATA CSV",
+        "source_columns": [
+          "gsk_id"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['patient_id'] = df['gsk_id']",
+        "transformation_description": "Direct mapping of GSK study ID",
+        "notes": "gsk_id = study participant identifier"
+      },
+      "visit_date": {
+        "source_file": "MASC_DATA CSV",
+        "source_columns": [
+          "gsk_date"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['visit_date'] = pd.to_datetime(df['gsk_date'], errors='coerce')",
+        "transformation_description": "Convert to datetime",
+        "notes": null
+      },
+      "age_years": {
+        "source_file": "MASC_DATA CSV",
+        "source_columns": [
+          "age"
+        ],
+        "units": "years",
+        "formula": null,
+        "transformation_code": "df['age_years'] = pd.to_numeric(df['age'], errors='coerce')",
+        "transformation_description": "Direct mapping",
+        "notes": "Range 41-71 years (menopausal women)"
+      },
+      "sex": {
+        "source_file": "MASC_DATA CSV",
+        "source_columns": [
+          "gender"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['sex'] = df['gender'].map({0.0: 'Female', 1.0: 'Male'})",
+        "transformation_description": "Map gender codes (0=Female, 1=Male)",
+        "notes": "Note: 0=Female (opposite of common convention); mostly female cohort"
+      },
+      "hiv_status": {
+        "source_file": "MASC_DATA CSV",
+        "source_columns": [
+          "test_result_hiv"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['hiv_status'] = df['test_result_hiv'].map({0.0: 'Negative', 1.0: 'Positive', 2.0: 'Unknown'})",
+        "transformation_description": "Map HIV test result codes",
+        "notes": "0=Negative, 1=Positive, 2=Unknown"
+      },
+      "hiv_positive": {
+        "source_file": "MASC_DATA CSV",
+        "source_columns": [
+          "test_result_hiv"
+        ],
+        "units": "boolean (0/1)",
+        "formula": "test_result_hiv == 1",
+        "transformation_code": "df['hiv_positive'] = (df['test_result_hiv'] == 1.0).astype(float)",
+        "transformation_description": "Binary HIV+ flag",
+        "notes": null
+      },
+      "on_art": {
+        "source_file": "MASC_DATA CSV",
+        "source_columns": [
+          "on_arvs"
+        ],
+        "units": "boolean (0/1)",
+        "formula": null,
+        "transformation_code": "df['on_art'] = df['on_arvs'].map({1.0: 1, 0.0: 0, 2.0: np.nan})",
+        "transformation_description": "Map ARV status (1=Yes, 0=No, 2=Unknown\u2192NaN)",
+        "notes": null
+      },
+      "systolic_bp": {
+        "source_file": "MASC_DATA CSV",
+        "source_columns": [
+          "systolic_bp_average"
+        ],
+        "units": "mmHg",
+        "formula": null,
+        "transformation_code": "df['systolic_bp'] = pd.to_numeric(df['systolic_bp_average'], errors='coerce')",
+        "transformation_description": "Average of BP readings",
+        "notes": "Average of multiple measurements"
+      },
+      "diastolic_bp": {
+        "source_file": "MASC_DATA CSV",
+        "source_columns": [
+          "diastolic_bp_average"
+        ],
+        "units": "mmHg",
+        "formula": null,
+        "transformation_code": "df['diastolic_bp'] = pd.to_numeric(df['diastolic_bp_average'], errors='coerce')",
+        "transformation_description": "Average of BP readings",
+        "notes": null
+      },
+      "height_cm": {
+        "source_file": "MASC_DATA CSV",
+        "source_columns": [
+          "height"
+        ],
+        "units": "cm",
+        "formula": null,
+        "transformation_code": "df['height_cm'] = pd.to_numeric(df['height'], errors='coerce')",
+        "transformation_description": "Direct mapping",
+        "notes": null
+      },
+      "weight_kg": {
+        "source_file": "MASC_DATA CSV",
+        "source_columns": [
+          "weight"
+        ],
+        "units": "kg",
+        "formula": null,
+        "transformation_code": "df['weight_kg'] = pd.to_numeric(df['weight'], errors='coerce')",
+        "transformation_description": "Direct mapping",
+        "notes": null
+      },
+      "bmi": {
+        "source_file": "MASC_DATA CSV",
+        "source_columns": [
+          "bmi"
+        ],
+        "units": "kg/m\u00b2",
+        "formula": null,
+        "transformation_code": "df['bmi'] = pd.to_numeric(df['bmi'], errors='coerce')",
+        "transformation_description": "Pre-calculated in source",
+        "notes": null
+      },
+      "waist_circumference": {
+        "source_file": "MASC_DATA CSV",
+        "source_columns": [
+          "waist_circumference_average"
+        ],
+        "units": "cm",
+        "formula": null,
+        "transformation_code": "df['waist_circumference'] = pd.to_numeric(df['waist_circumference_average'], errors='coerce')",
+        "transformation_description": "Average of waist measurements",
+        "notes": null
+      },
+      "hip_circumference": {
+        "source_file": "MASC_DATA CSV",
+        "source_columns": [
+          "hip_circumference_average"
+        ],
+        "units": "cm",
+        "formula": null,
+        "transformation_code": "df['hip_circumference'] = pd.to_numeric(df['hip_circumference_average'], errors='coerce')",
+        "transformation_description": "Average of hip measurements",
+        "notes": null
+      },
+      "waist_hip_ratio": {
+        "source_file": "DERIVED",
+        "source_columns": [
+          "waist_circumference_average",
+          "hip_circumference_average"
+        ],
+        "units": "ratio",
+        "formula": "waist / hip",
+        "transformation_code": "df['waist_hip_ratio'] = df['waist_circumference'] / df['hip_circumference']",
+        "transformation_description": "Calculate waist-to-hip ratio",
+        "notes": "Cardiovascular risk indicator"
+      },
+      "hemoglobin": {
+        "source_file": "MASC_DATA CSV",
+        "source_columns": [
+          "hb_value"
+        ],
+        "units": "g/dL",
+        "formula": null,
+        "transformation_code": "df['hemoglobin'] = pd.to_numeric(df['hb_value'], errors='coerce')",
+        "transformation_description": "Direct mapping",
+        "notes": "hb_value = hemoglobin"
+      },
+      "fasting_glucose": {
+        "source_file": "MASC_DATA CSV",
+        "source_columns": [
+          "glucose_0"
+        ],
+        "units": "mmol/L",
+        "formula": null,
+        "transformation_code": "df['fasting_glucose'] = pd.to_numeric(df['glucose_0'], errors='coerce')",
+        "transformation_description": "Fasting (time 0) glucose",
+        "notes": "glucose_0 = fasting glucose (OGTT time 0)"
+      },
+      "fasting_insulin": {
+        "source_file": "MASC_DATA CSV",
+        "source_columns": [
+          "insulin_0"
+        ],
+        "units": "\u00b5IU/mL",
+        "formula": null,
+        "transformation_code": "df['fasting_insulin'] = pd.to_numeric(df['insulin_0'], errors='coerce')",
+        "transformation_description": "Fasting (time 0) insulin",
+        "notes": "insulin_0 = fasting insulin (OGTT time 0)"
+      },
+      "hba1c": {
+        "source_file": "MASC_DATA CSV",
+        "source_columns": [
+          "lab_hba1c"
+        ],
+        "units": "%",
+        "formula": null,
+        "transformation_code": "df['hba1c'] = pd.to_numeric(df['lab_hba1c'], errors='coerce')",
+        "transformation_description": "HbA1c from lab results",
+        "notes": "Glycated hemoglobin - 3-month glucose average"
+      },
+      "who_glycemic_status": {
+        "source_file": "MASC_DATA CSV",
+        "source_columns": [
+          "who_glycemic_criteria"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['who_glycemic_status'] = df['who_glycemic_criteria']",
+        "transformation_description": "WHO glycemic classification",
+        "notes": "NGT=Normal, IFG=Impaired Fasting, IGT=Impaired Tolerance, T2D=Type 2 Diabetes"
+      },
+      "total_cholesterol": {
+        "source_file": "MASC_DATA CSV",
+        "source_columns": [
+          "total_cholesterol"
+        ],
+        "units": "mmol/L",
+        "formula": null,
+        "transformation_code": "df['total_cholesterol'] = pd.to_numeric(df['total_cholesterol'], errors='coerce')",
+        "transformation_description": "Direct mapping",
+        "notes": null
+      },
+      "hdl_cholesterol": {
+        "source_file": "MASC_DATA CSV",
+        "source_columns": [
+          "high_density_lipoprotein"
+        ],
+        "units": "mmol/L",
+        "formula": null,
+        "transformation_code": "df['hdl_cholesterol'] = pd.to_numeric(df['high_density_lipoprotein'], errors='coerce')",
+        "transformation_description": "Direct mapping",
+        "notes": "Column name: high_density_lipoprotein"
+      },
+      "ldl_cholesterol": {
+        "source_file": "MASC_DATA CSV",
+        "source_columns": [
+          "lab_calculated_ldl"
+        ],
+        "units": "mmol/L",
+        "formula": null,
+        "transformation_code": "df['ldl_cholesterol'] = pd.to_numeric(df['lab_calculated_ldl'], errors='coerce')",
+        "transformation_description": "Lab-calculated LDL",
+        "notes": "Calculated (not direct measure)"
+      },
+      "triglycerides": {
+        "source_file": "MASC_DATA CSV",
+        "source_columns": [
+          "triglycerides"
+        ],
+        "units": "mmol/L",
+        "formula": null,
+        "transformation_code": "df['triglycerides'] = pd.to_numeric(df['triglycerides'], errors='coerce')",
+        "transformation_description": "Direct mapping",
+        "notes": null
+      },
+      "albumin": {
+        "source_file": "MASC_DATA CSV",
+        "source_columns": [
+          "serum_albumin"
+        ],
+        "units": "g/L",
+        "formula": null,
+        "transformation_code": "df['albumin'] = pd.to_numeric(df['serum_albumin'], errors='coerce')",
+        "transformation_description": "Direct mapping",
+        "notes": "serum_albumin"
+      },
+      "hs_crp": {
+        "source_file": "MASC_DATA CSV",
+        "source_columns": [
+          "hs_c_reactive_protein"
+        ],
+        "units": "mg/L",
+        "formula": null,
+        "transformation_code": "df['hs_crp'] = pd.to_numeric(df['hs_c_reactive_protein'], errors='coerce')",
+        "transformation_description": "High-sensitivity CRP",
+        "notes": "Inflammatory marker - important for heat-health analysis"
+      },
+      "total_fat_mass": {
+        "source_file": "MASC_DATA CSV",
+        "source_columns": [
+          "total_fm"
+        ],
+        "units": "kg",
+        "formula": null,
+        "transformation_code": "df['total_fat_mass'] = pd.to_numeric(df['total_fm'], errors='coerce')",
+        "transformation_description": "Total fat mass from DXA",
+        "notes": "DXA body composition"
+      },
+      "total_lean_mass": {
+        "source_file": "MASC_DATA CSV",
+        "source_columns": [
+          "total_lean"
+        ],
+        "units": "kg",
+        "formula": null,
+        "transformation_code": "df['total_lean_mass'] = pd.to_numeric(df['total_lean'], errors='coerce')",
+        "transformation_description": "Total lean mass from DXA",
+        "notes": "DXA body composition"
+      },
+      "body_fat_percent": {
+        "source_file": "MASC_DATA CSV",
+        "source_columns": [
+          "total_percentage_fm"
+        ],
+        "units": "%",
+        "formula": null,
+        "transformation_code": "df['body_fat_percent'] = pd.to_numeric(df['total_percentage_fm'], errors='coerce')",
+        "transformation_description": "Body fat percentage from DXA",
+        "notes": null
+      },
+      "android_fat_percent": {
+        "source_file": "MASC_DATA CSV",
+        "source_columns": [
+          "android_pfat"
+        ],
+        "units": "%",
+        "formula": null,
+        "transformation_code": "df['android_fat_percent'] = pd.to_numeric(df['android_pfat'], errors='coerce')",
+        "transformation_description": "Android (abdominal) fat percentage",
+        "notes": "Visceral fat indicator"
+      },
+      "fat_mass_index": {
+        "source_file": "MASC_DATA CSV",
+        "source_columns": [
+          "fat_mass_index"
+        ],
+        "units": "kg/m\u00b2",
+        "formula": null,
+        "transformation_code": "df['fat_mass_index'] = pd.to_numeric(df['fat_mass_index'], errors='coerce')",
+        "transformation_description": "Fat mass index",
+        "notes": "fat_mass / height\u00b2"
+      },
+      "asmi": {
+        "source_file": "MASC_DATA CSV",
+        "source_columns": [
+          "asmi"
+        ],
+        "units": "kg/m\u00b2",
+        "formula": null,
+        "transformation_code": "df['asmi'] = pd.to_numeric(df['asmi'], errors='coerce')",
+        "transformation_description": "Appendicular Skeletal Muscle Index",
+        "notes": "Sarcopenia marker"
+      },
+      "grip_strength": {
+        "source_file": "MASC_DATA CSV",
+        "source_columns": [
+          "grip_strength_max"
+        ],
+        "units": "kg",
+        "formula": null,
+        "transformation_code": "df['grip_strength'] = pd.to_numeric(df['grip_strength_max'], errors='coerce')",
+        "transformation_description": "Maximum grip strength",
+        "notes": "Functional measure - frailty indicator"
+      },
+      "epworth_sleepiness_score": {
+        "source_file": "MASC_DATA CSV",
+        "source_columns": [
+          "total_ess_score"
+        ],
+        "units": "score (0-24)",
+        "formula": null,
+        "transformation_code": "df['epworth_sleepiness_score'] = pd.to_numeric(df['total_ess_score'], errors='coerce')",
+        "transformation_description": "Epworth Sleepiness Scale total",
+        "notes": ">10 indicates excessive daytime sleepiness"
+      },
+      "ses_score": {
+        "source_file": "MASC_DATA CSV",
+        "source_columns": [
+          "total_ses_score"
+        ],
+        "units": "score",
+        "formula": null,
+        "transformation_code": "df['ses_score'] = pd.to_numeric(df['total_ses_score'], errors='coerce')",
+        "transformation_description": "Socioeconomic status score",
+        "notes": null
+      },
+      "asset_index": {
+        "source_file": "JHB_DPHRU_053_MASC_DATA_2023-12-06 TO SHARE.csv",
+        "source_columns": [
+          "asset_index"
+        ],
+        "units": "index",
+        "formula": null,
+        "transformation_code": "df['asset_index'] = pd.to_numeric(df['asset_index'], errors='coerce')",
+        "transformation_description": "Asset-based wealth index",
+        "notes": "Calculated from household assets"
+      },
+      "education_level": {
+        "source_file": "JHB_DPHRU_053_MASC_DATA_2023-12-06 TO SHARE.csv",
+        "source_columns": [
+          "highest_education_level"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['education_level'] = df['highest_education_level']",
+        "transformation_description": "Highest education level attained",
+        "notes": null
+      },
+      "employment_status": {
+        "source_file": "JHB_DPHRU_053_MASC_DATA_2023-12-06 TO SHARE.csv",
+        "source_columns": [
+          "currently_employed"
+        ],
+        "units": "boolean",
+        "formula": null,
+        "transformation_code": "df['employment_status'] = df['currently_employed']",
+        "transformation_description": "Current employment status",
+        "notes": null
+      },
+      "marital_status": {
+        "source_file": "JHB_DPHRU_053_MASC_DATA_2023-12-06 TO SHARE.csv",
+        "source_columns": [
+          "marital_status"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['marital_status'] = df['marital_status']",
+        "transformation_description": "Direct mapping",
+        "notes": null
+      },
+      "monthly_income": {
+        "source_file": "JHB_DPHRU_053_MASC_DATA_2023-12-06 TO SHARE.csv",
+        "source_columns": [
+          "monthly_household_income"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['monthly_income'] = df['monthly_household_income']",
+        "transformation_description": "Monthly household income category",
+        "notes": "Categorical variable"
+      },
+      "housing_type": {
+        "source_file": "JHB_DPHRU_053_MASC_DATA_2023-12-06 TO SHARE.csv",
+        "source_columns": [
+          "home_description"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['housing_type'] = df['home_description']",
+        "transformation_description": "Type of housing/dwelling",
+        "notes": null
+      },
+      "years_in_gauteng": {
+        "source_file": "JHB_DPHRU_053_MASC_DATA_2023-12-06 TO SHARE.csv",
+        "source_columns": [
+          "years_living_in_gauteng"
+        ],
+        "units": "years",
+        "formula": null,
+        "transformation_code": "df['years_in_gauteng'] = pd.to_numeric(df['years_living_in_gauteng'], errors='coerce')",
+        "transformation_description": "Years living in Gauteng province",
+        "notes": "Duration of residence in study area"
+      },
+      "household_size": {
+        "source_file": "JHB_DPHRU_053_MASC_DATA_2023-12-06 TO SHARE.csv",
+        "source_columns": [
+          "people_living_in_house"
+        ],
+        "units": "persons",
+        "formula": null,
+        "transformation_code": "df['household_size'] = pd.to_numeric(df['people_living_in_house'], errors='coerce')",
+        "transformation_description": "Number of people in household",
+        "notes": null
+      },
+      "latitude": {
+        "source_file": "GEOCODED",
+        "source_columns": [],
+        "units": "degrees",
+        "formula": null,
+        "transformation_code": "df['latitude'] = -26.2041  # DPHRU, Johannesburg",
+        "transformation_description": "Fixed coordinates for DPHRU research site",
+        "notes": "DPHRU - Development Pathways for Health Research Unit"
+      },
+      "longitude": {
+        "source_file": "GEOCODED",
+        "source_columns": [],
+        "units": "degrees",
+        "formula": null,
+        "transformation_code": "df['longitude'] = 28.0473  # DPHRU, Johannesburg",
+        "transformation_description": "Fixed coordinates for DPHRU research site",
+        "notes": "All participants enrolled at single site"
+      },
+      "study_id": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['study_id'] = 'JHB_DPHRU_053'",
+        "transformation_description": "Study identifier constant",
+        "notes": "Harmonization metadata"
+      },
+      "study_name": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['study_name'] = 'MASC - Menopausal and Ageing Study Cohort'",
+        "transformation_description": "Full study name constant",
+        "notes": "Harmonization metadata"
+      },
+      "study_type": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['study_type'] = 'Cross-Sectional'",
+        "transformation_description": "Study design type",
+        "notes": "Harmonization metadata"
+      },
+      "country": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['country'] = 'South Africa'",
+        "transformation_description": "Country constant",
+        "notes": "DPHRU site in Johannesburg/Soweto"
+      }
+    }
+  },
+  "JHB_DPHRU_013": {
+    "study_info": {
+      "study_name": "WBS - Women's Body Study",
+      "study_type": "Longitudinal Cohort",
+      "data_format": "Excel Workbook (4 sheets)",
+      "site": "DPHRU",
+      "source_path": "/home/cparker/incoming/RP2/JHB_DPHRU_013/raw",
+      "population": "Women (HIV-positive and HIV-negative)",
+      "duration": "24-month follow-up (Baseline, 6m, 12m, 24m)"
+    },
+    "harmonization_info": {
+      "harmonization_version": "2.0_ENHANCED",
+      "harmonizer_script": "JHB_DPHRU_013_ENHANCED_HARMONIZER.py",
+      "harmonization_date": "2025-12-02"
+    },
+    "study_notes": [
+      "Longitudinal study of women's body composition and metabolic health",
+      "All participants are female",
+      "4 timepoints: Baseline, 6 months, 12 months, 24 months",
+      "Excel workbook with separate sheet per visit",
+      "Rich metabolic and body composition data including DXA, vitamin D",
+      "Includes HIV-positive and HIV-negative women"
+    ],
+    "source_files": {
+      "WBS HEAT Dataset 2024-12-19 V3.xlsx": {
+        "description": "Complete WBS dataset (Excel)",
+        "records": "784 total (4 sheets)",
+        "key_columns": [
+          "wbs_id",
+          "date",
+          "age",
+          "sbp_mean",
+          "dbp_mean",
+          "pulse_mean",
+          "glucose",
+          "insulin",
+          "cholesterole",
+          "trigs",
+          "vit_d_25",
+          "subtot_fat",
+          "flex_grip_mean"
+        ]
+      }
+    },
+    "variable_lineage": {
+      "patient_id": {
+        "source_file": "Excel (all sheets)",
+        "source_columns": [
+          "wbs_id"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['patient_id'] = df['wbs_id']",
+        "transformation_description": "Direct mapping of WBS study ID",
+        "notes": null
+      },
+      "visit": {
+        "source_file": "DERIVED",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "# Set based on which Excel sheet\ndf['visit'] = visit_name  # 'Baseline', '6 months', '12 months', '24 months'",
+        "transformation_description": "Assigned based on Excel sheet name",
+        "notes": "4 visits: Baseline, 6 months, 12 months, 24 months"
+      },
+      "visit_num": {
+        "source_file": "DERIVED",
+        "source_columns": [
+          "visit"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "visit_num_map = {'Baseline': 1, '6 months': 2, '12 months': 3, '24 months': 4}\ndf['visit_num'] = df['visit'].map(visit_num_map)",
+        "transformation_description": "Numeric visit order",
+        "notes": "1=Baseline, 2=6m, 3=12m, 4=24m"
+      },
+      "visit_date": {
+        "source_file": "Excel (all sheets)",
+        "source_columns": [
+          "date"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['visit_date'] = pd.to_datetime(df['date'], errors='coerce')",
+        "transformation_description": "Convert to datetime",
+        "notes": null
+      },
+      "age_years": {
+        "source_file": "Excel (all sheets)",
+        "source_columns": [
+          "age"
+        ],
+        "units": "years",
+        "formula": null,
+        "transformation_code": "df['age_years'] = pd.to_numeric(df['age'], errors='coerce')",
+        "transformation_description": "Direct mapping",
+        "notes": "Age at each visit"
+      },
+      "sex": {
+        "source_file": "STUDY_DESIGN",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['sex'] = 'Female'",
+        "transformation_description": "All participants female by study design",
+        "notes": "Women's Body Study - 100% female"
+      },
+      "systolic_bp": {
+        "source_file": "Excel (all sheets)",
+        "source_columns": [
+          "sbp_mean"
+        ],
+        "units": "mmHg",
+        "formula": null,
+        "transformation_code": "df['systolic_bp'] = pd.to_numeric(df['sbp_mean'], errors='coerce')",
+        "transformation_description": "Mean systolic BP",
+        "notes": "Average of multiple readings"
+      },
+      "diastolic_bp": {
+        "source_file": "Excel (all sheets)",
+        "source_columns": [
+          "dbp_mean"
+        ],
+        "units": "mmHg",
+        "formula": null,
+        "transformation_code": "df['diastolic_bp'] = pd.to_numeric(df['dbp_mean'], errors='coerce')",
+        "transformation_description": "Mean diastolic BP",
+        "notes": null
+      },
+      "heart_rate": {
+        "source_file": "Excel (all sheets)",
+        "source_columns": [
+          "pulse_mean"
+        ],
+        "units": "bpm",
+        "formula": null,
+        "transformation_code": "df['heart_rate'] = pd.to_numeric(df['pulse_mean'], errors='coerce')",
+        "transformation_description": "Mean pulse rate",
+        "notes": null
+      },
+      "height_cm": {
+        "source_file": "Excel (all sheets)",
+        "source_columns": [
+          "height"
+        ],
+        "units": "cm",
+        "formula": null,
+        "transformation_code": "df['height_cm'] = pd.to_numeric(df['height'], errors='coerce')",
+        "transformation_description": "Direct mapping",
+        "notes": null
+      },
+      "weight_kg": {
+        "source_file": "Excel (all sheets)",
+        "source_columns": [
+          "weight"
+        ],
+        "units": "kg",
+        "formula": null,
+        "transformation_code": "df['weight_kg'] = pd.to_numeric(df['weight'], errors='coerce')",
+        "transformation_description": "Direct mapping",
+        "notes": null
+      },
+      "bmi": {
+        "source_file": "Excel (all sheets)",
+        "source_columns": [
+          "bmi"
+        ],
+        "units": "kg/m\u00b2",
+        "formula": null,
+        "transformation_code": "df['bmi'] = pd.to_numeric(df['bmi'], errors='coerce')",
+        "transformation_description": "Pre-calculated in source",
+        "notes": null
+      },
+      "waist_circumference": {
+        "source_file": "Excel (all sheets)",
+        "source_columns": [
+          "waist_circum"
+        ],
+        "units": "cm",
+        "formula": null,
+        "transformation_code": "df['waist_circumference'] = pd.to_numeric(df['waist_circum'], errors='coerce')",
+        "transformation_description": "Direct mapping",
+        "notes": null
+      },
+      "hip_circumference": {
+        "source_file": "Excel (all sheets)",
+        "source_columns": [
+          "hip_circum"
+        ],
+        "units": "cm",
+        "formula": null,
+        "transformation_code": "df['hip_circumference'] = pd.to_numeric(df['hip_circum'], errors='coerce')",
+        "transformation_description": "Direct mapping",
+        "notes": null
+      },
+      "waist_hip_ratio": {
+        "source_file": "Excel (all sheets)",
+        "source_columns": [
+          "waist_hip_ratio"
+        ],
+        "units": "ratio",
+        "formula": null,
+        "transformation_code": "df['waist_hip_ratio'] = pd.to_numeric(df['waist_hip_ratio'], errors='coerce')",
+        "transformation_description": "Pre-calculated in source",
+        "notes": null
+      },
+      "fasting_glucose": {
+        "source_file": "Excel (all sheets)",
+        "source_columns": [
+          "glucose"
+        ],
+        "units": "mmol/L",
+        "formula": null,
+        "transformation_code": "df['fasting_glucose'] = pd.to_numeric(df['glucose'], errors='coerce')",
+        "transformation_description": "Direct mapping",
+        "notes": null
+      },
+      "fasting_insulin": {
+        "source_file": "Excel (all sheets)",
+        "source_columns": [
+          "insulin"
+        ],
+        "units": "\u00b5IU/mL",
+        "formula": null,
+        "transformation_code": "df['fasting_insulin'] = pd.to_numeric(df['insulin'], errors='coerce')",
+        "transformation_description": "Direct mapping",
+        "notes": null
+      },
+      "total_cholesterol": {
+        "source_file": "Excel (all sheets)",
+        "source_columns": [
+          "cholesterole"
+        ],
+        "units": "mmol/L",
+        "formula": null,
+        "transformation_code": "df['total_cholesterol'] = pd.to_numeric(df['cholesterole'], errors='coerce')",
+        "transformation_description": "Direct mapping",
+        "notes": "Note spelling: 'cholesterole' in source"
+      },
+      "hdl_cholesterol": {
+        "source_file": "Excel (all sheets)",
+        "source_columns": [
+          "hdl"
+        ],
+        "units": "mmol/L",
+        "formula": null,
+        "transformation_code": "df['hdl_cholesterol'] = pd.to_numeric(df['hdl'], errors='coerce')",
+        "transformation_description": "Direct mapping",
+        "notes": null
+      },
+      "ldl_cholesterol": {
+        "source_file": "Excel (all sheets)",
+        "source_columns": [
+          "ldl"
+        ],
+        "units": "mmol/L",
+        "formula": null,
+        "transformation_code": "df['ldl_cholesterol'] = pd.to_numeric(df['ldl'], errors='coerce')",
+        "transformation_description": "Direct mapping",
+        "notes": null
+      },
+      "triglycerides": {
+        "source_file": "Excel (all sheets)",
+        "source_columns": [
+          "trigs"
+        ],
+        "units": "mmol/L",
+        "formula": null,
+        "transformation_code": "df['triglycerides'] = pd.to_numeric(df['trigs'], errors='coerce')",
+        "transformation_description": "Direct mapping",
+        "notes": "trigs = triglycerides"
+      },
+      "vitamin_d": {
+        "source_file": "Excel (all sheets)",
+        "source_columns": [
+          "vit_d_25"
+        ],
+        "units": "nmol/L",
+        "formula": null,
+        "transformation_code": "df['vitamin_d'] = pd.to_numeric(df['vit_d_25'], errors='coerce')",
+        "transformation_description": "25-hydroxyvitamin D",
+        "notes": "vit_d_25 = 25(OH)D"
+      },
+      "total_fat_mass": {
+        "source_file": "Excel (all sheets)",
+        "source_columns": [
+          "subtot_fat"
+        ],
+        "units": "kg",
+        "formula": null,
+        "transformation_code": "df['total_fat_mass'] = pd.to_numeric(df['subtot_fat'], errors='coerce')",
+        "transformation_description": "Subtotal fat mass from DXA",
+        "notes": "DXA body composition"
+      },
+      "total_lean_mass": {
+        "source_file": "Excel (all sheets)",
+        "source_columns": [
+          "subtot_lean"
+        ],
+        "units": "kg",
+        "formula": null,
+        "transformation_code": "df['total_lean_mass'] = pd.to_numeric(df['subtot_lean'], errors='coerce')",
+        "transformation_description": "Subtotal lean mass from DXA",
+        "notes": null
+      },
+      "body_fat_percent": {
+        "source_file": "Excel (all sheets)",
+        "source_columns": [
+          "subtot_pfat"
+        ],
+        "units": "%",
+        "formula": null,
+        "transformation_code": "df['body_fat_percent'] = pd.to_numeric(df['subtot_pfat'], errors='coerce')",
+        "transformation_description": "Subtotal fat percentage from DXA",
+        "notes": null
+      },
+      "grip_strength": {
+        "source_file": "Excel (all sheets)",
+        "source_columns": [
+          "flex_grip_mean"
+        ],
+        "units": "kg",
+        "formula": null,
+        "transformation_code": "df['grip_strength'] = pd.to_numeric(df['flex_grip_mean'], errors='coerce')",
+        "transformation_description": "Mean grip strength (dynamometer)",
+        "notes": "Functional/frailty measure"
+      },
+      "ses_score": {
+        "source_file": "WBS HEAT Dataset 2024-12-19 V3.xlsx",
+        "source_columns": [
+          "ses"
+        ],
+        "units": "score",
+        "formula": null,
+        "transformation_code": "df['ses_score'] = pd.to_numeric(df['ses'], errors='coerce')",
+        "transformation_description": "Socioeconomic status score",
+        "notes": null
+      },
+      "latitude": {
+        "source_file": "GEOCODED",
+        "source_columns": [],
+        "units": "degrees",
+        "formula": null,
+        "transformation_code": "df['latitude'] = -26.2041  # DPHRU, Johannesburg",
+        "transformation_description": "Fixed coordinates for DPHRU research site",
+        "notes": "DPHRU - Development Pathways for Health Research Unit"
+      },
+      "longitude": {
+        "source_file": "GEOCODED",
+        "source_columns": [],
+        "units": "degrees",
+        "formula": null,
+        "transformation_code": "df['longitude'] = 28.0473  # DPHRU, Johannesburg",
+        "transformation_description": "Fixed coordinates for DPHRU research site",
+        "notes": "All participants enrolled at single site"
+      },
+      "study_id": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['study_id'] = 'JHB_DPHRU_013'",
+        "transformation_description": "Study identifier constant",
+        "notes": "Harmonization metadata"
+      },
+      "study_name": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['study_name'] = 'WBS - Women\\'s Body Study'",
+        "transformation_description": "Full study name constant",
+        "notes": "Harmonization metadata"
+      },
+      "study_type": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['study_type'] = 'Longitudinal Cohort'",
+        "transformation_description": "Study design type",
+        "notes": "Harmonization metadata"
+      },
+      "country": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['country'] = 'South Africa'",
+        "transformation_description": "Country constant",
+        "notes": "DPHRU site in Johannesburg/Soweto"
+      }
+    }
+  },
+  "JHB_EZIN_025": {
+    "study_info": {
+      "study_name": "Ezintsha 025 - COVID Treatment Trial",
+      "study_type": "COVID Treatment Trial",
+      "data_format": "Visit-Specific CSVs",
+      "site": "Ezintsha",
+      "source_path": "/home/cparker/incoming/RP2/JHB_EZIN_025/raw",
+      "population": "COVID-19 patients",
+      "duration": "10-day follow-up (Screening + Day 10)"
+    },
+    "harmonization_info": {
+      "harmonization_version": "2.0_ENHANCED",
+      "harmonizer_script": "JHB_EZIN_025_ENHANCED_HARMONIZER.py",
+      "harmonization_date": "2025-12-02"
+    },
+    "study_notes": [
+      "COVID-19 treatment trial",
+      "2 visit timepoints: Screening (Day 0) and Follow-up (Day 10)",
+      "Vital signs data: temperature, SpO2, respiratory rate critical for COVID",
+      "Separate CSV files for screening and follow-up visits"
+    ],
+    "source_files": {
+      "Vital Signs_Physical Exam-Screening.csv": {
+        "description": "Screening vital signs",
+        "records": "~300",
+        "key_columns": [
+          "Participant ID",
+          "Vital Signs Date",
+          "Weight",
+          "Height",
+          "Oral temperature",
+          "Pulse rate",
+          "Respiratory rate",
+          "Oxygen saturation level"
+        ]
+      },
+      "Vital Signs_Physical Exam-Follow-up.csv": {
+        "description": "Follow-up (Day 10) vital signs",
+        "records": "~200",
+        "key_columns": [
+          "Participant ID",
+          "Vital Signs Date",
+          "Weight",
+          "Temperature",
+          "Pulse rate",
+          "Respiratory rate",
+          "Oxygen saturation level"
+        ]
+      }
+    },
+    "variable_lineage": {
+      "patient_id": {
+        "source_file": "Both CSVs",
+        "source_columns": [
+          "Participant ID"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['patient_id'] = df['Participant ID']",
+        "transformation_description": "Direct mapping",
+        "notes": null
+      },
+      "visit": {
+        "source_file": "DERIVED",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['visit'] = visit_name  # 'Screening' or 'Follow-up Day 10'",
+        "transformation_description": "Assigned based on source file",
+        "notes": null
+      },
+      "visit_num": {
+        "source_file": "DERIVED",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "# Screening = 0, Follow-up Day 10 = 10\ndf['visit_num'] = 0 if visit_name == 'Screening' else 10",
+        "transformation_description": "Numeric visit (0=Screening, 10=Follow-up)",
+        "notes": null
+      },
+      "visit_date": {
+        "source_file": "Both CSVs",
+        "source_columns": [
+          "Vital Signs Date"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['visit_date'] = pd.to_datetime(df['Vital Signs Date'], errors='coerce')",
+        "transformation_description": "Convert to datetime",
+        "notes": null
+      },
+      "weight_kg": {
+        "source_file": "Both CSVs",
+        "source_columns": [
+          "Weight"
+        ],
+        "units": "kg",
+        "formula": null,
+        "transformation_code": "df['weight_kg'] = pd.to_numeric(df['Weight'], errors='coerce')",
+        "transformation_description": "Direct mapping",
+        "notes": null
+      },
+      "height_cm": {
+        "source_file": "Screening CSV",
+        "source_columns": [
+          "Height"
+        ],
+        "units": "cm",
+        "formula": null,
+        "transformation_code": "df['height_cm'] = pd.to_numeric(df['Height'], errors='coerce')",
+        "transformation_description": "Direct mapping (screening only)",
+        "notes": "Height only measured at screening"
+      },
+      "bmi": {
+        "source_file": "DERIVED",
+        "source_columns": [
+          "Weight",
+          "Height"
+        ],
+        "units": "kg/m\u00b2",
+        "formula": "weight_kg / (height_cm / 100)\u00b2",
+        "transformation_code": "df['bmi'] = df['weight_kg'] / ((df['height_cm'] / 100) ** 2)",
+        "transformation_description": "Calculate BMI from weight and height",
+        "notes": "Standard BMI formula"
+      },
+      "temperature_c": {
+        "source_file": "Both CSVs",
+        "source_columns": [
+          "Oral temperature (Screening)",
+          "Temperature (Follow-up)"
+        ],
+        "units": "\u00b0C",
+        "formula": null,
+        "transformation_code": "# Column name varies\nif 'Oral temperature' in df.columns:\n    df['temperature_c'] = pd.to_numeric(df['Oral temperature'], errors='coerce')\nelif 'Temperature' in df.columns:\n    df['temperature_c'] = pd.to_numeric(df['Temperature'], errors='coerce')",
+        "transformation_description": "Extract temperature (column name varies by visit)",
+        "notes": "Critical for COVID monitoring"
+      },
+      "heart_rate": {
+        "source_file": "Both CSVs",
+        "source_columns": [
+          "Pulse rate"
+        ],
+        "units": "bpm",
+        "formula": null,
+        "transformation_code": "df['heart_rate'] = pd.to_numeric(df['Pulse rate'], errors='coerce')",
+        "transformation_description": "Direct mapping",
+        "notes": null
+      },
+      "respiratory_rate": {
+        "source_file": "Both CSVs",
+        "source_columns": [
+          "Respiratory rate"
+        ],
+        "units": "breaths/min",
+        "formula": null,
+        "transformation_code": "df['respiratory_rate'] = pd.to_numeric(df['Respiratory rate'], errors='coerce')",
+        "transformation_description": "Direct mapping",
+        "notes": "Critical for COVID monitoring"
+      },
+      "oxygen_saturation": {
+        "source_file": "Both CSVs",
+        "source_columns": [
+          "Oxygen saturation level"
+        ],
+        "units": "%",
+        "formula": null,
+        "transformation_code": "df['oxygen_saturation'] = pd.to_numeric(df['Oxygen saturation level'], errors='coerce')",
+        "transformation_description": "SpO2 measurement",
+        "notes": "Critical for COVID monitoring; <94% indicates hypoxia"
+      },
+      "latitude": {
+        "source_file": "GEOCODED",
+        "source_columns": [],
+        "units": "degrees",
+        "formula": null,
+        "transformation_code": "df['latitude'] = -26.1897  # Ezintsha site, Johannesburg",
+        "transformation_description": "Fixed coordinates for Ezintsha research site",
+        "notes": "Ezintsha Clinical Research site, Hillbrow"
+      },
+      "longitude": {
+        "source_file": "GEOCODED",
+        "source_columns": [],
+        "units": "degrees",
+        "formula": null,
+        "transformation_code": "df['longitude'] = 28.0436  # Ezintsha site, Johannesburg",
+        "transformation_description": "Fixed coordinates for Ezintsha research site",
+        "notes": "All participants enrolled at single site"
+      },
+      "study_id": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['study_id'] = 'JHB_EZIN_025'",
+        "transformation_description": "Study identifier constant",
+        "notes": "Harmonization metadata"
+      },
+      "study_name": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['study_name'] = 'Ezintsha 025 - COVID Treatment Trial'",
+        "transformation_description": "Full study name constant",
+        "notes": "Harmonization metadata"
+      },
+      "study_type": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['study_type'] = 'COVID Treatment Trial'",
+        "transformation_description": "Study design type",
+        "notes": "Harmonization metadata"
+      },
+      "country": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['country'] = 'South Africa'",
+        "transformation_description": "Country constant",
+        "notes": "Ezintsha site in Johannesburg"
+      }
+    }
+  },
+  "JHB_SCHARP_004": {
+    "study_info": {
+      "study_name": "MTN-075/HPTN 081 - Phase 1 Microbicide Trial",
+      "study_type": "Phase 1 Clinical Trial",
+      "data_format": "SCHARP Standard (_fmt.csv files)",
+      "site": "SCHARP",
+      "source_path": "/home/cparker/incoming/RP2/JHB_SCHARP_004/csv",
+      "population": "Women (HIV prevention trial)",
+      "duration": "Multiple visits (201, 301, 311)"
+    },
+    "harmonization_info": {
+      "harmonization_version": "2.0_ENHANCED",
+      "harmonizer_script": "JHB_SCHARP_004_ENHANCED_HARMONIZER.py",
+      "harmonization_date": "2025-12-02"
+    },
+    "study_notes": [
+      "MTN-075/HPTN 081: Microbicide Trials Network Study",
+      "Phase 1 clinical trial for HIV prevention",
+      "SCHARP format with coded column names (LLR* prefix)",
+      "Full hematology panel and liver enzymes available",
+      "Multiple visits: 201 (primary), 301, 311"
+    ],
+    "source_files": {
+      "DEM_fmt.csv": {
+        "description": "Demographics",
+        "records": "~400",
+        "key_columns": [
+          "publicid",
+          "age",
+          "DEMsex"
+        ]
+      },
+      "LLR_fmt.csv": {
+        "description": "Lab Local Results - hematology, liver enzymes, creatinine",
+        "records": "~1,200",
+        "key_columns": [
+          "publicid",
+          "visit",
+          "LLRyear",
+          "LLRday",
+          "LLRhgb",
+          "LLRhct",
+          "LLRast",
+          "LLRalt",
+          "LLRcre"
+        ]
+      },
+      "HTR_fmt.csv": {
+        "description": "HIV Testing Results",
+        "records": "varies",
+        "key_columns": [
+          "publicid",
+          "visit"
+        ]
+      }
+    },
+    "variable_lineage": {
+      "patient_id": {
+        "source_file": "LLR_fmt.csv",
+        "source_columns": [
+          "publicid"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['patient_id'] = df['publicid']",
+        "transformation_description": "Direct mapping of public ID",
+        "notes": "SCHARP standard identifier"
+      },
+      "age_years": {
+        "source_file": "DEM_fmt.csv",
+        "source_columns": [
+          "age"
+        ],
+        "units": "years",
+        "formula": null,
+        "transformation_code": "df['age_years'] = pd.to_numeric(df['age'], errors='coerce')",
+        "transformation_description": "Direct mapping",
+        "notes": null
+      },
+      "sex": {
+        "source_file": "DEM_fmt.csv",
+        "source_columns": [
+          "DEMsex"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['sex'] = df['DEMsex'].map({1: 'Female', 2: 'Male'})",
+        "transformation_description": "Map SCHARP sex codes",
+        "notes": "1=Female, 2=Male (SCHARP convention)"
+      },
+      "visit": {
+        "source_file": "LLR_fmt.csv",
+        "source_columns": [
+          "visit"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['visit'] = df['visit'].astype(str)",
+        "transformation_description": "Convert visit code to string",
+        "notes": "Visits: 201, 301, 311"
+      },
+      "visit_num": {
+        "source_file": "DERIVED",
+        "source_columns": [
+          "visit"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "visit_map = {'201': 1, '301': 2, '311': 3}\ndf['visit_num'] = df['visit'].map(visit_map).fillna(99)",
+        "transformation_description": "Map visit codes to numeric order",
+        "notes": null
+      },
+      "visit_year": {
+        "source_file": "LLR_fmt.csv",
+        "source_columns": [
+          "LLRyear"
+        ],
+        "units": "year",
+        "formula": null,
+        "transformation_code": "df['visit_year'] = pd.to_numeric(df['LLRyear'], errors='coerce')",
+        "transformation_description": "Year of visit",
+        "notes": "Part of date construction"
+      },
+      "visit_day": {
+        "source_file": "LLR_fmt.csv",
+        "source_columns": [
+          "LLRday"
+        ],
+        "units": "day of year",
+        "formula": null,
+        "transformation_code": "df['visit_day'] = pd.to_numeric(df['LLRday'], errors='coerce')",
+        "transformation_description": "Day of year",
+        "notes": "Part of date construction"
+      },
+      "hemoglobin": {
+        "source_file": "LLR_fmt.csv",
+        "source_columns": [
+          "LLRhgb"
+        ],
+        "units": "g/dL",
+        "formula": null,
+        "transformation_code": "df['hemoglobin'] = pd.to_numeric(df['LLRhgb'], errors='coerce')",
+        "transformation_description": "Direct mapping",
+        "notes": "LLR = Lab Local Results; hgb = hemoglobin"
+      },
+      "hematocrit": {
+        "source_file": "LLR_fmt.csv",
+        "source_columns": [
+          "LLRhct"
+        ],
+        "units": "%",
+        "formula": null,
+        "transformation_code": "df['hematocrit'] = pd.to_numeric(df['LLRhct'], errors='coerce')",
+        "transformation_description": "Direct mapping",
+        "notes": "hct = hematocrit"
+      },
+      "mcv": {
+        "source_file": "LLR_fmt.csv",
+        "source_columns": [
+          "LLRmcv"
+        ],
+        "units": "fL",
+        "formula": null,
+        "transformation_code": "df['mcv'] = pd.to_numeric(df['LLRmcv'], errors='coerce')",
+        "transformation_description": "Mean cell volume",
+        "notes": null
+      },
+      "platelets": {
+        "source_file": "LLR_fmt.csv",
+        "source_columns": [
+          "LLRpla"
+        ],
+        "units": "10^9/L",
+        "formula": null,
+        "transformation_code": "df['platelets'] = pd.to_numeric(df['LLRpla'], errors='coerce')",
+        "transformation_description": "Platelet count",
+        "notes": "pla = platelets"
+      },
+      "wbc": {
+        "source_file": "LLR_fmt.csv",
+        "source_columns": [
+          "LLRwbc"
+        ],
+        "units": "10^9/L",
+        "formula": null,
+        "transformation_code": "df['wbc'] = pd.to_numeric(df['LLRwbc'], errors='coerce')",
+        "transformation_description": "White blood cell count",
+        "notes": null
+      },
+      "ast": {
+        "source_file": "LLR_fmt.csv",
+        "source_columns": [
+          "LLRast"
+        ],
+        "units": "U/L",
+        "formula": null,
+        "transformation_code": "df['ast'] = pd.to_numeric(df['LLRast'], errors='coerce')",
+        "transformation_description": "AST (liver enzyme)",
+        "notes": "Aspartate aminotransferase"
+      },
+      "alt": {
+        "source_file": "LLR_fmt.csv",
+        "source_columns": [
+          "LLRalt"
+        ],
+        "units": "U/L",
+        "formula": null,
+        "transformation_code": "df['alt'] = pd.to_numeric(df['LLRalt'], errors='coerce')",
+        "transformation_description": "ALT (liver enzyme)",
+        "notes": "Alanine aminotransferase"
+      },
+      "total_bilirubin": {
+        "source_file": "LLR_fmt.csv",
+        "source_columns": [
+          "LLRtbi"
+        ],
+        "units": "mg/dL",
+        "formula": null,
+        "transformation_code": "df['total_bilirubin'] = pd.to_numeric(df['LLRtbi'], errors='coerce')",
+        "transformation_description": "Total bilirubin",
+        "notes": "tbi = total bilirubin"
+      },
+      "creatinine": {
+        "source_file": "LLR_fmt.csv",
+        "source_columns": [
+          "LLRcre"
+        ],
+        "units": "mg/dL",
+        "formula": null,
+        "transformation_code": "df['creatinine'] = pd.to_numeric(df['LLRcre'], errors='coerce')",
+        "transformation_description": "Creatinine (kidney function)",
+        "notes": "cre = creatinine"
+      },
+      "phosphorus": {
+        "source_file": "LLR_fmt.csv",
+        "source_columns": [
+          "LLRpho"
+        ],
+        "units": "mg/dL",
+        "formula": null,
+        "transformation_code": "df['phosphorus'] = pd.to_numeric(df['LLRpho'], errors='coerce')",
+        "transformation_description": "Phosphorus",
+        "notes": "pho = phosphorus"
+      },
+      "latitude": {
+        "source_file": "GEOCODED",
+        "source_columns": [],
+        "units": "degrees",
+        "formula": null,
+        "transformation_code": "df['latitude'] = -26.1752  # SCHARP/Wits RHI site, Johannesburg",
+        "transformation_description": "Fixed coordinates for SCHARP research site",
+        "notes": "SCHARP - Statistical Center for HIV/AIDS Research and Prevention"
+      },
+      "longitude": {
+        "source_file": "GEOCODED",
+        "source_columns": [],
+        "units": "degrees",
+        "formula": null,
+        "transformation_code": "df['longitude'] = 28.0353  # SCHARP/Wits RHI site, Johannesburg",
+        "transformation_description": "Fixed coordinates for SCHARP research site",
+        "notes": "All participants enrolled at single site"
+      },
+      "study_id": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['study_id'] = 'JHB_SCHARP_004'",
+        "transformation_description": "Study identifier constant",
+        "notes": "Harmonization metadata"
+      },
+      "study_name": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['study_name'] = 'MTN-075/HPTN 081 - Phase 1 Microbicide Trial'",
+        "transformation_description": "Full study name constant",
+        "notes": "Harmonization metadata"
+      },
+      "study_type": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['study_type'] = 'Phase 1 Clinical Trial'",
+        "transformation_description": "Study design type",
+        "notes": "Harmonization metadata"
+      },
+      "country": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['country'] = 'South Africa'",
+        "transformation_description": "Country constant",
+        "notes": "SCHARP/Wits RHI site in Johannesburg"
+      }
+    }
+  },
+  "JHB_SCHARP_006": {
+    "study_info": {
+      "study_name": "HPTN082 - PrEP Adherence Study",
+      "study_type": "PrEP Adherence (Longitudinal)",
+      "data_format": "SCHARP Standard (_fmt.csv files)",
+      "site": "SCHARP/Wits RHI",
+      "source_path": "/home/cparker/incoming/RP2/JHB_SCHARP_006/csv",
+      "population": "Young African women (HIV-negative, on PrEP)",
+      "duration": "Multiple visits (up to 5201)"
+    },
+    "harmonization_info": {
+      "harmonization_version": "2.0_ENHANCED",
+      "harmonizer_script": "JHB_SCHARP_006_ENHANCED_HARMONIZER.py",
+      "harmonization_date": "2025-12-02"
+    },
+    "study_notes": [
+      "HPTN082: HIV Prevention Trials Network Study 082",
+      "PrEP adherence study in young African women",
+      "All participants are HIV-NEGATIVE at enrollment (PrEP inclusion criterion)",
+      "Longitudinal follow-up with multiple lab visits",
+      "Includes STI testing (gonorrhea, chlamydia, trichomoniasis, syphilis)"
+    ],
+    "source_files": {
+      "DEM_fmt.csv": {
+        "description": "Demographics",
+        "records": "~450",
+        "key_columns": [
+          "publicid",
+          "age",
+          "DEMsex",
+          "DEMedu"
+        ]
+      },
+      "LLR_fmt.csv": {
+        "description": "Lab Local Results - height, weight, creatinine, STIs",
+        "records": "~1,350",
+        "key_columns": [
+          "publicid",
+          "visit",
+          "LLRhtcm",
+          "LLRwtkg",
+          "LLRcre",
+          "LLRcrcl"
+        ]
+      },
+      "HTR_fmt.csv": {
+        "description": "HIV Testing Results",
+        "records": "varies",
+        "key_columns": [
+          "publicid",
+          "visit"
+        ]
+      },
+      "ENR_fmt.csv": {
+        "description": "Enrollment data",
+        "records": "~450",
+        "key_columns": [
+          "publicid"
+        ]
+      }
+    },
+    "variable_lineage": {
+      "patient_id": {
+        "source_file": "LLR_fmt.csv",
+        "source_columns": [
+          "publicid"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['patient_id'] = df['publicid']",
+        "transformation_description": "Direct mapping",
+        "notes": null
+      },
+      "age_years": {
+        "source_file": "DEM_fmt.csv",
+        "source_columns": [
+          "age"
+        ],
+        "units": "years",
+        "formula": null,
+        "transformation_code": "df['age_years'] = pd.to_numeric(df['age'], errors='coerce')",
+        "transformation_description": "Direct mapping",
+        "notes": null
+      },
+      "sex": {
+        "source_file": "DEM_fmt.csv",
+        "source_columns": [
+          "DEMsex"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['sex'] = df['DEMsex'].map({1: 'Female', 2: 'Male'})",
+        "transformation_description": "Map SCHARP sex codes",
+        "notes": "1=Female, 2=Male; study is mostly female"
+      },
+      "education_level": {
+        "source_file": "DEM_fmt.csv",
+        "source_columns": [
+          "DEMedu"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['education_level'] = df['DEMedu']",
+        "transformation_description": "Education level code",
+        "notes": null
+      },
+      "visit": {
+        "source_file": "LLR_fmt.csv",
+        "source_columns": [
+          "visit"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['visit'] = df['visit'].astype(str)",
+        "transformation_description": "Convert to string",
+        "notes": "Visit codes: 0, 401, 1401, 1501, 1601, 1701, 1711, 1801, 1811, 5201"
+      },
+      "visit_num": {
+        "source_file": "DERIVED",
+        "source_columns": [
+          "visit"
+        ],
+        "units": null,
+        "formula": null,
+        "transformation_code": "visit_map = {'0': 0, '401': 1, '1401': 2, '1501': 3, '1601': 4, '1701': 5, '1711': 6, '1801': 7, '1811': 8, '5201': 9}\ndf['visit_num'] = df['visit'].map(visit_map).fillna(99)",
+        "transformation_description": "Map visit codes to sequential numbers",
+        "notes": null
+      },
+      "visit_year": {
+        "source_file": "LLR_fmt.csv",
+        "source_columns": [
+          "LLRyear"
+        ],
+        "units": "year",
+        "formula": null,
+        "transformation_code": "df['visit_year'] = pd.to_numeric(df['LLRyear'], errors='coerce')",
+        "transformation_description": "Year of visit",
+        "notes": null
+      },
+      "visit_day": {
+        "source_file": "LLR_fmt.csv",
+        "source_columns": [
+          "LLRday"
+        ],
+        "units": "day of year",
+        "formula": null,
+        "transformation_code": "df['visit_day'] = pd.to_numeric(df['LLRday'], errors='coerce')",
+        "transformation_description": "Day of year",
+        "notes": null
+      },
+      "height_cm": {
+        "source_file": "LLR_fmt.csv",
+        "source_columns": [
+          "LLRhtcm"
+        ],
+        "units": "cm",
+        "formula": null,
+        "transformation_code": "df['height_cm'] = pd.to_numeric(df['LLRhtcm'], errors='coerce')",
+        "transformation_description": "Height in centimeters",
+        "notes": "htcm = height in cm"
+      },
+      "weight_kg": {
+        "source_file": "LLR_fmt.csv",
+        "source_columns": [
+          "LLRwtkg"
+        ],
+        "units": "kg",
+        "formula": null,
+        "transformation_code": "df['weight_kg'] = pd.to_numeric(df['LLRwtkg'], errors='coerce')",
+        "transformation_description": "Weight in kilograms",
+        "notes": "wtkg = weight in kg"
+      },
+      "bmi": {
+        "source_file": "DERIVED",
+        "source_columns": [
+          "LLRhtcm",
+          "LLRwtkg"
+        ],
+        "units": "kg/m\u00b2",
+        "formula": "weight_kg / (height_cm / 100)\u00b2",
+        "transformation_code": "df['bmi'] = df['weight_kg'] / ((df['height_cm'] / 100) ** 2)",
+        "transformation_description": "Calculate BMI from height and weight",
+        "notes": "Standard BMI formula"
+      },
+      "creatinine": {
+        "source_file": "LLR_fmt.csv",
+        "source_columns": [
+          "LLRcre"
+        ],
+        "units": "mg/dL",
+        "formula": null,
+        "transformation_code": "df['creatinine'] = pd.to_numeric(df['LLRcre'], errors='coerce')",
+        "transformation_description": "Creatinine (kidney function)",
+        "notes": "Important for PrEP monitoring (TDF nephrotoxicity)"
+      },
+      "creatinine_clearance": {
+        "source_file": "LLR_fmt.csv",
+        "source_columns": [
+          "LLRcrcl"
+        ],
+        "units": "mL/min",
+        "formula": null,
+        "transformation_code": "df['creatinine_clearance'] = pd.to_numeric(df['LLRcrcl'], errors='coerce')",
+        "transformation_description": "Creatinine clearance (estimated GFR)",
+        "notes": "crcl = creatinine clearance"
+      },
+      "hiv_status": {
+        "source_file": "STUDY_DESIGN",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['hiv_status'] = 'Negative'",
+        "transformation_description": "All participants HIV-negative by study design (PrEP study)",
+        "notes": "PrEP inclusion criterion: HIV-negative"
+      },
+      "hiv_positive": {
+        "source_file": "STUDY_DESIGN",
+        "source_columns": [],
+        "units": "boolean (0/1)",
+        "formula": null,
+        "transformation_code": "df['hiv_positive'] = 0",
+        "transformation_description": "All HIV-negative",
+        "notes": null
+      },
+      "on_prep": {
+        "source_file": "STUDY_DESIGN",
+        "source_columns": [],
+        "units": "boolean (0/1)",
+        "formula": null,
+        "transformation_code": "df['on_prep'] = 1",
+        "transformation_description": "All participants on PrEP by study design",
+        "notes": "PrEP adherence study - all on PrEP"
+      },
+      "latitude": {
+        "source_file": "GEOCODED",
+        "source_columns": [],
+        "units": "degrees",
+        "formula": null,
+        "transformation_code": "df['latitude'] = -26.1752  # SCHARP/Wits RHI site, Johannesburg",
+        "transformation_description": "Fixed coordinates for SCHARP research site",
+        "notes": "SCHARP - Statistical Center for HIV/AIDS Research and Prevention"
+      },
+      "longitude": {
+        "source_file": "GEOCODED",
+        "source_columns": [],
+        "units": "degrees",
+        "formula": null,
+        "transformation_code": "df['longitude'] = 28.0353  # SCHARP/Wits RHI site, Johannesburg",
+        "transformation_description": "Fixed coordinates for SCHARP research site",
+        "notes": "All participants enrolled at single site"
+      },
+      "study_id": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['study_id'] = 'JHB_SCHARP_006'",
+        "transformation_description": "Study identifier constant",
+        "notes": "Harmonization metadata"
+      },
+      "study_name": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['study_name'] = 'HPTN082 - PrEP Adherence Study'",
+        "transformation_description": "Full study name constant",
+        "notes": "Harmonization metadata"
+      },
+      "study_type": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['study_type'] = 'PrEP Adherence (Longitudinal)'",
+        "transformation_description": "Study design type",
+        "notes": "Harmonization metadata"
+      },
+      "country": {
+        "source_file": "METADATA",
+        "source_columns": [],
+        "units": null,
+        "formula": null,
+        "transformation_code": "df['country'] = 'South Africa'",
+        "transformation_description": "Country constant",
+        "notes": "SCHARP/Wits RHI site in Johannesburg"
+      }
+    }
+  }
+}

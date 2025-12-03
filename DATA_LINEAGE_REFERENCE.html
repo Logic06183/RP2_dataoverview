@@ -307,9 +307,9 @@
             <h1>RP2 Audit-Ready Data Lineage Report</h1>
             <div class="subtitle">Complete ALCOA+ Compliant Traceability Documentation</div>
             <div class="meta">
-                Generated: 2025-12-03 17:40:19 |
+                Generated: 2025-12-03 18:15:52 |
                 Studies: 13 |
-                Variables Documented: 346
+                Variables Documented: 380
             </div>
         </header>
 
@@ -332,7 +332,7 @@
                 <div class="stat-label">Unique Patients</div>
             </div>
             <div class="stat-box">
-                <div class="stat-value">346</div>
+                <div class="stat-value">380</div>
                 <div class="stat-label">Variables with Full Lineage</div>
             </div>
         </div>
@@ -358,12 +358,12 @@
 
                 <a href="#JHB_ACTG_016" class="toc-item">
                     <span>JHB_ACTG_016</span>
-                    <span class="toc-badge">766 records | 0 vars</span>
+                    <span class="toc-badge">766 records | 17 vars</span>
                 </a>
 
                 <a href="#JHB_ACTG_019" class="toc-item">
                     <span>JHB_ACTG_019</span>
-                    <span class="toc-badge">2,594 records | 0 vars</span>
+                    <span class="toc-badge">2,594 records | 17 vars</span>
                 </a>
 
                 <a href="#JHB_Aurum_009" class="toc-item">
@@ -465,30 +465,6 @@
                             <div class="info-label">Date</div>
                             <div class="info-value">2025-12-02</div>
                         </div>
-                    </div>
-                    <div style="margin-top: 15px; padding: 12px; background: #dbeafe; border-radius: 8px;">
-                        <strong>Changes from v1:</strong> Now extracts ALL longitudinal visits, not just baseline. Original: 1,067 records → Enhanced: 21,015 records (+1,869%)
-                    </div>
-                </div>
-
-                <div class="info-section">
-                    <h3>Quality Assurance - Comparison to Original</h3>
-                    <div class="comparison-box">
-                        <div class="comparison-item before">
-                            <div class="comparison-value">1,067</div>
-                            <div class="comparison-label">Original Records</div>
-                        </div>
-                        <div class="comparison-item after">
-                            <div class="comparison-value">21,015</div>
-                            <div class="comparison-label">Enhanced Records</div>
-                        </div>
-                        <div class="comparison-item improvement">
-                            <div class="comparison-value">+1870%</div>
-                            <div class="comparison-label">Improvement</div>
-                        </div>
-                    </div>
-                    <div style="margin-top: 15px; font-size: 0.9rem; color: var(--muted);">
-                        <strong>Notes:</strong> Original extraction only captured baseline visits; enhanced version captures all 96-week visits
                     </div>
                 </div>
 
@@ -960,30 +936,6 @@ df['bmi'] = df['weight_kg'] / (height_m ** 2)</div><div class="transform-desc">C
                             <div class="info-label">Date</div>
                             <div class="info-value">2025-12-02</div>
                         </div>
-                    </div>
-                    <div style="margin-top: 15px; padding: 12px; background: #dbeafe; border-radius: 8px;">
-                        <strong>Changes from v1:</strong> Now extracts ALL longitudinal visits, not just screening. Original: 305 records → Enhanced: 2,235 records (+633%)
-                    </div>
-                </div>
-
-                <div class="info-section">
-                    <h3>Quality Assurance - Comparison to Original</h3>
-                    <div class="comparison-box">
-                        <div class="comparison-item before">
-                            <div class="comparison-value">305</div>
-                            <div class="comparison-label">Original Records</div>
-                        </div>
-                        <div class="comparison-item after">
-                            <div class="comparison-value">2,235</div>
-                            <div class="comparison-label">Enhanced Records</div>
-                        </div>
-                        <div class="comparison-item improvement">
-                            <div class="comparison-value">+633%</div>
-                            <div class="comparison-label">Improvement</div>
-                        </div>
-                    </div>
-                    <div style="margin-top: 15px; font-size: 0.9rem; color: var(--muted);">
-                        <strong>Notes:</strong> Original extraction only captured screening visits; enhanced version captures all 48-week visits
                     </div>
                 </div>
 
@@ -1586,30 +1538,6 @@ df.loc[df['temperature_c'] &lt; 30, 'temperature_c'] = np.nan</div><div class="t
                             <div class="info-value">2025-12-02</div>
                         </div>
                     </div>
-                    <div style="margin-top: 15px; padding: 12px; background: #dbeafe; border-radius: 8px;">
-                        <strong>Changes from v1:</strong> Enhanced extraction from ACTG coded format. Original: 87 records → Enhanced: 2,364 records (+2,618%)
-                    </div>
-                </div>
-
-                <div class="info-section">
-                    <h3>Quality Assurance - Comparison to Original</h3>
-                    <div class="comparison-box">
-                        <div class="comparison-item before">
-                            <div class="comparison-value">87</div>
-                            <div class="comparison-label">Original Records</div>
-                        </div>
-                        <div class="comparison-item after">
-                            <div class="comparison-value">2,364</div>
-                            <div class="comparison-label">Enhanced Records</div>
-                        </div>
-                        <div class="comparison-item improvement">
-                            <div class="comparison-value">+2618%</div>
-                            <div class="comparison-label">Improvement</div>
-                        </div>
-                    </div>
-                    <div style="margin-top: 15px; font-size: 0.9rem; color: var(--muted);">
-                        <strong>Notes:</strong> Dramatic improvement from decoding ACTG column names and extracting full longitudinal data
-                    </div>
                 </div>
 
                 <div class="info-section">
@@ -1854,7 +1782,7 @@ df.loc[df['total_bilirubin'].isin([-1, -2, -4]), 'total_bilirubin'] = np.nan</di
                         </div>
                         <div class="info-item">
                             <div class="info-label">Data Format</div>
-                            <div class="info-value">ACTG Standard (coded column names)</div>
+                            <div class="info-value">ACTG Standard (coded column names requiring ACTG Codebook lookup)</div>
                         </div>
                         <div class="info-item">
                             <div class="info-label">Site</div>
@@ -1895,39 +1823,16 @@ df.loc[df['total_bilirubin'].isin([-1, -2, -4]), 'total_bilirubin'] = np.nan</di
                             <div class="info-value">2025-12-02</div>
                         </div>
                     </div>
-                    <div style="margin-top: 15px; padding: 12px; background: #dbeafe; border-radius: 8px;">
-                        <strong>Changes from v1:</strong> Enhanced extraction. Original: 76 records → Enhanced: 766 records (+897%)
-                    </div>
-                </div>
-
-                <div class="info-section">
-                    <h3>Quality Assurance - Comparison to Original</h3>
-                    <div class="comparison-box">
-                        <div class="comparison-item before">
-                            <div class="comparison-value">76</div>
-                            <div class="comparison-label">Original Records</div>
-                        </div>
-                        <div class="comparison-item after">
-                            <div class="comparison-value">766</div>
-                            <div class="comparison-label">Enhanced Records</div>
-                        </div>
-                        <div class="comparison-item improvement">
-                            <div class="comparison-value">+897%</div>
-                            <div class="comparison-label">Improvement</div>
-                        </div>
-                    </div>
-                    <div style="margin-top: 15px; font-size: 0.9rem; color: var(--muted);">
-                        <strong>Notes:</strong> Major improvement from full longitudinal extraction
-                    </div>
                 </div>
 
                 <div class="info-section">
                     <h3>Critical Study Context Notes</h3>
                     <ul class="notes-list">
-                        <li>HIV-TB co-infection trial</li>
-                        <li>Same ACTG coded column format as ACTG_015</li>
-                        <li>ACTG missing codes (-1, -2, -4) handled identically</li>
-                        <li>Dates constructed from year/month/day components</li>
+                        <li>HIV-TB co-infection trial (ACTG A5221)</li>
+                        <li>ACTG coded column format: columns named cp110, tf515, etc. require ACTG Codebook for interpretation</li>
+                        <li>ACTG missing codes: -1 (not done), -2 (not applicable), -4 (not available) → converted to NaN</li>
+                        <li>Demographics (age, sex, race) not included in ACTG export files</li>
+                        <li>All participants HIV-positive by study design</li>
 
                     </ul>
                 </div>
@@ -1946,31 +1851,24 @@ df.loc[df['total_bilirubin'].isin([-1, -2, -4]), 'total_bilirubin'] = np.nan</di
                         <tbody>
 
                             <tr>
-                                <td style="font-family: monospace; font-size: 0.85rem;">L_RNAFIN.csv</td>
-                                <td>HIV-1 RNA viral load</td>
-                                <td>~750</td>
-                                <td style="font-family: monospace; font-size: 0.8rem;">patid__L_RNAFIN, copies__L_RNAFIN</td>
+                                <td style="font-family: monospace; font-size: 0.85rem;">JHB_ACTG_016_ADM0010.csv</td>
+                                <td>Administrative visit records</td>
+                                <td>varies</td>
+                                <td style="font-family: monospace; font-size: 0.8rem;">patid__ADM0010, visitm__ADM0010, visitd__ADM0010, visity__ADM0010, week__ADM0010</td>
                             </tr>
 
                             <tr>
-                                <td style="font-family: monospace; font-size: 0.85rem;">LBW0054.csv</td>
-                                <td>CD4 counts</td>
+                                <td style="font-family: monospace; font-size: 0.85rem;">JHB_ACTG_016_LBW0057A.csv</td>
+                                <td>CBC/Hematology panel (ACTG Form LBW0057A)</td>
+                                <td>~76</td>
+                                <td style="font-family: monospace; font-size: 0.8rem;">patid__LBW0057A, cp110__LBW0057A (hemoglobin), cp114__LBW0057A (hematocrit), cp128__LBW0057A (WBC)</td>
+                            </tr>
+
+                            <tr>
+                                <td style="font-family: monospace; font-size: 0.85rem;">JHB_ACTG_016_LBW0054.csv</td>
+                                <td>CD4/Immunology panel (ACTG Form LBW0054)</td>
                                 <td>~510</td>
-                                <td style="font-family: monospace; font-size: 0.8rem;">tf515__LBW0054, tf513__LBW0054</td>
-                            </tr>
-
-                            <tr>
-                                <td style="font-family: monospace; font-size: 0.85rem;">LBW0057A.csv</td>
-                                <td>CBC/Hematology</td>
-                                <td>~76</td>
-                                <td style="font-family: monospace; font-size: 0.8rem;">cp110__LBW0057A, cp114__LBW0057A</td>
-                            </tr>
-
-                            <tr>
-                                <td style="font-family: monospace; font-size: 0.85rem;">LBW0057B.csv</td>
-                                <td>Chemistry panel</td>
-                                <td>~76</td>
-                                <td style="font-family: monospace; font-size: 0.8rem;">cp253__LBW0057B, cp258__LBW0057B</td>
+                                <td style="font-family: monospace; font-size: 0.8rem;">patid__LBW0054, tf509__LBW0054 (WBC), tf515__LBW0054 (CD4%)</td>
                             </tr>
 
                         </tbody>
@@ -1978,16 +1876,183 @@ df.loc[df['total_bilirubin'].isin([-1, -2, -4]), 'total_bilirubin'] = np.nan</di
                 </div>
 
                 <div class="info-section">
-                    <h3>Variable Lineage</h3>
-                    <p style="padding: 20px; background: #dbeafe; border-radius: 8px;">
-                        <strong>Note:</strong> This study uses the <strong>same ACTG coded column format and transformations</strong> as JHB_ACTG_015.
-                        See <a href="#JHB_ACTG_015" style="color: var(--primary); font-weight: 600;">JHB_ACTG_015 Variable Lineage</a> for complete documentation of:
-                        <ul style="margin-top: 10px; padding-left: 20px;">
-                            <li>ACTG coded column names (tf515, cp110, etc.)</li>
-                            <li>Date construction from year/month/day components</li>
-                            <li>ACTG missing code handling (-1, -2, -4 → NaN)</li>
-                        </ul>
-                    </p>
+                    <h3>Complete Variable Lineage & Transformation Details</h3>
+                    <table class="lineage-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 12%;">Variable</th>
+                                <th style="width: 15%;">Source File</th>
+                                <th style="width: 15%;">Source Column(s)</th>
+                                <th style="width: 8%;">Units</th>
+                                <th style="width: 25%;">Transformation Code</th>
+                                <th style="width: 25%;">Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td><span class="var-name">patient_id</span></td>
+                                <td><span class="source-file">JHB_ACTG_016_LBW0057A.csv</span></td>
+                                <td><span class="source-cols">patid__LBW0057A</span></td>
+                                <td>-</td>
+                                <td><div class="code-block">df['patient_id'] = df['patid__LBW0057A']</div><div class="transform-desc">Direct mapping of ACTG patient ID</div></td>
+                                <td class="notes-cell">7-digit ACTG participant identifier</td>
+                            </tr>
+
+                            <tr>
+                                <td><span class="var-name">visit_month</span></td>
+                                <td><span class="source-file">JHB_ACTG_016_LBW0057A.csv</span></td>
+                                <td><span class="source-cols">visitm__LBW0057A</span></td>
+                                <td><span class="unit-badge">month (1-12)</span></td>
+                                <td><div class="code-block">df['visit_month'] = pd.to_numeric(df['visitm__LBW0057A'], errors='coerce')</div><div class="transform-desc">Month component of visit date</div></td>
+                                <td class="notes-cell">Part of ACTG date construction</td>
+                            </tr>
+
+                            <tr>
+                                <td><span class="var-name">visit_day</span></td>
+                                <td><span class="source-file">JHB_ACTG_016_LBW0057A.csv</span></td>
+                                <td><span class="source-cols">visitd__LBW0057A</span></td>
+                                <td><span class="unit-badge">day (1-31)</span></td>
+                                <td><div class="code-block">df['visit_day'] = pd.to_numeric(df['visitd__LBW0057A'], errors='coerce')</div><div class="transform-desc">Day component of visit date</div></td>
+                                <td class="notes-cell">Part of ACTG date construction</td>
+                            </tr>
+
+                            <tr>
+                                <td><span class="var-name">visit_year</span></td>
+                                <td><span class="source-file">JHB_ACTG_016_LBW0057A.csv</span></td>
+                                <td><span class="source-cols">visity__LBW0057A</span></td>
+                                <td><span class="unit-badge">year (YYYY)</span></td>
+                                <td><div class="code-block">df['visit_year'] = pd.to_numeric(df['visity__LBW0057A'], errors='coerce')</div><div class="transform-desc">Year component of visit date</div></td>
+                                <td class="notes-cell">Part of ACTG date construction</td>
+                            </tr>
+
+                            <tr>
+                                <td><span class="var-name">study_week</span></td>
+                                <td><span class="source-file">JHB_ACTG_016_LBW0057A.csv</span></td>
+                                <td><span class="source-cols">week__LBW0057A</span></td>
+                                <td><span class="unit-badge">weeks from enrollment</span></td>
+                                <td><div class="code-block">df['study_week'] = pd.to_numeric(df['week__LBW0057A'], errors='coerce')</div><div class="transform-desc">Protocol-defined study week</div></td>
+                                <td class="notes-cell">Week 0 = enrollment/screening</td>
+                            </tr>
+
+                            <tr>
+                                <td><span class="var-name">visit_date</span></td>
+                                <td><span class="source-file">DERIVED</span></td>
+                                <td><span class="source-cols">visity__LBW0057A, visitm__LBW0057A, visitd__LBW0057A</span></td>
+                                <td><span class="unit-badge">date</span></td>
+                                <td><div class="formula-box"><strong>Formula:</strong> pd.to_datetime(year-month-day)</div><div class="code-block">df['visit_date'] = pd.to_datetime(
+    df['visit_year'].astype(str) + '-' + 
+    df['visit_month'].astype(str).str.zfill(2) + '-' + 
+    df['visit_day'].astype(str).str.zfill(2), 
+    errors='coerce'
+)</div><div class="transform-desc">Construct full date from year/month/day components</div></td>
+                                <td class="notes-cell">ACTG stores dates as separate components</td>
+                            </tr>
+
+                            <tr>
+                                <td><span class="var-name">HGB</span></td>
+                                <td><span class="source-file">JHB_ACTG_016_LBW0057A.csv</span></td>
+                                <td><span class="source-cols">cp110__LBW0057A</span></td>
+                                <td><span class="unit-badge">g/dL</span></td>
+                                <td><div class="code-block">df['HGB'] = pd.to_numeric(df['cp110__LBW0057A'], errors='coerce')
+df.loc[df['HGB'] &lt; 0, 'HGB'] = np.nan  # ACTG missing codes</div><div class="transform-desc">Hemoglobin from ACTG hematology form</div></td>
+                                <td class="notes-cell">cp110 = hemoglobin per ACTG Codebook; negative values are ACTG missing codes</td>
+                            </tr>
+
+                            <tr>
+                                <td><span class="var-name">HCT</span></td>
+                                <td><span class="source-file">JHB_ACTG_016_LBW0057A.csv</span></td>
+                                <td><span class="source-cols">cp114__LBW0057A</span></td>
+                                <td><span class="unit-badge">%</span></td>
+                                <td><div class="code-block">df['HCT'] = pd.to_numeric(df['cp114__LBW0057A'], errors='coerce')
+df.loc[df['HCT'] &lt; 0, 'HCT'] = np.nan  # ACTG missing codes</div><div class="transform-desc">Hematocrit from ACTG hematology form</div></td>
+                                <td class="notes-cell">cp114 = hematocrit per ACTG Codebook; negative values are ACTG missing codes</td>
+                            </tr>
+
+                            <tr>
+                                <td><span class="var-name">WBC</span></td>
+                                <td><span class="source-file">JHB_ACTG_016_LBW0057A.csv</span></td>
+                                <td><span class="source-cols">cp128__LBW0057A</span></td>
+                                <td><span class="unit-badge">10^9/L</span></td>
+                                <td><div class="code-block">df['WBC'] = pd.to_numeric(df['cp128__LBW0057A'], errors='coerce')
+df.loc[df['WBC'] &lt; 0, 'WBC'] = np.nan  # ACTG missing codes</div><div class="transform-desc">White blood cell count from ACTG hematology form</div></td>
+                                <td class="notes-cell">cp128 = WBC per ACTG Codebook; negative values are ACTG missing codes</td>
+                            </tr>
+
+                            <tr>
+                                <td><span class="var-name">study_id</span></td>
+                                <td><span class="source-file">METADATA</span></td>
+                                <td><span class="source-cols">N/A</span></td>
+                                <td>-</td>
+                                <td><div class="code-block">df['study_id'] = 'JHB_ACTG_016'</div><div class="transform-desc">Study identifier constant</div></td>
+                                <td class="notes-cell">Harmonization metadata</td>
+                            </tr>
+
+                            <tr>
+                                <td><span class="var-name">study_name</span></td>
+                                <td><span class="source-file">METADATA</span></td>
+                                <td><span class="source-cols">N/A</span></td>
+                                <td>-</td>
+                                <td><div class="code-block">df['study_name'] = 'A5221'</div><div class="transform-desc">ACTG protocol number</div></td>
+                                <td class="notes-cell">A5221 = ACTG 5221 HIV-TB co-infection trial</td>
+                            </tr>
+
+                            <tr>
+                                <td><span class="var-name">study_type</span></td>
+                                <td><span class="source-file">METADATA</span></td>
+                                <td><span class="source-cols">N/A</span></td>
+                                <td>-</td>
+                                <td><div class="code-block">df['study_type'] = 'HIV_treatment_trial'</div><div class="transform-desc">Study design type</div></td>
+                                <td class="notes-cell">Harmonization metadata</td>
+                            </tr>
+
+                            <tr>
+                                <td><span class="var-name">site</span></td>
+                                <td><span class="source-file">METADATA</span></td>
+                                <td><span class="source-cols">N/A</span></td>
+                                <td>-</td>
+                                <td><div class="code-block">df['site'] = 'Johannesburg'</div><div class="transform-desc">Study site location</div></td>
+                                <td class="notes-cell">ACTG site in Johannesburg, South Africa</td>
+                            </tr>
+
+                            <tr>
+                                <td><span class="var-name">country</span></td>
+                                <td><span class="source-file">METADATA</span></td>
+                                <td><span class="source-cols">N/A</span></td>
+                                <td>-</td>
+                                <td><div class="code-block">df['country'] = 'South Africa'</div><div class="transform-desc">Country constant</div></td>
+                                <td class="notes-cell">Harmonization metadata</td>
+                            </tr>
+
+                            <tr>
+                                <td><span class="var-name">latitude</span></td>
+                                <td><span class="source-file">GEOCODED</span></td>
+                                <td><span class="source-cols">N/A</span></td>
+                                <td><span class="unit-badge">degrees</span></td>
+                                <td><div class="code-block">df['latitude'] = -26.2041  # Johannesburg ACTG site</div><div class="transform-desc">Fixed coordinates for ACTG Johannesburg site</div></td>
+                                <td class="notes-cell">Clinical Trials Unit, Johannesburg</td>
+                            </tr>
+
+                            <tr>
+                                <td><span class="var-name">longitude</span></td>
+                                <td><span class="source-file">GEOCODED</span></td>
+                                <td><span class="source-cols">N/A</span></td>
+                                <td><span class="unit-badge">degrees</span></td>
+                                <td><div class="code-block">df['longitude'] = 28.0473  # Johannesburg ACTG site</div><div class="transform-desc">Fixed coordinates for ACTG Johannesburg site</div></td>
+                                <td class="notes-cell">All participants enrolled at single site</td>
+                            </tr>
+
+                            <tr>
+                                <td><span class="var-name">demographics_note</span></td>
+                                <td><span class="source-file">METADATA</span></td>
+                                <td><span class="source-cols">N/A</span></td>
+                                <td>-</td>
+                                <td><div class="code-block">df['demographics_note'] = 'Age/race/sex not available in ACTG export files'</div><div class="transform-desc">Note about missing demographics</div></td>
+                                <td class="notes-cell">ACTG data sharing agreement excludes detailed demographics</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
                 </div>
 
             </div>
@@ -2009,7 +2074,7 @@ df.loc[df['total_bilirubin'].isin([-1, -2, -4]), 'total_bilirubin'] = np.nan</di
                         </div>
                         <div class="info-item">
                             <div class="info-label">Data Format</div>
-                            <div class="info-value">ACTG Standard (coded column names)</div>
+                            <div class="info-value">ACTG Standard (coded column names requiring ACTG Codebook lookup)</div>
                         </div>
                         <div class="info-item">
                             <div class="info-label">Site</div>
@@ -2017,7 +2082,7 @@ df.loc[df['total_bilirubin'].isin([-1, -2, -4]), 'total_bilirubin'] = np.nan</di
                         </div>
                         <div class="info-item">
                             <div class="info-label">Population</div>
-                            <div class="info-value">HIV-positive African women</div>
+                            <div class="info-value">HIV-positive adults in resource-limited settings</div>
                         </div>
                         <div class="info-item">
                             <div class="info-label">Total Records</div>
@@ -2050,39 +2115,17 @@ df.loc[df['total_bilirubin'].isin([-1, -2, -4]), 'total_bilirubin'] = np.nan</di
                             <div class="info-value">2025-12-02</div>
                         </div>
                     </div>
-                    <div style="margin-top: 15px; padding: 12px; background: #dbeafe; border-radius: 8px;">
-                        <strong>Changes from v1:</strong> Enhanced extraction. Original: 100 records → Enhanced: 2,594 records (+2,494%)
-                    </div>
-                </div>
-
-                <div class="info-section">
-                    <h3>Quality Assurance - Comparison to Original</h3>
-                    <div class="comparison-box">
-                        <div class="comparison-item before">
-                            <div class="comparison-value">100</div>
-                            <div class="comparison-label">Original Records</div>
-                        </div>
-                        <div class="comparison-item after">
-                            <div class="comparison-value">2,594</div>
-                            <div class="comparison-label">Enhanced Records</div>
-                        </div>
-                        <div class="comparison-item improvement">
-                            <div class="comparison-value">+2494%</div>
-                            <div class="comparison-label">Improvement</div>
-                        </div>
-                    </div>
-                    <div style="margin-top: 15px; font-size: 0.9rem; color: var(--muted);">
-                        <strong>Notes:</strong> Comprehensive longitudinal ART data extraction
-                    </div>
                 </div>
 
                 <div class="info-section">
                     <h3>Critical Study Context Notes</h3>
                     <ul class="notes-list">
-                        <li>Global comparison of antiretroviral regimens</li>
-                        <li>Same ACTG coded column format</li>
-                        <li>Rich viral load and CD4 longitudinal data</li>
-                        <li>All participants HIV-positive African women</li>
+                        <li>Global comparison of antiretroviral regimens (ACTG A5175)</li>
+                        <li>ACTG coded column format: columns named cp110, tf515, etc. require ACTG Codebook for interpretation</li>
+                        <li>ACTG missing codes: -1 (not done), -2 (not applicable), -4 (not available) → converted to NaN</li>
+                        <li>Demographics (age, sex, race) not included in ACTG export files</li>
+                        <li>All participants HIV-positive by study design</li>
+                        <li>Rich longitudinal viral load and CD4 data</li>
 
                     </ul>
                 </div>
@@ -2101,31 +2144,31 @@ df.loc[df['total_bilirubin'].isin([-1, -2, -4]), 'total_bilirubin'] = np.nan</di
                         <tbody>
 
                             <tr>
-                                <td style="font-family: monospace; font-size: 0.85rem;">L_RNAFIN.csv</td>
-                                <td>Viral load measurements</td>
-                                <td>~2,584</td>
-                                <td style="font-family: monospace; font-size: 0.8rem;">copies__L_RNAFIN</td>
+                                <td style="font-family: monospace; font-size: 0.85rem;">JHB_ACTG_019_ADM0010.csv</td>
+                                <td>Administrative visit records</td>
+                                <td>varies</td>
+                                <td style="font-family: monospace; font-size: 0.8rem;">patid__ADM0010, visitm__ADM0010, visitd__ADM0010, visity__ADM0010, week__ADM0010</td>
                             </tr>
 
                             <tr>
-                                <td style="font-family: monospace; font-size: 0.85rem;">LBW0054.csv</td>
-                                <td>CD4/immunology</td>
-                                <td>~2,564</td>
-                                <td style="font-family: monospace; font-size: 0.8rem;">tf515__LBW0054, tf513__LBW0054</td>
-                            </tr>
-
-                            <tr>
-                                <td style="font-family: monospace; font-size: 0.85rem;">LBW0057A.csv</td>
-                                <td>CBC/Hematology</td>
+                                <td style="font-family: monospace; font-size: 0.85rem;">JHB_ACTG_019_LBW0057A.csv</td>
+                                <td>CBC/Hematology panel (ACTG Form LBW0057A)</td>
                                 <td>~167</td>
-                                <td style="font-family: monospace; font-size: 0.8rem;">cp110__LBW0057A</td>
+                                <td style="font-family: monospace; font-size: 0.8rem;">patid__LBW0057A, cp110__LBW0057A (hemoglobin), cp114__LBW0057A (hematocrit), cp128__LBW0057A (WBC)</td>
                             </tr>
 
                             <tr>
-                                <td style="font-family: monospace; font-size: 0.85rem;">LBW0057B.csv</td>
-                                <td>Chemistry</td>
-                                <td>~168</td>
-                                <td style="font-family: monospace; font-size: 0.8rem;">cp253__LBW0057B, cp258__LBW0057B</td>
+                                <td style="font-family: monospace; font-size: 0.85rem;">JHB_ACTG_019_LBW0054.csv</td>
+                                <td>CD4/Immunology panel (ACTG Form LBW0054)</td>
+                                <td>~2,564</td>
+                                <td style="font-family: monospace; font-size: 0.8rem;">patid__LBW0054, tf509__LBW0054 (WBC), tf515__LBW0054 (CD4%)</td>
+                            </tr>
+
+                            <tr>
+                                <td style="font-family: monospace; font-size: 0.85rem;">JHB_ACTG_019_L_RNAFIN.csv</td>
+                                <td>HIV-1 RNA viral load (final dataset)</td>
+                                <td>~2,584</td>
+                                <td style="font-family: monospace; font-size: 0.8rem;">patid__L_RNAFIN, copies__L_RNAFIN</td>
                             </tr>
 
                         </tbody>
@@ -2133,16 +2176,183 @@ df.loc[df['total_bilirubin'].isin([-1, -2, -4]), 'total_bilirubin'] = np.nan</di
                 </div>
 
                 <div class="info-section">
-                    <h3>Variable Lineage</h3>
-                    <p style="padding: 20px; background: #dbeafe; border-radius: 8px;">
-                        <strong>Note:</strong> This study uses the <strong>same ACTG coded column format and transformations</strong> as JHB_ACTG_015.
-                        See <a href="#JHB_ACTG_015" style="color: var(--primary); font-weight: 600;">JHB_ACTG_015 Variable Lineage</a> for complete documentation of:
-                        <ul style="margin-top: 10px; padding-left: 20px;">
-                            <li>ACTG coded column names (tf515, cp110, etc.)</li>
-                            <li>Date construction from year/month/day components</li>
-                            <li>ACTG missing code handling (-1, -2, -4 → NaN)</li>
-                        </ul>
-                    </p>
+                    <h3>Complete Variable Lineage & Transformation Details</h3>
+                    <table class="lineage-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 12%;">Variable</th>
+                                <th style="width: 15%;">Source File</th>
+                                <th style="width: 15%;">Source Column(s)</th>
+                                <th style="width: 8%;">Units</th>
+                                <th style="width: 25%;">Transformation Code</th>
+                                <th style="width: 25%;">Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td><span class="var-name">patient_id</span></td>
+                                <td><span class="source-file">JHB_ACTG_019_LBW0057A.csv</span></td>
+                                <td><span class="source-cols">patid__LBW0057A</span></td>
+                                <td>-</td>
+                                <td><div class="code-block">df['patient_id'] = df['patid__LBW0057A']</div><div class="transform-desc">Direct mapping of ACTG patient ID</div></td>
+                                <td class="notes-cell">7-digit ACTG participant identifier</td>
+                            </tr>
+
+                            <tr>
+                                <td><span class="var-name">visit_month</span></td>
+                                <td><span class="source-file">JHB_ACTG_019_LBW0057A.csv</span></td>
+                                <td><span class="source-cols">visitm__LBW0057A</span></td>
+                                <td><span class="unit-badge">month (1-12)</span></td>
+                                <td><div class="code-block">df['visit_month'] = pd.to_numeric(df['visitm__LBW0057A'], errors='coerce')</div><div class="transform-desc">Month component of visit date</div></td>
+                                <td class="notes-cell">Part of ACTG date construction</td>
+                            </tr>
+
+                            <tr>
+                                <td><span class="var-name">visit_day</span></td>
+                                <td><span class="source-file">JHB_ACTG_019_LBW0057A.csv</span></td>
+                                <td><span class="source-cols">visitd__LBW0057A</span></td>
+                                <td><span class="unit-badge">day (1-31)</span></td>
+                                <td><div class="code-block">df['visit_day'] = pd.to_numeric(df['visitd__LBW0057A'], errors='coerce')</div><div class="transform-desc">Day component of visit date</div></td>
+                                <td class="notes-cell">Part of ACTG date construction</td>
+                            </tr>
+
+                            <tr>
+                                <td><span class="var-name">visit_year</span></td>
+                                <td><span class="source-file">JHB_ACTG_019_LBW0057A.csv</span></td>
+                                <td><span class="source-cols">visity__LBW0057A</span></td>
+                                <td><span class="unit-badge">year (YYYY)</span></td>
+                                <td><div class="code-block">df['visit_year'] = pd.to_numeric(df['visity__LBW0057A'], errors='coerce')</div><div class="transform-desc">Year component of visit date</div></td>
+                                <td class="notes-cell">Part of ACTG date construction</td>
+                            </tr>
+
+                            <tr>
+                                <td><span class="var-name">study_week</span></td>
+                                <td><span class="source-file">JHB_ACTG_019_LBW0057A.csv</span></td>
+                                <td><span class="source-cols">week__LBW0057A</span></td>
+                                <td><span class="unit-badge">weeks from enrollment</span></td>
+                                <td><div class="code-block">df['study_week'] = pd.to_numeric(df['week__LBW0057A'], errors='coerce')</div><div class="transform-desc">Protocol-defined study week</div></td>
+                                <td class="notes-cell">Week 0 = enrollment/screening</td>
+                            </tr>
+
+                            <tr>
+                                <td><span class="var-name">visit_date</span></td>
+                                <td><span class="source-file">DERIVED</span></td>
+                                <td><span class="source-cols">visity__LBW0057A, visitm__LBW0057A, visitd__LBW0057A</span></td>
+                                <td><span class="unit-badge">date</span></td>
+                                <td><div class="formula-box"><strong>Formula:</strong> pd.to_datetime(year-month-day)</div><div class="code-block">df['visit_date'] = pd.to_datetime(
+    df['visit_year'].astype(str) + '-' + 
+    df['visit_month'].astype(str).str.zfill(2) + '-' + 
+    df['visit_day'].astype(str).str.zfill(2), 
+    errors='coerce'
+)</div><div class="transform-desc">Construct full date from year/month/day components</div></td>
+                                <td class="notes-cell">ACTG stores dates as separate components</td>
+                            </tr>
+
+                            <tr>
+                                <td><span class="var-name">HGB</span></td>
+                                <td><span class="source-file">JHB_ACTG_019_LBW0057A.csv</span></td>
+                                <td><span class="source-cols">cp110__LBW0057A</span></td>
+                                <td><span class="unit-badge">g/dL</span></td>
+                                <td><div class="code-block">df['HGB'] = pd.to_numeric(df['cp110__LBW0057A'], errors='coerce')
+df.loc[df['HGB'] &lt; 0, 'HGB'] = np.nan  # ACTG missing codes</div><div class="transform-desc">Hemoglobin from ACTG hematology form</div></td>
+                                <td class="notes-cell">cp110 = hemoglobin per ACTG Codebook; negative values are ACTG missing codes</td>
+                            </tr>
+
+                            <tr>
+                                <td><span class="var-name">HCT</span></td>
+                                <td><span class="source-file">JHB_ACTG_019_LBW0057A.csv</span></td>
+                                <td><span class="source-cols">cp114__LBW0057A</span></td>
+                                <td><span class="unit-badge">%</span></td>
+                                <td><div class="code-block">df['HCT'] = pd.to_numeric(df['cp114__LBW0057A'], errors='coerce')
+df.loc[df['HCT'] &lt; 0, 'HCT'] = np.nan  # ACTG missing codes</div><div class="transform-desc">Hematocrit from ACTG hematology form</div></td>
+                                <td class="notes-cell">cp114 = hematocrit per ACTG Codebook; negative values are ACTG missing codes</td>
+                            </tr>
+
+                            <tr>
+                                <td><span class="var-name">WBC</span></td>
+                                <td><span class="source-file">JHB_ACTG_019_LBW0057A.csv</span></td>
+                                <td><span class="source-cols">cp128__LBW0057A</span></td>
+                                <td><span class="unit-badge">10^9/L</span></td>
+                                <td><div class="code-block">df['WBC'] = pd.to_numeric(df['cp128__LBW0057A'], errors='coerce')
+df.loc[df['WBC'] &lt; 0, 'WBC'] = np.nan  # ACTG missing codes</div><div class="transform-desc">White blood cell count from ACTG hematology form</div></td>
+                                <td class="notes-cell">cp128 = WBC per ACTG Codebook; negative values are ACTG missing codes</td>
+                            </tr>
+
+                            <tr>
+                                <td><span class="var-name">study_id</span></td>
+                                <td><span class="source-file">METADATA</span></td>
+                                <td><span class="source-cols">N/A</span></td>
+                                <td>-</td>
+                                <td><div class="code-block">df['study_id'] = 'JHB_ACTG_019'</div><div class="transform-desc">Study identifier constant</div></td>
+                                <td class="notes-cell">Harmonization metadata</td>
+                            </tr>
+
+                            <tr>
+                                <td><span class="var-name">study_name</span></td>
+                                <td><span class="source-file">METADATA</span></td>
+                                <td><span class="source-cols">N/A</span></td>
+                                <td>-</td>
+                                <td><div class="code-block">df['study_name'] = 'A5175'</div><div class="transform-desc">ACTG protocol number</div></td>
+                                <td class="notes-cell">A5175 = ACTG 5175 global ART comparison trial</td>
+                            </tr>
+
+                            <tr>
+                                <td><span class="var-name">study_type</span></td>
+                                <td><span class="source-file">METADATA</span></td>
+                                <td><span class="source-cols">N/A</span></td>
+                                <td>-</td>
+                                <td><div class="code-block">df['study_type'] = 'HIV_treatment_trial'</div><div class="transform-desc">Study design type</div></td>
+                                <td class="notes-cell">Harmonization metadata</td>
+                            </tr>
+
+                            <tr>
+                                <td><span class="var-name">site</span></td>
+                                <td><span class="source-file">METADATA</span></td>
+                                <td><span class="source-cols">N/A</span></td>
+                                <td>-</td>
+                                <td><div class="code-block">df['site'] = 'Johannesburg'</div><div class="transform-desc">Study site location</div></td>
+                                <td class="notes-cell">ACTG site in Johannesburg, South Africa</td>
+                            </tr>
+
+                            <tr>
+                                <td><span class="var-name">country</span></td>
+                                <td><span class="source-file">METADATA</span></td>
+                                <td><span class="source-cols">N/A</span></td>
+                                <td>-</td>
+                                <td><div class="code-block">df['country'] = 'South Africa'</div><div class="transform-desc">Country constant</div></td>
+                                <td class="notes-cell">Harmonization metadata</td>
+                            </tr>
+
+                            <tr>
+                                <td><span class="var-name">latitude</span></td>
+                                <td><span class="source-file">GEOCODED</span></td>
+                                <td><span class="source-cols">N/A</span></td>
+                                <td><span class="unit-badge">degrees</span></td>
+                                <td><div class="code-block">df['latitude'] = -26.2041  # Johannesburg ACTG site</div><div class="transform-desc">Fixed coordinates for ACTG Johannesburg site</div></td>
+                                <td class="notes-cell">Clinical Trials Unit, Johannesburg</td>
+                            </tr>
+
+                            <tr>
+                                <td><span class="var-name">longitude</span></td>
+                                <td><span class="source-file">GEOCODED</span></td>
+                                <td><span class="source-cols">N/A</span></td>
+                                <td><span class="unit-badge">degrees</span></td>
+                                <td><div class="code-block">df['longitude'] = 28.0473  # Johannesburg ACTG site</div><div class="transform-desc">Fixed coordinates for ACTG Johannesburg site</div></td>
+                                <td class="notes-cell">All participants enrolled at single site</td>
+                            </tr>
+
+                            <tr>
+                                <td><span class="var-name">demographics_note</span></td>
+                                <td><span class="source-file">METADATA</span></td>
+                                <td><span class="source-cols">N/A</span></td>
+                                <td>-</td>
+                                <td><div class="code-block">df['demographics_note'] = 'Age/race/sex not available in ACTG export files'</div><div class="transform-desc">Note about missing demographics</div></td>
+                                <td class="notes-cell">ACTG data sharing agreement excludes detailed demographics</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
                 </div>
 
             </div>
@@ -2204,30 +2414,6 @@ df.loc[df['total_bilirubin'].isin([-1, -2, -4]), 'total_bilirubin'] = np.nan</di
                             <div class="info-label">Date</div>
                             <div class="info-value">2025-12-02</div>
                         </div>
-                    </div>
-                    <div style="margin-top: 15px; padding: 12px; background: #dbeafe; border-radius: 8px;">
-                        <strong>Changes from v1:</strong> Now extracts ALL longitudinal visits. Original: 2,930 records → Enhanced: 12,575 records (+329%)
-                    </div>
-                </div>
-
-                <div class="info-section">
-                    <h3>Quality Assurance - Comparison to Original</h3>
-                    <div class="comparison-box">
-                        <div class="comparison-item before">
-                            <div class="comparison-value">2,930</div>
-                            <div class="comparison-label">Original Records</div>
-                        </div>
-                        <div class="comparison-item after">
-                            <div class="comparison-value">12,575</div>
-                            <div class="comparison-label">Enhanced Records</div>
-                        </div>
-                        <div class="comparison-item improvement">
-                            <div class="comparison-value">+329%</div>
-                            <div class="comparison-label">Improvement</div>
-                        </div>
-                    </div>
-                    <div style="margin-top: 15px; font-size: 0.9rem; color: var(--muted);">
-                        <strong>Notes:</strong> Original captured baseline only; enhanced captures all 7 visit timepoints
                     </div>
                 </div>
 
@@ -2715,30 +2901,6 @@ df['housing_type'] = df['dwell'].map(DWELL_MAP)</div><div class="transform-desc"
                             <div class="info-value">2025-12-02</div>
                         </div>
                     </div>
-                    <div style="margin-top: 15px; padding: 12px; background: #dbeafe; border-radius: 8px;">
-                        <strong>Changes from v1:</strong> Now extracts ALL longitudinal visits. Original: 2,129 records → Enhanced: 15,607 records (+633%)
-                    </div>
-                </div>
-
-                <div class="info-section">
-                    <h3>Quality Assurance - Comparison to Original</h3>
-                    <div class="comparison-box">
-                        <div class="comparison-item before">
-                            <div class="comparison-value">2,129</div>
-                            <div class="comparison-label">Original Records</div>
-                        </div>
-                        <div class="comparison-item after">
-                            <div class="comparison-value">15,607</div>
-                            <div class="comparison-label">Enhanced Records</div>
-                        </div>
-                        <div class="comparison-item improvement">
-                            <div class="comparison-value">+633%</div>
-                            <div class="comparison-label">Improvement</div>
-                        </div>
-                    </div>
-                    <div style="margin-top: 15px; font-size: 0.9rem; color: var(--muted);">
-                        <strong>Notes:</strong> Original captured screening only; enhanced captures all 10 visit timepoints
-                    </div>
                 </div>
 
                 <div class="info-section">
@@ -3131,30 +3293,6 @@ df['systolic_bp'] = pd.to_numeric(df[config['systolic']], errors='coerce')</div>
                             <div class="info-label">Date</div>
                             <div class="info-value">2025-12-02</div>
                         </div>
-                    </div>
-                    <div style="margin-top: 15px; padding: 12px; background: #dbeafe; border-radius: 8px;">
-                        <strong>Changes from v1:</strong> Now extracts ALL longitudinal visits. Original: 1,053 records → Enhanced: 11,059 records (+950%)
-                    </div>
-                </div>
-
-                <div class="info-section">
-                    <h3>Quality Assurance - Comparison to Original</h3>
-                    <div class="comparison-box">
-                        <div class="comparison-item before">
-                            <div class="comparison-value">1,053</div>
-                            <div class="comparison-label">Original Records</div>
-                        </div>
-                        <div class="comparison-item after">
-                            <div class="comparison-value">11,059</div>
-                            <div class="comparison-label">Enhanced Records</div>
-                        </div>
-                        <div class="comparison-item improvement">
-                            <div class="comparison-value">+950%</div>
-                            <div class="comparison-label">Improvement</div>
-                        </div>
-                    </div>
-                    <div style="margin-top: 15px; font-size: 0.9rem; color: var(--muted);">
-                        <strong>Notes:</strong> Original captured baseline only; enhanced captures all 13 visit timepoints
                     </div>
                 </div>
 
@@ -3661,30 +3799,6 @@ df['viral_load'] = df['result'].apply(parse_vl)</div><div class="transform-desc"
                             <div class="info-label">Date</div>
                             <div class="info-value">2025-12-02</div>
                         </div>
-                    </div>
-                    <div style="margin-top: 15px; padding: 12px; background: #dbeafe; border-radius: 8px;">
-                        <strong>Changes from v1:</strong> Enhanced biomarker extraction. Original: 998 records (missing HbA1c, hs-CRP) → Enhanced: 1,013 records with full metabolic panel
-                    </div>
-                </div>
-
-                <div class="info-section">
-                    <h3>Quality Assurance - Comparison to Original</h3>
-                    <div class="comparison-box">
-                        <div class="comparison-item before">
-                            <div class="comparison-value">998</div>
-                            <div class="comparison-label">Original Records</div>
-                        </div>
-                        <div class="comparison-item after">
-                            <div class="comparison-value">1,013</div>
-                            <div class="comparison-label">Enhanced Records</div>
-                        </div>
-                        <div class="comparison-item improvement">
-                            <div class="comparison-value">+2%</div>
-                            <div class="comparison-label">Improvement</div>
-                        </div>
-                    </div>
-                    <div style="margin-top: 15px; font-size: 0.9rem; color: var(--muted);">
-                        <strong>Notes:</strong> Record count similar, but many new biomarkers extracted (HbA1c, hs-CRP, DXA body composition, grip strength)
                     </div>
                 </div>
 
@@ -4245,30 +4359,6 @@ df['viral_load'] = df['result'].apply(parse_vl)</div><div class="transform-desc"
                             <div class="info-value">2025-12-02</div>
                         </div>
                     </div>
-                    <div style="margin-top: 15px; padding: 12px; background: #dbeafe; border-radius: 8px;">
-                        <strong>Changes from v1:</strong> Enhanced biomarker extraction. Original: 784 records (missing many biomarkers) → Enhanced: 784 records with vitamin D, DXA, grip strength
-                    </div>
-                </div>
-
-                <div class="info-section">
-                    <h3>Quality Assurance - Comparison to Original</h3>
-                    <div class="comparison-box">
-                        <div class="comparison-item before">
-                            <div class="comparison-value">784</div>
-                            <div class="comparison-label">Original Records</div>
-                        </div>
-                        <div class="comparison-item after">
-                            <div class="comparison-value">784</div>
-                            <div class="comparison-label">Enhanced Records</div>
-                        </div>
-                        <div class="comparison-item improvement">
-                            <div class="comparison-value">+0%</div>
-                            <div class="comparison-label">Improvement</div>
-                        </div>
-                    </div>
-                    <div style="margin-top: 15px; font-size: 0.9rem; color: var(--muted);">
-                        <strong>Notes:</strong> Same record count but many new biomarkers extracted (triglycerides, fasting insulin, vitamin D, grip strength, DXA)
-                    </div>
                 </div>
 
                 <div class="info-section">
@@ -4686,30 +4776,6 @@ df['visit_num'] = df['visit'].map(visit_num_map)</div><div class="transform-desc
                             <div class="info-value">2025-12-02</div>
                         </div>
                     </div>
-                    <div style="margin-top: 15px; padding: 12px; background: #dbeafe; border-radius: 8px;">
-                        <strong>Changes from v1:</strong> Enhanced vital signs extraction. Original: 179 records → Enhanced: 490 records (+174%)
-                    </div>
-                </div>
-
-                <div class="info-section">
-                    <h3>Quality Assurance - Comparison to Original</h3>
-                    <div class="comparison-box">
-                        <div class="comparison-item before">
-                            <div class="comparison-value">179</div>
-                            <div class="comparison-label">Original Records</div>
-                        </div>
-                        <div class="comparison-item after">
-                            <div class="comparison-value">490</div>
-                            <div class="comparison-label">Enhanced Records</div>
-                        </div>
-                        <div class="comparison-item improvement">
-                            <div class="comparison-value">+174%</div>
-                            <div class="comparison-label">Improvement</div>
-                        </div>
-                    </div>
-                    <div style="margin-top: 15px; font-size: 0.9rem; color: var(--muted);">
-                        <strong>Notes:</strong> Original captured screening only; enhanced captures screening + follow-up
-                    </div>
                 </div>
 
                 <div class="info-section">
@@ -4990,30 +5056,6 @@ elif 'Temperature' in df.columns:
                             <div class="info-label">Date</div>
                             <div class="info-value">2025-12-02</div>
                         </div>
-                    </div>
-                    <div style="margin-top: 15px; padding: 12px; background: #dbeafe; border-radius: 8px;">
-                        <strong>Changes from v1:</strong> Enhanced extraction. Original: 2 records → Enhanced: 401 patients (+19,950%)
-                    </div>
-                </div>
-
-                <div class="info-section">
-                    <h3>Quality Assurance - Comparison to Original</h3>
-                    <div class="comparison-box">
-                        <div class="comparison-item before">
-                            <div class="comparison-value">2</div>
-                            <div class="comparison-label">Original Records</div>
-                        </div>
-                        <div class="comparison-item after">
-                            <div class="comparison-value">401</div>
-                            <div class="comparison-label">Enhanced Records</div>
-                        </div>
-                        <div class="comparison-item improvement">
-                            <div class="comparison-value">+19950%</div>
-                            <div class="comparison-label">Improvement</div>
-                        </div>
-                    </div>
-                    <div style="margin-top: 15px; font-size: 0.9rem; color: var(--muted);">
-                        <strong>Notes:</strong> Original barely extracted any data; enhanced captures full hematology and liver function
                     </div>
                 </div>
 
@@ -5353,30 +5395,6 @@ df['visit_num'] = df['visit'].map(visit_map).fillna(99)</div><div class="transfo
                             <div class="info-label">Date</div>
                             <div class="info-value">2025-12-02</div>
                         </div>
-                    </div>
-                    <div style="margin-top: 15px; padding: 12px; background: #dbeafe; border-radius: 8px;">
-                        <strong>Changes from v1:</strong> Enhanced extraction. Original: 162 records (no biomarkers) → Enhanced: 1,359 records with height, weight, creatinine
-                    </div>
-                </div>
-
-                <div class="info-section">
-                    <h3>Quality Assurance - Comparison to Original</h3>
-                    <div class="comparison-box">
-                        <div class="comparison-item before">
-                            <div class="comparison-value">162</div>
-                            <div class="comparison-label">Original Records</div>
-                        </div>
-                        <div class="comparison-item after">
-                            <div class="comparison-value">1,359</div>
-                            <div class="comparison-label">Enhanced Records</div>
-                        </div>
-                        <div class="comparison-item improvement">
-                            <div class="comparison-value">+739%</div>
-                            <div class="comparison-label">Improvement</div>
-                        </div>
-                    </div>
-                    <div style="margin-top: 15px; font-size: 0.9rem; color: var(--muted);">
-                        <strong>Notes:</strong> Original had no biomarker data; enhanced captures anthropometrics and creatinine
                     </div>
                 </div>
 
